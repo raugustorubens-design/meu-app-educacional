@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.app {
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, #1b0f2e, #05010a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* PORTAL */
+.portal {
+  width: 70vmin;
+  height: 70vmin;
+  background-image: url("https://static0.cbrimages.com/wordpress/wp-content/uploads/2024/04/gate-solo-leveling-1.jpeg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  position: relative;
+  animation: spin 22s linear infinite;
+  filter: drop-shadow(0 0 50px rgba(150, 90, 255, 0.6));
+  overflow: hidden;
+}
+
+/* VÓRTICE ESCURO */
+.portal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.6) 25%,
+    rgba(0, 0, 0, 0.3) 45%,
+    transparent 65%
+  );
+  animation: vortex 6s linear infinite;
+  mix-blend-mode: multiply;
+}
+
+/* PUXÃO PARA O CENTRO */
+.portal::after {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0.95),
+    transparent 70%
+  );
+  animation: pull 4s ease-in-out infinite;
+}
+
+/* TEXTO */
+.overlay {
+  position: absolute;
+  top: 10%;
+  text-align: center;
+  color: #ffffff;
+}
+
+.overlay h1 {
+  font-size: 2.5rem;
+}
+
+.overlay p {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.overlay span {
+  display: block;
+  margin-top: 20px;
+  font-size: 0.95rem;
+  opacity: 0.7;
+}
+
+/* ANIMAÇÕES */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes vortex {
+  from { transform: rotate(0deg) scale(1); }
+  to { transform: rotate(-360deg) scale(0.8); }
+}
+
+@keyframes pull {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+}
