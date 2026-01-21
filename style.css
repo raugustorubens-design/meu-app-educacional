@@ -1,90 +1,100 @@
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
 html, body {
-<body>
-  <div class="app">
-    <div class="portal"></div>
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
-    <div class="overlay">
-      <h1>Meu App Educacional</h1>
-      <p>Aprendizado gamificado, progressão e evolução</p>
-    </div>
-  </div>
-</body>
+/* FUNDO FUNDIDO COM O PORTAL */
+.app {
+  width: 100vw;
+  height: 100vh;
+  background:
+    radial-gradient(circle at center, #2b1d5a 0%, #120821 55%, #05010a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 
-/* PORTAL */
+/* PORTAL GIGANTE */
 .portal {
-  width: 70vmin;
-  height: 70vmin;
+  width: 160vmin;
+  height: 160vmin;
   background-image: url("https://static0.cbrimages.com/wordpress/wp-content/uploads/2024/04/gate-solo-leveling-1.jpeg");
   background-size: cover;
   background-position: center;
   border-radius: 50%;
-  position: relative;
-  animation: spin 22s linear infinite;
-  filter: drop-shadow(0 0 50px rgba(150, 90, 255, 0.6));
-  overflow: hidden;
+  position: absolute;
+  animation: spin 40s linear infinite;
+  filter: blur(0.3px);
 }
 
-/* VÓRTICE ESCURO */
+/* BORDAS ESFUMAÇADAS */
 .portal::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -18%;
   border-radius: 50%;
   background: radial-gradient(
     circle at center,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0.6) 25%,
-    rgba(0, 0, 0, 0.3) 45%,
-    transparent 65%
+    rgba(90, 70, 200, 0.55) 0%,
+    rgba(60, 50, 150, 0.45) 30%,
+    rgba(30, 25, 90, 0.35) 55%,
+    transparent 75%
   );
-  animation: vortex 6s linear infinite;
-  mix-blend-mode: multiply;
+  animation: fog 18s ease-in-out infinite;
+  mix-blend-mode: screen;
 }
 
-/* PUXÃO PARA O CENTRO */
+/* NÚCLEO CLARO + RAIOS */
 .portal::after {
   content: "";
   position: absolute;
-  inset: 12%;
+  inset: 34%;
   border-radius: 50%;
-  background: radial-gradient(
-    circle at center,
-    rgba(0, 0, 0, 0.95),
-    transparent 70%
-  );
-  animation: pull 4s ease-in-out infinite;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(220, 200, 255, 0.95) 0%,
+      rgba(160, 140, 255, 0.75) 35%,
+      rgba(90, 80, 220, 0.45) 55%,
+      transparent 75%
+    ),
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(255,255,255,0.3) 0deg 10deg,
+      transparent 10deg 26deg
+    );
+  animation: core 6s linear infinite;
 }
 
 /* TEXTO */
 .overlay {
-  position: absolute;
-  top: 10%;
+  position: relative;
+  z-index: 2;
   text-align: center;
-  color: #ffffff;
+  color: #eae6ff;
+  margin-top: -6vh;
 }
 
 .overlay h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
+  font-weight: 500;
+  letter-spacing: 1px;
 }
 
 .overlay p {
-  margin-top: 10px;
-  font-size: 1.1rem;
-  opacity: 0.9;
-}
-
-.overlay span {
-  display: block;
-  margin-top: 20px;
-  font-size: 0.95rem;
-  opacity: 0.7;
+  margin-top: 14px;
+  font-size: 1.15rem;
+  opacity: 0.85;
 }
 
 /* ANIMAÇÕES */
@@ -93,18 +103,18 @@ html, body {
   to { transform: rotate(360deg); }
 }
 
-@keyframes vortex {
-  from { transform: rotate(0deg) scale(1); }
-  to { transform: rotate(-360deg) scale(0.8); }
-}
-
-@keyframes pull {
+@keyframes fog {
   0%, 100% {
     transform: scale(1);
-    opacity: 0.7;
+    opacity: 0.85;
   }
   50% {
-    transform: scale(0.8);
+    transform: scale(1.08);
     opacity: 1;
   }
+}
+
+@keyframes core {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
 }
