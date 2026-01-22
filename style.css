@@ -14,18 +14,21 @@ body {
   justify-content: center;
 }
 
-/* Fundo com o vórtice */
+/* Vórtice */
 .vortex {
   position: fixed;
   top: 50%;
   left: 50%;
   width: 120vw;
   height: 120vw;
-  background-image: url("assets/imagens/cosmic-vortice.png");
+
+  background-image: url("assets/cosmic-vortice.png");
   background-size: cover;
   background-position: center;
+
   transform: translate(-50%, -50%);
   animation: giroHorario 30s linear infinite;
+
   z-index: -1;
 }
 
@@ -34,12 +37,11 @@ body {
   position: relative;
   z-index: 1;
   color: white;
-  font-size: 2rem;
   text-align: center;
   font-family: Arial, sans-serif;
 }
 
-/* ANIMAÇÃO HORÁRIA */
+/* Animação horário */
 @keyframes giroHorario {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
