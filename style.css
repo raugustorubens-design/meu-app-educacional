@@ -8,17 +8,20 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: black;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background: none; /* 🔥 REMOVE O PRETO */
 }
 
-/* Vórtice */
+/* Vórtice visível */
 .vortex {
   position: fixed;
   top: 50%;
   left: 50%;
+
   width: 120vw;
   height: 120vw;
 
@@ -29,13 +32,14 @@ body {
   transform: translate(-50%, -50%);
   animation: giroHorario 30s linear infinite;
 
-  z-index: -1;
+  z-index: 0; /* 🔥 AGORA ELE APARECE */
 }
 
-/* Conteúdo por cima */
+/* Conteúdo acima */
 .conteudo {
   position: relative;
   z-index: 1;
+
   color: white;
   text-align: center;
   font-family: Arial, sans-serif;
