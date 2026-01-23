@@ -1,18 +1,109 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Meu App Educacional</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-</head>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
 
-<body>
-  <div class="vortex"></div>
+/* VÓRTICE */
+.vortex-screen {
+  background: radial-gradient(circle at center, #0a1a2a, #000);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  <div class="conteudo">
-    <h1>Entrada</h1>
-    <p>O centro observa.</p>
-  </div>
-</body>
+.vortex-container {
+  position: relative;
+  text-align: center;
+}
 
+.vortex {
+  width: 320px;
+  animation: spin 20s linear infinite;
+  opacity: 0.85;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.vortex-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #e0e6ed;
+}
+
+.vortex-content h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.vortex-content p {
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  opacity: 0.85;
+}
+
+/* BOTÕES */
+.btn-primary,
+.btn-secondary {
+  padding: 10px 22px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #4da3ff;
+  color: #000;
+  font-weight: bold;
+}
+
+.btn-secondary {
+  background: #1f2d3d;
+  color: #e0e6ed;
+  border: 1px solid #4da3ff;
+}
+
+/* DUNGEON */
+.dungeon-screen {
+  background: #0b0f14;
+  color: #e0e6ed;
+  height: 100vh;
+}
+
+.dungeon-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr 220px;
+  height: 100%;
+}
+
+.sidebar {
+  background: #121820;
+  padding: 16px;
+}
+
+.rooms li {
+  list-style: none;
+  padding: 8px;
+  margin-bottom: 6px;
+  background: #1c2530;
+}
+
+.rooms li.active {
+  border-left: 3px solid #4da3ff;
+  background: #243447;
+}
+
+.dungeon-main {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
