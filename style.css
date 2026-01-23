@@ -1,56 +1,92 @@
+/* ==============================
+   RESET BÁSICO
+============================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  width: 100vw;
-  height: 100vh;
+/* ==============================
+   CONFIGURAÇÃO GLOBAL
+============================== */
+html, body {
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: none; /* 🔥 REMOVE O PRETO */
+  background: black;
+  font-family: 'Cinzel', serif;
 }
 
-/* Vórtice visível */
+/* ==============================
+   VÓRTICE (PLANO DE FUNDO)
+============================== */
 .vortex {
   position: fixed;
   top: 50%;
   left: 50%;
-
-  width: 120vw;
-  height: 120vw;
-
-  background-image: url("assets/cosmic-vortice.png");
+  width: 140vw;
+  height: 140vw;
+  transform: translate(-50%, -50%);
+  background-image: url("vortex.png"); /* ajuste o nome se necessário */
   background-size: cover;
   background-position: center;
-
-  transform: translate(-50%, -50%);
-  animation: giroHorario 30s linear infinite;
-
-  z-index: 0; /* 🔥 AGORA ELE APARECE */
-}
-
-/* Conteúdo acima */
-.conteudo {
-  position: relative;
+  background-repeat: no-repeat;
+  animation: vortex-spin 40s linear infinite;
   z-index: 1;
-
-  color: white;
-  text-align: center;
-  font-family: Arial, sans-serif;
+  opacity: 0.85;
 }
 
-/* Animação horário */
-@keyframes giroHorario {
+/* Rotação em sentido HORÁRIO */
+@keyframes vortex-spin {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
   }
   to {
     transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* ==============================
+   CONTEÚDO (TEXTO)
+============================== */
+.vortex-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-align: center;
+  color: white;
+  text-shadow: 0 0 12px rgba(120, 180, 255, 0.6);
+  padding: 20px;
+}
+
+.vortex-content h1 {
+  font-size: 3rem;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.vortex-content p {
+  font-size: 1.2rem;
+  opacity: 0.85;
+}
+
+/* ==============================
+   RESPONSIVIDADE
+============================== */
+@media (max-width: 768px) {
+  .vortex {
+    width: 180vw;
+    height: 180vw;
+  }
+
+  .vortex-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .vortex-content p {
+    font-size: 1rem;
   }
 }
