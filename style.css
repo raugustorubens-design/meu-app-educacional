@@ -162,4 +162,33 @@ html, body {
   transition: transform 1.5s ease, opacity 1.5s ease;
 }
 
-/* =*
+/* ===============================
+   ATIVAÇÃO DO CASTELO
+================================ */
+.castelo.ativo {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.castelo.ativo .pergaminho {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ===============================
+   RESPONSIVO
+================================ */
+@media (max-width: 768px) {
+  .vortex {
+    width: 220vw;
+    height: 220vw;
+  }
+
+  .vortex-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .vortex-content p {
+    font-size: 1rem;
+  }
+}
