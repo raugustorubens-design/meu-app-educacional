@@ -30,12 +30,11 @@ html, body {
   transform: translate(-50%, -50%);
   background: url("assets/cosmos-vision.png") no-repeat center;
   background-size: cover;
-  animation: cosmos-spin 120s linear infinite; /* rotação lenta */
+  animation: cosmos-spin 120s linear infinite;
   opacity: 0.85;
   z-index: 1;
 }
 
-/* Rotação horária */
 @keyframes cosmos-spin {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -46,7 +45,7 @@ html, body {
 }
 
 /* ===============================
-   OVERLAY (ESCURECIMENTO)
+   OVERLAY
 ================================ */
 .overlay {
   position: fixed;
@@ -56,7 +55,7 @@ html, body {
 }
 
 /* ===============================
-   CONTEÚDO CENTRAL
+   CONTEÚDO INICIAL
 ================================ */
 .vortex-content {
   position: fixed;
@@ -69,11 +68,11 @@ html, body {
   text-align: center;
   color: #ffffff;
   padding: 24px;
+  transition: opacity 1s ease;
 }
 
 .vortex-content h1 {
   font-size: 3rem;
-  letter-spacing: 2px;
   margin-bottom: 16px;
 }
 
@@ -91,8 +90,7 @@ html, body {
   border: 2px solid rgba(255,255,255,0.7);
   background: transparent;
   color: #ffffff;
-  text-decoration: none;
-  letter-spacing: 1px;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
@@ -102,86 +100,10 @@ html, body {
 }
 
 /* ===============================
-   RESPONSIVO
-================================ */
-@media (max-width: 768px) {
-  .vortex {
-    width: 220vw;
-    height: 220vw;
-  }
-
-  .vortex-content h1 {
-    font-size: 2.2rem;
-  }
-
-  .vortex-content p {
-    font-size: 1rem;
-  }
-}
-/* ===============================
-   TRANSIÇÃO PARA O CASTELO
+   CASTELO
 ================================ */
 .castelo {
   position: fixed;
   inset: 0;
   background: radial-gradient(circle at center, #555 0%, #111 70%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 5;
-  transition: opacity 2s ease;
-}
-
-/* Parede de pedra (efeito simples) */
-.castelo::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    90deg,
-    rgba(255,255,255,0.03),
-    rgba(255,255,255,0.03) 2px,
-    transparent 2px,
-    transparent 6px
-  );
-  opacity: 0.3;
-  z-index: 1; /* 👈 parede atrás */
-}
-
-/* ===============================
-   PERGAMINHO REAL (FORÇAR IMAGEM)
-================================ */
-.pergaminho {
-  position: relative;
-  z-index: 3;
-
-  background-image: url("assets/pergaminho.png") !important;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  background-color: transparent;
-
-  width: min(90%, 520px);
-  aspect-ratio: 3 / 4;
-  padding: 80px 48px;
-
-  color: #3b2f1e;
-  font-family: "Georgia", serif;
-  box-shadow: 0 0 40px rgba(0,0,0,0.9);
-
-  opacity: 1;
-}
-
-}
-.castelo.ativo {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.castelo.ativo .pergaminho {
-  transform: scale(1);
-  opacity: 1;
-}
-
+  dis
