@@ -11,18 +11,31 @@
 
 <body>
 
-  <!-- PLANO DE FUNDO (COSMOS GIRANDO) -->
-  <div class="vortex"></div>
+  <!-- COSMOS -->
+  <div class="vortex" id="vortex"></div>
+  <div class="overlay" id="overlay"></div>
 
-  <!-- CAMADA DE ESCURECIMENTO -->
-  <div class="overlay"></div>
-
-  <!-- CONTEÚDO CENTRAL -->
-  <div class="vortex-content">
+  <!-- CONTEÚDO INICIAL -->
+  <div class="vortex-content" id="entrada">
     <h1>Projeto Renascer</h1>
     <p>Portal educacional em formato RPG</p>
-    <a href="#" class="btn-entrar">Iniciar Jornada</a>
+    <button class="btn-entrar" id="btnEntrar">Iniciar Jornada</button>
   </div>
 
+  <!-- CASTELO -->
+  <div class="castelo" id="castelo">
+    <div class="pergaminho">
+      <h2>📜 O Chamado</h2>
+      <p>
+        No centro do cosmos, quando os mundos se alinham,
+        apenas aqueles dispostos a renascer pelo conhecimento
+        atravessam o portal.
+      </p>
+      <p>
+        Aqui começa tua jornada.
+      </p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
-</html>
