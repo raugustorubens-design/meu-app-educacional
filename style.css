@@ -7,15 +7,12 @@
   box-sizing: border-box;
 }
 
-/* ===============================
-   CONFIGURAÇÃO GLOBAL
-================================ */
 html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
   background: black;
-  font-family: 'Cinzel', serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* ===============================
@@ -28,16 +25,16 @@ html, body {
   width: 160vw;
   height: 160vw;
   transform: translate(-50%, -50%);
-  background-image: url("ativos/cosmos-vision.png");
+  background: url("ativos/cosmos-vision.png") no-repeat center;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  animation: cosmos-spin 120s linear infinite; /* 🔥 rotação MAIS lenta */
+  animation: cosmos-spin 120s linear infinite;
   opacity: 0.85;
   z-index: 1;
 }
 
-/* Rotação HORÁRIA e SUAVE */
+/* Rotação HORÁRIA */
 @keyframes cosmos-spin {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -48,64 +45,51 @@ html, body {
 }
 
 /* ===============================
-   CONTEÚDO (TEXTO)
+   OVERLAY
+================================ */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 2;
+}
+
+/* ===============================
+   CONTEÚDO
 ================================ */
 .vortex-content {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  text-align: center;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: #ffffff;
+  text-align: center;
   padding: 24px;
-  text-shadow: 0 0 12px rgba(120, 180, 255, 0.6);
 }
 
 .vortex-content h1 {
   font-size: 3rem;
-  letter-spacing: 2px;
   margin-bottom: 16px;
 }
 
 .vortex-content p {
   font-size: 1.2rem;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
   opacity: 0.85;
 }
 
-/* ===============================
-   BOTÃO
-================================ */
 .btn-entrar {
-  display: inline-block;
-  padding: 12px 28px;
+  padding: 14px 32px;
   border: 2px solid rgba(255,255,255,0.7);
+  background: transparent;
   color: white;
   text-decoration: none;
-  letter-spacing: 1px;
   transition: all 0.3s ease;
 }
 
 .btn-entrar:hover {
   background: rgba(255,255,255,0.15);
-  box-shadow: 0 0 12px rgba(120, 180, 255, 0.8);
-}
-
-/* ===============================
-   RESPONSIVO
-================================ */
-@media (max-width: 768px) {
-  .vortex {
-    width: 220vw;
-    height: 220vw;
-  }
-
-  .vortex-content h1 {
-    font-size: 2.2rem;
-  }
-
-  .vortex-content p {
-    font-size: 1rem;
-  }
 }
