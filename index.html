@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projeto Renascer – Protótipo Fase 1</title>
+  <title>Projeto Renascer – Primeiro Feitiço</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
@@ -14,6 +14,8 @@
       --azul-medio: #0b1c3d;
       --roxo: #6d5dfc;
       --texto: #e5e7eb;
+      --pergaminho: #f3e9d2;
+      --tinta: #2a1e12;
     }
 
     * { box-sizing: border-box; }
@@ -38,55 +40,19 @@
       text-shadow: 0 0 15px rgba(27,188,255,0.6);
     }
 
-    .editor-bar {
-      background: rgba(2,6,23,0.85);
-      border-bottom: 1px solid rgba(27,188,255,0.3);
-      padding: 0.6rem;
-      text-align: center;
-      font-size: 0.8rem;
-    }
-
-    .editor-bar span { color: var(--azul); }
-
-    .portais {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      padding: 2rem;
-    }
-
-    .portal {
-      width: 220px;
-      padding: 1.5rem;
-      border-radius: 18px;
-      text-align: center;
-      background: linear-gradient(160deg, rgba(27,188,255,0.18), rgba(109,93,252,0.12));
-      border: 1px solid rgba(27,188,255,0.45);
-      cursor: pointer;
-      box-shadow: 0 0 25px rgba(27,188,255,0.25);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .portal:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 40px rgba(27,188,255,0.5);
-    }
-
     .fase {
-      display: none;
-      max-width: 900px;
+      max-width: 960px;
       margin: auto;
       padding: 2rem;
-      background: rgba(2,6,23,0.88);
-      border-radius: 18px;
-      border: 1px solid rgba(109,93,252,0.4);
-      box-shadow: 0 0 30px rgba(109,93,252,0.25);
     }
 
     .missao {
-      margin-bottom: 2.5rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(27,188,255,0.25);
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: rgba(2,6,23,0.85);
+      border-radius: 18px;
+      border: 1px solid rgba(109,93,252,0.4);
+      box-shadow: 0 0 30px rgba(109,93,252,0.25);
     }
 
     .missao h3 { color: var(--azul); }
@@ -97,6 +63,35 @@
       background: rgba(27,188,255,0.08);
       border-left: 4px solid var(--azul);
       border-radius: 6px;
+    }
+
+    /* PERGAMINHO IDE */
+    .pergaminho {
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: linear-gradient(#f7f0df, #efe3c6);
+      color: var(--tinta);
+      border-radius: 12px;
+      font-family: 'Courier New', monospace;
+      box-shadow: inset 0 0 12px rgba(0,0,0,0.25), 0 0 20px rgba(0,0,0,0.4);
+    }
+
+    .pergaminho textarea {
+      width: 100%;
+      height: 120px;
+      background: transparent;
+      border: none;
+      resize: none;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      color: var(--tinta);
+      outline: none;
+    }
+
+    .pergaminho small {
+      display: block;
+      margin-top: 0.5rem;
+      font-style: italic;
     }
 
     button {
@@ -111,6 +106,11 @@
       box-shadow: 0 0 15px rgba(27,188,255,0.6);
     }
 
+    .resultado {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
     footer {
       text-align: center;
       padding: 1rem;
@@ -121,62 +121,71 @@
 </head>
 <body>
 
-<div class="editor-bar"><span>🛠️ Modo Editor Ativo — Acesso total às missões</span></div>
-
 <header>
   <h1>PROJETO RENASCER</h1>
-  <p>Fase 1 — O Despertar</p>
+  <p>Primeiro Feitiço — Ritual do Entendimento</p>
 </header>
 
-<section class="portais">
-  <div class="portal" onclick="abrirFase()">
-    <h2>Portal 1</h2>
-    <p>Vórtice do Despertar</p>
+<section class="fase">
+
+  <div class="missao">
+    <h3>Missão — O Primeiro Feitiço</h3>
+
+    <div class="bloco">
+      <strong>Contexto Narrativo</strong><br>
+      O portal exige mais do que palavras. Ele exige intenção organizada.
+      Grave no pergaminho o ritual que transforma caos em sentido.
+    </div>
+
+    <div class="bloco">
+      <strong>Explicação</strong><br>
+      Um processo analítico básico sempre segue três etapas:
+      <ol>
+        <li>Receber dados</li>
+        <li>Organizar os dados</li>
+        <li>Gerar entendimento</li>
+      </ol>
+      Você não escreverá código ainda. Apenas a lógica do pensamento.
+    </div>
+
+    <div class="bloco">
+      <strong>Execução Assistida — Pergaminho do Feitiço</strong>
+
+      <div class="pergaminho">
+        <textarea id="feitiço" placeholder="Exemplo:
+1. Receber os dados
+2. Organizar os dados
+3. Analisar para gerar conhecimento"></textarea>
+        <small>Escreva as três etapas do feitiço, uma por linha.</small>
+      </div>
+
+      <button onclick="validarFeitico()">Conjurar Feitiço</button>
+      <div class="resultado" id="resultado"></div>
+    </div>
+
   </div>
+
 </section>
 
-<section class="fase" id="fase1">
-
-  <div class="missao">
-    <h3>Missão 1 — O Chamado dos Dados</h3>
-    <div class="bloco"><strong>Contexto:</strong> O caos inicial dos registros precisa ser compreendido.</div>
-    <div class="bloco"><strong>Explicação:</strong> Ciência de Dados é a interseção entre dados, estatística, computação e domínio.</div>
-    <div class="bloco"><strong>Execução Assistida:</strong> Observe exemplos simples e identifique o que são dados brutos.</div>
-    <button onclick="alert('Checkpoint validado (simulação)')">Validar Missão</button>
-  </div>
-
-  <div class="missao">
-    <h3>Missão 2 — Dados, Informação e Conhecimento</h3>
-    <div class="bloco"><strong>Contexto:</strong> Três camadas da realidade se revelam.</div>
-    <div class="bloco"><strong>Explicação:</strong> Dados → Informação → Conhecimento.</div>
-    <div class="bloco"><strong>Execução Assistida:</strong> Classifique exemplos guiados.</div>
-    <button onclick="alert('Checkpoint validado (simulação)')">Validar Missão</button>
-  </div>
-
-  <div class="missao">
-    <h3>Missão 3 — O Papel do Analista</h3>
-    <div class="bloco"><strong>Contexto:</strong> O analista molda decisões invisíveis.</div>
-    <div class="bloco"><strong>Explicação:</strong> Diferença entre analista, cientista e engenheiro de dados.</div>
-    <div class="bloco"><strong>Execução Assistida:</strong> Analise cenários simulados.</div>
-    <button onclick="alert('Checkpoint validado (simulação)')">Validar Missão</button>
-  </div>
-
-  <div class="missao">
-    <h3>Missão 4 — Pensamento Analítico</h3>
-    <div class="bloco"><strong>Contexto:</strong> Antes das ferramentas, vem o raciocínio.</div>
-    <div class="bloco"><strong>Explicação:</strong> Pensar analiticamente é formular as perguntas certas.</div>
-    <div class="bloco"><strong>Execução Assistida:</strong> Quebre problemas simples em partes.</div>
-    <button onclick="alert('Fase concluída — Rank E concedido (simulação)')">Concluir Fase</button>
-  </div>
-
-</section>
-
-<footer>Projeto Renascer • Protótipo Educacional</footer>
+<footer>Projeto Renascer • Feitiço Conceitual Implementado</footer>
 
 <script>
-  function abrirFase() {
-    document.getElementById('fase1').style.display = 'block';
-    document.getElementById('fase1').scrollIntoView({ behavior: 'smooth' });
+  function validarFeitico() {
+    const texto = document.getElementById('feitiço').value.toLowerCase();
+    const resultado = document.getElementById('resultado');
+
+    const cond1 = texto.includes('receber');
+    const cond2 = texto.includes('organizar');
+    const cond3 = texto.includes('analisar') || texto.includes('entender');
+
+    if (cond1 && cond2 && cond3) {
+      resultado.style.color = 'limegreen';
+      resultado.innerText = '✔ O feitiço ressoa. O portal reconhece seu entendimento.';
+      localStorage.setItem('feitico1', 'concluido');
+    } else {
+      resultado.style.color = 'crimson';
+      resultado.innerText = '✖ O feitiço falha. Releia as etapas do ritual e tente novamente.';
+    }
   }
 </script>
 
