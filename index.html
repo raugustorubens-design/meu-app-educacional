@@ -1,37 +1,260 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Projeto Renascer</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projeto Renascer – Protótipo</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Fonte medieval/anime -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- Fonte medieval -->
-  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Azul padrão inspirado em Solo Leveling */
+      --azul-solo-claro: #1bbcff;
+      --azul-solo-medio: #0b1c3d;
+      --azul-solo-escuro: #020617;
+      --roxo-energia: #6d5dfc;
+      --texto-claro: #e5e7eb;
+    }
 
-  <link rel="stylesheet" href="style.css">
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Cinzel', serif;
+      background: radial-gradient(
+        circle at center,
+        #0b1c3d 0%,
+        #08142c 45%,
+        #020617 100%
+      );
+      color: var(--texto-claro);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      padding: 2.5rem 1rem 1.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.3rem;
+      letter-spacing: 0.15em;
+      color: var(--azul-solo-claro);
+      text-shadow: 0 0 18px rgba(27,188,255,0.65);
+    }
+
+    header p {
+      max-width: 760px;
+      margin: 1.2rem auto 0;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    /* PORTAIS */
+    .portais {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      width: 100%;
+      max-width: 960px;
+      padding: 2rem;
+    }
+
+    .portal {
+      background: linear-gradient(
+        160deg,
+        rgba(27,188,255,0.18),
+        rgba(109,93,252,0.12)
+      );
+      border: 1px solid rgba(27,188,255,0.45);
+      border-radius: 18px;
+      padding: 1.6rem 1.2rem 1.8rem;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      box-shadow: 0 0 28px rgba(27,188,255,0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portal::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(27,188,255,0.25), transparent 65%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .portal:hover::before {
+      opacity: 1;
+    }
+
+    .portal:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 0 46px rgba(27,188,255,0.55);
+    }
+
+    .portal h2 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--azul-solo-claro);
+      text-shadow: 0 0 10px rgba(27,188,255,0.6);
+    }
+
+    .portal small {
+      opacity: 0.85;
+    }
+
+    .portal.bloqueado {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .portal.bloqueado:hover {
+      transform: none;
+    }
+
+    /* FASE */
+    .fase {
+      display: none;
+      max-width: 860px;
+      padding: 2.2rem;
+      margin: 1rem 1.5rem 3rem;
+      background: rgba(2,6,23,0.88);
+      border: 1px solid rgba(109,93,252,0.45);
+      border-radius: 20px;
+      box-shadow: 0 0 34px rgba(109,93,252,0.3);
+      animation: surgir 0.6s ease-out;
+    }
+
+    @keyframes surgir {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fase h2 {
+      color: var(--azul-solo-claro);
+      text-shadow: 0 0 12px rgba(27,188,255,0.65);
+    }
+
+    .objetivo {
+      margin: 1.6rem 0;
+      padding: 1.2rem 1.4rem;
+      background: rgba(27,188,255,0.1);
+      border-left: 4px solid var(--azul-solo-claro);
+      border-radius: 6px;
+    }
+
+    .objetivo ul {
+      margin: 0.8rem 0 0 1.2rem;
+    }
+
+    button {
+      background: linear-gradient(135deg, var(--azul-solo-claro), var(--roxo-energia));
+      border: none;
+      color: #020617;
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      padding: 0.85rem 1.7rem;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(27,188,255,0.65);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(27,188,255,0.85);
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 1.2rem;
+      font-size: 0.8rem;
+      opacity: 0.55;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- FUNDO DO COSMOS -->
-  <div class="vortex"></div>
-  <div class="overlay"></div>
+  <header>
+    <h1>PROJETO RENASCER</h1>
+    <p>
+      Diante de você, portais antigos pulsando energia azul aguardam.
+      Cada um conduz a uma dimensão do conhecimento.
+      Apenas aqueles que avançam… renascem.
+    </p>
+  </header>
 
-  <!-- CASTELO / PERGAMINHO -->
-  <div class="castelo ativo">
-    <div class="pergaminho">
-      <h2>O Chamado</h2>
-
-      <p>
-        No centro do cosmos, quando os mundos se alinham,
-        apenas aqueles dispostos a renascer pelo conhecimento
-        atravessam o portal.
-        <br><br>
-        Aqui começa tua jornada.
-      </p>
+  <section class="portais">
+    <div class="portal" onclick="abrirFase()">
+      <h2>Portal 1</h2>
+      <p>O Vórtice do Despertar</p>
+      <small>Nível Iniciante</small>
     </div>
-  </div>
 
-  <script src="script.js"></script>
+    <div class="portal bloqueado">
+      <h2>Portal 2</h2>
+      <p>Bloqueado</p>
+      <small>Requer progresso</small>
+    </div>
+
+    <div class="portal bloqueado">
+      <h2>Portal 3</h2>
+      <p>Bloqueado</p>
+      <small>Requer progresso</small>
+    </div>
+  </section>
+
+  <section class="fase" id="fase1">
+    <h2>Fase 1 – O Despertar</h2>
+
+    <p>
+      Ao atravessar o portal, você sente o fluxo bruto do conhecimento.
+      Aqui nasce aquele que começa a compreender os dados que moldam mundos.
+    </p>
+
+    <div class="objetivo">
+      <strong>Objetivos da Fase:</strong>
+      <ul>
+        <li>Compreender o que é Ciência de Dados</li>
+        <li>Diferenciar dados, informação e conhecimento</li>
+        <li>Entender o papel do analista no mundo moderno</li>
+      </ul>
+    </div>
+
+    <button onclick="alert('Missão iniciada! Conteúdo real será carregado nas próximas versões.')">
+      Iniciar Missão
+    </button>
+  </section>
+
+  <footer>
+    Projeto Renascer • Protótipo Conceitual
+  </footer>
+
+  <script>
+    function abrirFase() {
+      const fase = document.getElementById('fase1');
+      fase.style.display = 'block';
+      fase.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
 </body>
 </html>
