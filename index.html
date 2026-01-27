@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projeto Renascer – Protótipo</title>
+  <title>Projeto Renascer – Protótipo Fase 1</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --azul-solo-claro: #1bbcff;
-      --azul-solo-medio: #0b1c3d;
-      --azul-solo-escuro: #020617;
-      --roxo-energia: #6d5dfc;
-      --texto-claro: #e5e7eb;
+      --azul: #1bbcff;
+      --azul-escuro: #020617;
+      --azul-medio: #0b1c3d;
+      --roxo: #6d5dfc;
+      --texto: #e5e7eb;
     }
 
     * { box-sizing: border-box; }
@@ -22,168 +22,163 @@
       margin: 0;
       font-family: 'Cinzel', serif;
       background: radial-gradient(circle at center, #0b1c3d 0%, #08142c 45%, #020617 100%);
-      color: var(--texto-claro);
+      color: var(--texto);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
     header {
-      padding: 2.5rem 1rem 1.5rem;
       text-align: center;
+      padding: 2rem 1rem;
     }
 
     header h1 {
       margin: 0;
-      font-size: 2.3rem;
+      color: var(--azul);
       letter-spacing: 0.15em;
-      color: var(--azul-solo-claro);
-      text-shadow: 0 0 18px rgba(27,188,255,0.65);
+      text-shadow: 0 0 15px rgba(27,188,255,0.6);
     }
 
-    header p {
-      max-width: 760px;
-      margin: 1.2rem auto 0;
-      opacity: 0.9;
-      line-height: 1.6;
+    .editor-bar {
+      background: rgba(2,6,23,0.85);
+      border-bottom: 1px solid rgba(27,188,255,0.3);
+      padding: 0.6rem;
+      text-align: center;
+      font-size: 0.8rem;
     }
 
-    /* PORTAIS */
+    .editor-bar span { color: var(--azul); }
+
     .portais {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      display: flex;
+      justify-content: center;
       gap: 2rem;
-      width: 100%;
-      max-width: 960px;
       padding: 2rem;
     }
 
     .portal {
+      width: 220px;
+      padding: 1.5rem;
+      border-radius: 18px;
+      text-align: center;
       background: linear-gradient(160deg, rgba(27,188,255,0.18), rgba(109,93,252,0.12));
       border: 1px solid rgba(27,188,255,0.45);
-      border-radius: 18px;
-      padding: 1.6rem 1.2rem 1.8rem;
-      text-align: center;
       cursor: pointer;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-      box-shadow: 0 0 28px rgba(27,188,255,0.18);
+      box-shadow: 0 0 25px rgba(27,188,255,0.25);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
     .portal:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 0 46px rgba(27,188,255,0.55);
+      transform: translateY(-6px);
+      box-shadow: 0 0 40px rgba(27,188,255,0.5);
     }
 
-    .portal h2 {
-      margin-top: 0;
-      color: var(--azul-solo-claro);
-    }
-
-    .portal.bloqueado {
-      opacity: 0.45;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-
-    /* FASE */
     .fase {
       display: none;
-      max-width: 860px;
-      padding: 2.2rem;
-      margin: 1rem 1.5rem 3rem;
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
       background: rgba(2,6,23,0.88);
-      border: 1px solid rgba(109,93,252,0.45);
-      border-radius: 20px;
-      box-shadow: 0 0 34px rgba(109,93,252,0.3);
+      border-radius: 18px;
+      border: 1px solid rgba(109,93,252,0.4);
+      box-shadow: 0 0 30px rgba(109,93,252,0.25);
     }
 
-    .fase h2 {
-      color: var(--azul-solo-claro);
+    .missao {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(27,188,255,0.25);
     }
 
-    .objetivo {
-      margin: 1.6rem 0;
-      padding: 1.2rem 1.4rem;
-      background: rgba(27,188,255,0.1);
-      border-left: 4px solid var(--azul-solo-claro);
+    .missao h3 { color: var(--azul); }
+
+    .bloco {
+      margin: 1rem 0;
+      padding: 1rem 1.2rem;
+      background: rgba(27,188,255,0.08);
+      border-left: 4px solid var(--azul);
+      border-radius: 6px;
     }
 
     button {
-      background: linear-gradient(135deg, var(--azul-solo-claro), var(--roxo-energia));
-      border: none;
-      color: #020617;
+      margin-top: 1rem;
+      padding: 0.6rem 1.4rem;
       font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      padding: 0.85rem 1.7rem;
-      border-radius: 14px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, var(--azul), var(--roxo));
+      color: #020617;
       cursor: pointer;
-      box-shadow: 0 0 18px rgba(27,188,255,0.65);
+      box-shadow: 0 0 15px rgba(27,188,255,0.6);
     }
 
     footer {
-      margin-top: auto;
-      padding: 1.2rem;
-      font-size: 0.8rem;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.75rem;
       opacity: 0.55;
     }
   </style>
 </head>
 <body>
 
-  <!-- TELA INICIAL COM PORTAIS -->
-  <header>
-    <h1>PROJETO RENASCER</h1>
-    <p>Os portais estão diante de você. O primeiro pulsa com energia azul.</p>
-  </header>
+<div class="editor-bar"><span>🛠️ Modo Editor Ativo — Acesso total às missões</span></div>
 
-  <section class="portais">
-    <div class="portal" onclick="abrirFase()">
-      <h2>Portal 1</h2>
-      <p>O Vórtice do Despertar</p>
-      <small>Nível Iniciante</small>
-    </div>
+<header>
+  <h1>PROJETO RENASCER</h1>
+  <p>Fase 1 — O Despertar</p>
+</header>
 
-    <div class="portal bloqueado">
-      <h2>Portal 2</h2>
-      <p>Bloqueado</p>
-    </div>
+<section class="portais">
+  <div class="portal" onclick="abrirFase()">
+    <h2>Portal 1</h2>
+    <p>Vórtice do Despertar</p>
+  </div>
+</section>
 
-    <div class="portal bloqueado">
-      <h2>Portal 3</h2>
-      <p>Bloqueado</p>
-    </div>
-  </section>
+<section class="fase" id="fase1">
 
-  <!-- FASE 1 -->
-  <section class="fase" id="fase1">
-    <h2>Fase 1 – O Despertar</h2>
+  <div class="missao">
+    <h3>Missão 1 — O Chamado dos Dados</h3>
+    <div class="bloco"><strong>Contexto:</strong> O caos inicial dos registros precisa ser compreendido.</div>
+    <div class="bloco"><strong>Explicação:</strong> Ciência de Dados é a interseção entre dados, estatística, computação e domínio.</div>
+    <div class="bloco"><strong>Execução Assistida:</strong> Observe exemplos simples e identifique o que são dados brutos.</div>
+    <button onclick="alert('Checkpoint validado (simulação)')">Validar Missão</button>
+  </div>
 
-    <p>Você atravessa o vórtice e sente o chamado do conhecimento.</p>
+  <div class="missao">
+    <h3>Missão 2 — Dados, Informação e Conhecimento</h3>
+    <div class="bloco"><strong>Contexto:</strong> Três camadas da realidade se revelam.</div>
+    <div class="bloco"><strong>Explicação:</strong> Dados → Informação → Conhecimento.</div>
+    <div class="bloco"><strong>Execução Assistida:</strong> Classifique exemplos guiados.</div>
+    <button onclick="alert('Checkpoint validado (simulação)')">Validar Missão</button>
+  </div>
 
-    <div class="objetivo">
-      <strong>Objetivos da Fase:</strong>
-      <ul>
-        <li>O que é Ciência de Dados</li>
-        <li>Dados, informação e conhecimento</li>
-        <li>O papel do analista</li>
-      </ul>
-    </div>
+  <div class="missao">
+    <h3>Missão 3 — O Papel do Analista</h3>
+    <div class="bloco"><strong>Contexto:</strong> O analista molda decisões invisíveis.</div>
+    <div class="bloco"><strong>Explicação:</strong> Diferença entre analista, cientista e engenheiro de dados.</div>
+    <div class="bloco"><strong>Execução Assistida:</strong> Analise cenários simulados.</div>
+    <button onclick="alert('Checkpoint validado (simulação)')">Validar Missão</button>
+  </div>
 
-    <button onclick="alert('Missão iniciada!')">Iniciar Missão</button>
-  </section>
+  <div class="missao">
+    <h3>Missão 4 — Pensamento Analítico</h3>
+    <div class="bloco"><strong>Contexto:</strong> Antes das ferramentas, vem o raciocínio.</div>
+    <div class="bloco"><strong>Explicação:</strong> Pensar analiticamente é formular as perguntas certas.</div>
+    <div class="bloco"><strong>Execução Assistida:</strong> Quebre problemas simples em partes.</div>
+    <button onclick="alert('Fase concluída — Rank E concedido (simulação)')">Concluir Fase</button>
+  </div>
 
-  <footer>
-    Projeto Renascer • Protótipo
-  </footer>
+</section>
 
-  <script>
-    function abrirFase() {
-      const fase = document.getElementById('fase1');
-      fase.style.display = 'block';
-      fase.scrollIntoView({ behavior: 'smooth' });
-    }
-  </script>
+<footer>Projeto Renascer • Protótipo Educacional</footer>
+
+<script>
+  function abrirFase() {
+    document.getElementById('fase1').style.display = 'block';
+    document.getElementById('fase1').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
 
 </body>
 </html>
