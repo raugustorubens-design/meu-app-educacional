@@ -4,126 +4,37 @@
   "acts": [
     {
       "act": 0,
-      "title": "Fundamentos de Dados",
-      "description": "Base conceitual sem código",
+      "title": "Fundamentos",
       "steps": [
         {
           "type": "narrative",
-          "title": "O Despertar do Olhar",
-          "text": "Antes de qualquer linguagem, o mundo já deixava rastros. Aqui começa o despertar do olhar."
+          "title": "O Despertar",
+          "text": "Antes de programar, é preciso observar."
         },
         {
           "type": "content",
-          "title": "O que é um Dado",
-          "text": "Um dado é um registro bruto de algo observado ou medido. Sozinho, não gera decisão."
+          "title": "O que é um dado",
+          "text": "Um dado é um valor bruto, sem interpretação."
         },
         {
           "type": "quiz",
-          "question": "Qual alternativa representa apenas um dado?",
+          "question": "Qual é um dado?",
           "options": [
-            { "text": "As vendas cresceram", "correct": false },
-            { "text": "150", "correct": true },
-            { "text": "Bom desempenho", "correct": false }
+            { "text": "Crescimento das vendas", "correct": false },
+            { "text": "150", "correct": true }
           ]
         },
         {
-          "type": "ordering",
-          "items": [
-            "Registrar temperatura",
-            "Comparar com dias anteriores",
-            "Tomar uma decisão"
-          ],
-          "correctOrder": [0, 1, 2]
+          "type": "spell",
+          "title": "Feitiço Inicial",
+          "prompt": "Explique com suas palavras o que é um dado."
         },
         {
-          "type": "spell",
-          "prompt": "Explique, com um exemplo do dia a dia, como dados brutos podem levar a uma decisão."
+          "type": "portal",
+          "title": "Portal Bloqueado",
+          "text": "Fim da parte FREE."
         }
       ]
-    },
-
-    {
-      "act": 1,
-      "title": "Análise de Dados",
-      "description": "Investigação conceitual sem Python",
-      "steps": [
-        {
-          "type": "narrative",
-          "title": "A Arte da Análise",
-          "text": "Analisar é procurar sentido no que se repete e no que muda."
-        },
-        {
-          "type": "content",
-          "title": "O que é Análise de Dados",
-          "text": "Análise de dados é o processo de investigar dados para apoiar decisões."
-        },
-        {
-          "type": "quiz",
-          "question": "O que melhor define análise de dados?",
-          "options": [
-            { "text": "Automação de decisões", "correct": false },
-            { "text": "Investigação para apoiar decisões", "correct": true },
-            { "text": "Uso exclusivo de algoritmos", "correct": false }
-          ]
-        },
-        {
-          "type": "ordering",
-          "items": [
-            "Coletar dados",
-            "Explorar dados",
-            "Identificar padrões",
-            "Tomar decisão"
-          ],
-          "correctOrder": [0, 1, 2, 3]
-        },
-        {
-          "type": "spell",
-          "prompt": "Explique por que confundir correlação com causalidade pode levar a decisões erradas."
-        }
-      ]
-    },
-
-    {
-      "act": 2,
-      "title": "Python Básico",
-      "description": "Ferramenta para transformar análise em ação",
-      "steps": [
-        {
-          "type": "narrative",
-          "title": "A Linguagem das Máquinas",
-          "text": "Python traduz raciocínio humano em ação computacional."
-        },
-
-        {
-          "type": "content",
-          "title": "Variáveis e Atribuição",
-          "text": "Variáveis são nomes que apontam para valores. Em Python, usamos o sinal = para atribuição."
-        },
-
-        {
-          "type": "quiz",
-          "question": "Qual linha abaixo está sintaticamente correta em Python?",
-          "options": [
-            { "text": "idade == 30", "correct": false },
-            { "text": "30 = idade", "correct": false },
-            { "text": "idade = 30", "correct": true }
-          ]
-        },
-
-        {
-          "type": "spell",
-          "title": "Feitiço I — A Palavra Correta",
-          "prompt": "Escreva uma linha de código Python que crie uma variável chamada idade com um valor numérico. Em seguida, explique por que o uso do sinal = é essencial para o programa funcionar."
-        },
-
-        {
-          "type": "content",
-          "title": "Decisões com if",
-          "text": "Estruturas condicionais permitem que o programa tome decisões com base em condições."
-        },
-
-        {
-          "type": "quiz",
-          "question": "Qual opção representa corretamente o início de uma estrutura condicional em Python?",
-          "options": [
-            { "tex
+    }
+  ]
+}
