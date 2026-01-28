@@ -21,11 +21,11 @@ function render() {
   screen.innerHTML = "";
 
   if (!step) {
-    screen.innerHTML = "<h2>Fim do conteúdo</h2>";
+    screen.innerHTML = "<h2>Fim do conteúdo FREE</h2>";
     return;
   }
 
-  // EXEMPLO PRÁTICO (NOVO, SEGURO)
+  // Exemplo prático
   if (step.example) {
     screen.innerHTML += `
       <h3>Exemplo prático</h3>
@@ -33,6 +33,7 @@ function render() {
     `;
   }
 
+  // Narrativa / Conteúdo
   if (step.type === "narrative" || step.type === "content") {
     screen.innerHTML += `
       <h1>${step.title}</h1>
@@ -41,6 +42,7 @@ function render() {
     `;
   }
 
+  // Quiz
   if (step.type === "quiz") {
     screen.innerHTML += `
       <p>${step.question}</p>
@@ -54,15 +56,29 @@ function render() {
     `;
   }
 
+  // Ordering (NOVA MECÂNICA)
+  if (step.type === "ordering") {
+    screen.innerHTML += `
+      <h2>${step.title}</h2>
+      <p>${step.text}</p>
+      <ul>
+        ${step.items.map(item => `<li>${item}</li>`).join("")}
+      </ul>
+      <button onclick="next()">Continuar</button>
+    `;
+  }
+
+  // Feitiço
   if (step.type === "spell") {
     screen.innerHTML += `
       <h2>${step.title}</h2>
       <p>${step.prompt}</p>
-      <textarea></textarea>
-      <button onclick="next()">Enviar</button>
+      <textarea placeholder="Escreva sua resposta..."></textarea>
+      <button onclick="next()">Lançar Feitiço</button>
     `;
   }
 
+  // Portal
   if (step.type === "portal") {
     screen.innerHTML += `
       <h2>${step.title}</h2>
