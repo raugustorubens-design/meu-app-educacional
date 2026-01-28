@@ -27,19 +27,21 @@
           ]
         },
         {
-          "type": "association",
-          "pairs": [
-            { "left": "Dado", "right": "Valor bruto" },
-            { "left": "Informação", "right": "Dado com contexto" },
-            { "left": "Conhecimento", "right": "Base para decisão" }
-          ]
+          "type": "ordering",
+          "items": [
+            "Registrar temperatura",
+            "Comparar com dias anteriores",
+            "Tomar uma decisão"
+          ],
+          "correctOrder": [0, 1, 2]
         },
         {
           "type": "spell",
-          "prompt": "Explique por que um dado isolado não é suficiente para tomar decisões."
+          "prompt": "Explique, com um exemplo do dia a dia, como dados brutos podem levar a uma decisão."
         }
       ]
     },
+
     {
       "act": 1,
       "title": "Análise de Dados",
@@ -53,7 +55,7 @@
         {
           "type": "content",
           "title": "O que é Análise de Dados",
-          "text": "Processo de investigar dados para apoiar decisões."
+          "text": "Análise de dados é o processo de investigar dados para apoiar decisões."
         },
         {
           "type": "quiz",
@@ -76,10 +78,11 @@
         },
         {
           "type": "spell",
-          "prompt": "Explique por que correlação não é o mesmo que causalidade."
+          "prompt": "Explique por que confundir correlação com causalidade pode levar a decisões erradas."
         }
       ]
     },
+
     {
       "act": 2,
       "title": "Python Básico",
@@ -90,62 +93,68 @@
           "title": "A Linguagem das Máquinas",
           "text": "Python traduz raciocínio humano em ação computacional."
         },
+
         {
           "type": "content",
-          "title": "O que é Python",
-          "text": "Linguagem de programação simples e poderosa."
+          "title": "Variáveis e Atribuição",
+          "text": "Variáveis são nomes que apontam para valores. Em Python, usamos o sinal = para atribuição."
         },
+
         {
           "type": "quiz",
-          "question": "Qual sintaxe correta de atribuição em Python?",
+          "question": "Qual linha abaixo está sintaticamente correta em Python?",
           "options": [
-            { "text": "idade = 32", "correct": true },
-            { "text": "32 = idade", "correct": false },
-            { "text": "idade == 32", "correct": false }
+            { "text": "idade == 30", "correct": false },
+            { "text": "30 = idade", "correct": false },
+            { "text": "idade = 30", "correct": true }
           ]
         },
-        {
-          "type": "association",
-          "pairs": [
-            { "left": "+", "right": "Soma" },
-            { "left": "*", "right": "Multiplicação" },
-            { "left": "/", "right": "Divisão" }
-          ]
-        },
-        {
-          "type": "quiz",
-          "question": "Para que servem estruturas condicionais?",
-          "options": [
-            { "text": "Tomar decisões", "correct": true },
-            { "text": "Repetir código", "correct": false }
-          ]
-        },
-        {
-          "type": "ordering",
-          "items": [
-            "Verificar condição",
-            "Executar ação",
-            "Encerrar laço"
-          ],
-          "correctOrder": [0, 1, 2]
-        },
-        {
-          "type": "content",
-          "title": "Funções",
-          "text": "Blocos reutilizáveis que organizam o código."
-        },
+
         {
           "type": "spell",
-          "prompt": "Explique como Python ajuda a transformar análise em ação prática."
+          "title": "Feitiço I — A Palavra Correta",
+          "prompt": "Escreva uma linha de código Python que crie uma variável chamada idade com um valor numérico. Em seguida, explique por que o uso do sinal = é essencial para o programa funcionar."
         },
+
         {
-          "type": "portal",
-          "locked": true,
-          "title": "Portal do Conhecimento Profundo",
-          "text": "A partir daqui, o conteúdo é premium.",
-          "requires": "premium"
-        }
-      ]
-    }
-  ]
-}
+          "type": "content",
+          "title": "Decisões com if",
+          "text": "Estruturas condicionais permitem que o programa tome decisões com base em condições."
+        },
+
+        {
+          "type": "quiz",
+          "question": "Qual opção representa corretamente o início de uma estrutura condicional em Python?",
+          "options": [
+            { "text": "if nota > 7", "correct": false },
+            { "text": "if (nota > 7):", "correct": false },
+            { "text": "if nota > 7:", "correct": true }
+          ]
+        },
+
+        {
+          "type": "spell",
+          "title": "Feitiço II — A Decisão Escrita",
+          "prompt": "Escreva um pequeno trecho de código que verifique se a variável nota é maior ou igual a 7. Depois, explique por que os dois-pontos (:) e a indentação são obrigatórios em Python."
+        },
+
+        {
+          "type": "content",
+          "title": "Repetição (Laços)",
+          "text": "Laços permitem repetir ações enquanto uma condição for verdadeira."
+        },
+
+        {
+          "type": "quiz",
+          "question": "Qual é a função principal de um laço em programação?",
+          "options": [
+            { "text": "Tomar decisões", "correct": false },
+            { "text": "Repetir ações", "correct": true },
+            { "text": "Guardar dados", "correct": false }
+          ]
+        },
+
+        {
+          "type": "spell",
+          "title": "Feitiço III — O Caminho Repetido",
+          "prompt": "Escreva um exemplo simples de laço em Python e explique como o programa sabe quando deve p
