@@ -1,89 +1,83 @@
-let user = {
-  premium: false
-};
-
+let user = { premium: false };
 let flow = [];
 let index = 0;
 
 const screen = document.getElementById("screen");
 
-// Carrega o JSON externo
+// Carrega conteúdo FREE
 fetch("ato_free.json")
-  .then(response => response.json())
+  .then(res => res.json())
   .then(data => {
     buildFlow(data);
     render();
   })
-  .catch(err => {
+  .catch(() => {
     screen.innerHTML = "<p>Erro ao carregar conteúdo.</p>";
-    console.error(err);
   });
 
-// Constrói o fluxo a partir dos atos
 function buildFlow(data) {
   data.acts.forEach(act => {
-    act.steps.forEach(step => {
-      flow.push(step);
-    });
+    act.steps.forEach(step => flow.push(step));
   });
 }
 
-// Renderização principal
 function render() {
   const step = flow[index];
   screen.innerHTML = "";
 
   if (!step) {
-    screen.innerHTML = "<p>Fim do conteúdo.</p>";
+    screen.innerHTML = "<h2>Fim do conteúdo FREE</h2>";
     return;
   }
 
-  if (step.type === "narrative" || step.type === "content") {
-    screen.innerHTML = `
-      <div>
-        <h1>${step.title}</h1>
-        <p>${step.text}</p>
-        <button onclick="next()">Avançar</button>
-      </div>
+  // Exemplo prático (obrigatório quando existir)
+  if (step.example) {
+    screen.innerHTML += `
+      <h3>Exemplo prático</h3>
+      <pre>${step.example}</pre>
     `;
   }
 
+  // Conteúdo / Narrativa
+  if (step.type === "content" || step.type === "narrative") {
+    screen.innerHTML += `
+      <h1>${step.title}</h1>
+      <p>${step.text}</p>
+      <button onclick="next()">Avançar</button>
+    `;
+  }
+
+  // Quiz (sintaxe / leitura)
   if (step.type === "quiz") {
-    screen.innerHTML = `
-      <div>
-        <p>${step.question}</p>
-        ${step.options
-          .map(
-            (opt, i) =>
-              `<label>
-                 <input type="radio" name="q" value="${opt.correct}">
-                 ${opt.text}
-               </label><br>`
-          )
-          .join("")}
-        <button onclick="checkQuiz()">Confirmar</button>
-      </div>
+    screen.innerHTML += `
+      <p>${step.question}</p>
+      ${step.options.map(opt => `
+        <label>
+          <input type="radio" name="q" value="${opt.correct}">
+          ${opt.text}
+        </label>
+      `).join("")}
+      <button onclick="checkQuiz()">Confirmar</button>
     `;
   }
 
+  // Feitiço (domínio)
   if (step.type === "spell") {
-    screen.innerHTML = `
-      <div>
-        <p>${step.prompt}</p>
-        <textarea></textarea>
-        <button onclick="next()">Lançar Feitiço</button>
-      </div>
+    screen.innerHTML += `
+      <h2>${step.title || "Feitiço"}</h2>
+      <p>${step.prompt}</p>
+      <textarea placeholder="Escreva seu código e/ou explicação..."></textarea>
+      <button onclick="next()">Lançar Feitiço</button>
     `;
   }
 
+  // Portal (paywall)
   if (step.type === "portal") {
     if (!user.premium) {
       screen.innerHTML = `
-        <div>
-          <h1>${step.title}</h1>
-          <p>${step.text}</p>
-          <button onclick="unlock()">Desbloquear Portal</button>
-        </div>
+        <h1>${step.title}</h1>
+        <p>${step.text}</p>
+        <button onclick="unlock()">Desbloquear Portal</button>
       `;
     } else {
       next();
@@ -97,12 +91,12 @@ function next() {
 }
 
 function checkQuiz() {
-  const selected = document.querySelector("input[name=q]:checked");
+  const selected = document.querySelector("input[name='q']:checked");
   if (selected && selected.value === "true") {
     alert("Correto!");
     next();
   } else {
-    alert("Resposta incorreta.");
+    alert("Observe o exemplo prático e tente novamente.");
   }
 }
 
