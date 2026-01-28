@@ -25,8 +25,16 @@ function render() {
     return;
   }
 
+  // EXEMPLO PRÁTICO (NOVO, SEGURO)
+  if (step.example) {
+    screen.innerHTML += `
+      <h3>Exemplo prático</h3>
+      <pre>${step.example}</pre>
+    `;
+  }
+
   if (step.type === "narrative" || step.type === "content") {
-    screen.innerHTML = `
+    screen.innerHTML += `
       <h1>${step.title}</h1>
       <p>${step.text}</p>
       <button onclick="next()">Avançar</button>
@@ -34,7 +42,7 @@ function render() {
   }
 
   if (step.type === "quiz") {
-    screen.innerHTML = `
+    screen.innerHTML += `
       <p>${step.question}</p>
       ${step.options.map(o => `
         <label>
@@ -47,7 +55,7 @@ function render() {
   }
 
   if (step.type === "spell") {
-    screen.innerHTML = `
+    screen.innerHTML += `
       <h2>${step.title}</h2>
       <p>${step.prompt}</p>
       <textarea></textarea>
@@ -56,7 +64,7 @@ function render() {
   }
 
   if (step.type === "portal") {
-    screen.innerHTML = `
+    screen.innerHTML += `
       <h2>${step.title}</h2>
       <p>${step.text}</p>
     `;
@@ -74,6 +82,6 @@ function checkQuiz() {
     alert("Correto!");
     next();
   } else {
-    alert("Tente novamente.");
+    alert("Observe o exemplo e tente novamente.");
   }
 }
