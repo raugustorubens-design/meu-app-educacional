@@ -3,360 +3,112 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projeto Renascer – Protótipo Completo</title>
+  <title>Projeto Renascer – Engine Genérica</title>
 
-  <!-- Fontes -->
   <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=MedievalSharp&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-dark: #05070c;
-      --portal-blue: #3aa6ff;
-      --text-light: #eaeaea;
-      --accent: #7dd3ff;
-      --danger: #ff6b6b;
+      --bg-dark:#05070c;--portal-blue:#3aa6ff;--accent:#7dd3ff;--text:#eaeaea;--danger:#ff6b6b;
     }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      background: radial-gradient(circle at center, #0b1220, var(--bg-dark));
-      color: var(--text-light);
-      font-family: 'MedievalSharp', serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    .app {
-      width: 100%;
-      max-width: 420px;
-      min-height: 760px;
-      background: rgba(10, 15, 30, 0.9);
-      border-radius: 18px;
-      box-shadow: 0 0 50px rgba(58,166,255,0.35);
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    h1, h2 {
-      font-family: 'Uncial Antiqua', serif;
-      text-align: center;
-      margin-bottom: 14px;
-    }
-
-    p {
-      line-height: 1.5;
-      text-align: center;
-      font-size: 15px;
-    }
-
-    .screen { display: none; }
-    .screen.active { display: block; }
-
-    .button {
-      display: block;
-      margin: 22px auto 0;
-      padding: 12px 20px;
-      border-radius: 24px;
-      border: none;
-      background: linear-gradient(135deg, var(--portal-blue), var(--accent));
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      width: 100%;
-    }
-
-    .button.danger {
-      background: linear-gradient(135deg, var(--danger), #ffa07a);
-    }
-
-    .options label {
-      display: block;
-      background: rgba(255,255,255,0.06);
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      cursor: pointer;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 120px;
-      border-radius: 8px;
-      border: none;
-      padding: 10px;
-      font-family: inherit;
-    }
-
-    .portal {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      margin: 0 auto 18px;
-      background: radial-gradient(circle, #8fd3ff, #1b4fff, #020414);
-      box-shadow: 0 0 30px #3aa6ff;
-      animation: pulse 2.5s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 0.85; }
-      50% { transform: scale(1.06); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.85; }
-    }
-
-    .badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: #ffcc00;
-      color: #000;
-      font-size: 12px;
-      padding: 4px 8px;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-
-    .progress {
-      height: 6px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 12px;
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--portal-blue), var(--accent));
-      transition: width 0.4s ease;
-    }
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(circle,#0b1220,var(--bg-dark));color:var(--text);font-family:'MedievalSharp',serif;display:flex;justify-content:center;align-items:center;min-height:100vh}
+    .app{width:100%;max-width:420px;min-height:760px;background:rgba(10,15,30,.9);border-radius:18px;box-shadow:0 0 50px rgba(58,166,255,.35);padding:24px;position:relative}
+    h1,h2{text-align:center;font-family:'Uncial Antiqua',serif}
+    p{text-align:center;line-height:1.5}
+    .screen{display:none}.screen.active{display:block}
+    .button{width:100%;margin-top:20px;padding:12px;border-radius:24px;border:none;background:linear-gradient(135deg,var(--portal-blue),var(--accent));font-weight:bold;cursor:pointer}
+    .button.danger{background:linear-gradient(135deg,var(--danger),#ffa07a)}
+    .options label{display:block;background:rgba(255,255,255,.06);padding:10px;border-radius:8px;margin-bottom:8px;cursor:pointer}
+    textarea{width:100%;min-height:120px;border-radius:8px;border:none;padding:10px}
+    .portal{width:140px;height:140px;border-radius:50%;margin:0 auto 16px;background:radial-gradient(circle,#8fd3ff,#1b4fff,#020414);box-shadow:0 0 30px #3aa6ff}
+    .progress{height:6px;background:rgba(255,255,255,.15);border-radius:4px;overflow:hidden;margin-bottom:12px}
+    .progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--portal-blue),var(--accent));transition:.3s}
   </style>
 </head>
 <body>
+<div class="app">
+  <div class="progress"><div class="progress-bar" id="progress"></div></div>
+  <div id="screen"></div>
+</div>
 
-  <div class="app">
-    <div class="badge">PROTÓTIPO</div>
-    <div class="progress"><div class="progress-bar" id="progress"></div></div>
+<script>
+/* =====================
+   ENGINE GENÉRICA RENASCER
+   ===================== */
 
-    <!-- TELA 1: ABERTURA -->
-    <div class="screen active" id="s1">
-      <div class="portal"></div>
-      <h1>Projeto Renascer</h1>
-      <p>Antes do código, o olhar.<br>Antes do poder, o entendimento.</p>
-      <button class="button" onclick="next()">Iniciar Jornada</button>
-    </div>
+const flow = [
+  {type:'intro', title:'Projeto Renascer', text:'Antes do código, o olhar.', action:'Iniciar'},
+  {type:'content', title:'O que é um Dado?', text:'Um dado é um valor bruto que representa algo do mundo real.'},
+  {type:'quiz', title:'Desafio do Olhar', question:'Qual item é um dado?', options:[
+    {t:'Uma decisão',c:false},{t:'Relatório analisado',c:false},{t:'Número de acessos',c:true},{t:'Conclusão',c:false}
+  ]},
+  {type:'spell', title:'Feitiço da Compreensão', question:'Por que um dado isolado não gera conhecimento?'},
+  {type:'content', title:'Dados Estruturados', text:'Dados organizados em tabelas com formato definido.'},
+  {type:'quiz', title:'Desafio da Ordem', question:'Qual é um dado estruturado?', options:[
+    {t:'Áudio',c:false},{t:'Vídeo',c:false},{t:'Planilha',c:true},{t:'Texto livre',c:false}
+  ]},
+  {type:'end', title:'Ato I Concluído', text:'Teu olhar foi despertado.', action:'Reiniciar'}
+];
 
-    <!-- TELA 2: CONCEITO DADO -->
-    <div class="screen" id="s2">
-      <h2>O que é um Dado?</h2>
-      <p>Um dado é um valor bruto que representa algo do mundo real.</p>
-      <button class="button" onclick="next()">Compreendi</button>
-    </div>
+let index = 0;
+const total = flow.length;
+const screen = document.getElementById('screen');
 
-    <!-- TELA 3: QUESTÃO 2 -->
-    <div class="screen" id="s3">
-      <h2>Desafio do Olhar</h2>
-      <p>Qual item abaixo é um dado?</p>
-      <div class="options">
-        <label><input type="radio" name="q1"> Uma decisão estratégica</label>
-        <label><input type="radio" name="q1"> Um relatório analisado</label>
-        <label><input type="radio" name="q1" id="q1c"> Número de acessos</label>
-        <label><input type="radio" name="q1"> Uma conclusão</label>
-      </div>
-      <button class="button" onclick="check('q1c')">Confirmar</button>
-    </div>
+function render(){
+  const step = flow[index];
+  screen.innerHTML = '';
+  updateProgress();
 
-    <!-- TELA 4: FEITIÇO -->
-    <div class="screen" id="s4">
-      <h2>Feitiço da Compreensão</h2>
-      <p>Explique por que um dado isolado não gera conhecimento.</p>
-      <textarea placeholder="Digite seu feitiço..."></textarea>
-      <button class="button" onclick="next()">Lançar Feitiço</button>
-    </div>
+  if(step.type==='intro'||step.type==='content'||step.type==='end'){
+    screen.innerHTML = `
+      <div class="screen active">
+        <div class="portal"></div>
+        <h1>${step.title}</h1>
+        <p>${step.text}</p>
+        <button class="button ${step.type==='end'?'danger':''}" onclick="next()">${step.action||'Avançar'}</button>
+      </div>`;
+  }
 
-    <!-- TELA 5: DADOS ESTRUTURADOS -->
-    <div class="screen" id="s5">
-      <h2>Dados Estruturados</h2>
-      <p>São dados organizados em tabelas, com formato definido.</p>
-      <button class="button" onclick="next()">Avançar</button>
-    </div>
+  if(step.type==='quiz'){
+    screen.innerHTML = `
+      <div class="screen active">
+        <h2>${step.title}</h2>
+        <p>${step.question}</p>
+        <div class="options">
+          ${step.options.map((o,i)=>`<label><input type="radio" name="q" value="${o.c}"> ${o.t}</label>`).join('')}
+        </div>
+        <button class="button" onclick="checkQuiz()">Confirmar</button>
+      </div>`;
+  }
 
-    <!-- TELA 6: QUESTÃO 2 -->
-    <div class="screen" id="s6">
-      <h2>Desafio da Ordem</h2>
-      <p>Qual exemplo é um dado estruturado?</p>
-      <div class="options">
-        <label><input type="radio" name="q2" id="q2c"> Planilha de vendas</label>
-        <label><input type="radio" name="q2"> Áudio</label>
-        <label><input type="radio" name="q2"> Vídeo</label>
-        <label><input type="radio" name="q2"> Texto livre</label>
-      </div>
-      <button class="button" onclick="check('q2c')">Confirmar</button>
-    </div>
+  if(step.type==='spell'){
+    screen.innerHTML = `
+      <div class="screen active">
+        <h2>${step.title}</h2>
+        <p>${step.question}</p>
+        <textarea placeholder="Digite seu feitiço..."></textarea>
+        <button class="button" onclick="next()">Lançar Feitiço</button>
+      </div>`;
+  }
+}
 
-    <!-- TELA 7: DADOS NÃO ESTRUTURADOS -->
-    <div class="screen" id="s7">
-      <h2>Dados Não Estruturados</h2>
-      <p>Textos, imagens, áudios e vídeos exigem mais processamento.</p>
-      <button class="button" onclick="next()">Prosseguir</button>
-    </div>
+function next(){
+  index = (index + 1) % total;
+  render();
+}
 
-    <!-- TELA 8: LIMPEZA -->
-    <div class="screen" id="s8">
-      <h2>Qualidade de Dados</h2>
-      <p>Dados imprecisos geram decisões incorretas.</p>
-      <button class="button" onclick="next()">Entendi</button>
-    </div>
+function checkQuiz(){
+  const sel = document.querySelector('input[name=q]:checked');
+  if(sel && sel.value==='true'){ alert('Correto!'); next(); }
+  else alert('Resposta incorreta.');
+}
 
-    <!-- TELA 9: ENCERRAMENTO ATO I -->
-    <div class="screen" id="s9">
-      <div class="portal"></div>
-      <h2>Ato I Concluído</h2>
-      <p>Teu olhar foi despertado.<br>Agora aprenderás a investigar.</p>
-      <button class="button" onclick="next()">Entrar no Ato II</button>
-    </div>
+function updateProgress(){
+  document.getElementById('progress').style.width = Math.round((index)/(total-1)*100)+'%';
+}
 
-    <!-- ================= ATO II ================= -->
-
-    <!-- TELA 10: ABERTURA ATO II -->
-    <div class="screen" id="s10">
-      <div class="portal"></div>
-      <h1>Ato II</h1>
-      <p>A Análise Exploratória<br>O caos começa a revelar padrões.</p>
-      <button class="button" onclick="next()">Iniciar Ato II</button>
-    </div>
-
-    <!-- TELA 11: CONCEITO EDA -->
-    <div class="screen" id="s11">
-      <h2>Análise Exploratória</h2>
-      <p>Explorar dados é entender sua forma, distribuição e comportamento antes de qualquer modelo.</p>
-      <button class="button" onclick="next()">Compreendi</button>
-    </div>
-
-    <!-- TELA 12: QUESTÃO ATO II -->
-    <div class="screen" id="s12">
-      <h2>Desafio do Explorador</h2>
-      <p>Qual é o objetivo principal da análise exploratória?</p>
-      <div class="options">
-        <label><input type="radio" name="q3"> Criar modelos finais</label>
-        <label><input type="radio" name="q3" id="q3c"> Compreender padrões e problemas</label>
-        <label><input type="radio" name="q3"> Treinar algoritmos</label>
-        <label><input type="radio" name="q3"> Automatizar decisões</label>
-      </div>
-      <button class="button" onclick="check('q3c')">Confirmar</button>
-    </div>
-
-    <!-- TELA 13: FEITIÇO ATO II -->
-    <div class="screen" id="s13">
-      <h2>Feitiço da Investigação</h2>
-      <p>Por que explorar os dados antes de modelar é essencial?</p>
-      <textarea placeholder="Digite seu feitiço..."></textarea>
-      <button class="button" onclick="next()">Lançar Feitiço</button>
-    </div>
-
-    <!-- TELA 14: ENCERRAMENTO ATO II -->
-    <div class="screen" id="s14">
-      <div class="portal"></div>
-      <h2>Ato II Concluído</h2>
-      <p>Os padrões começam a emergir.<br>Agora aprenderás a prever.</p>
-      <button class="button" onclick="next()">Entrar no Ato III</button>
-    </div>
-
-    <!-- ================= ATO III ================= -->
-
-    <!-- TELA 15: ABERTURA ATO III -->
-    <div class="screen" id="s15">
-      <div class="portal"></div>
-      <h1>Ato III</h1>
-      <p>Modelagem e Previsão<br>Quando o futuro começa a ser estimado.</p>
-      <button class="button" onclick="next()">Iniciar Ato III</button>
-    </div>
-
-    <!-- TELA 16: CONCEITO MODELO -->
-    <div class="screen" id="s16">
-      <h2>O que é um Modelo?</h2>
-      <p>Um modelo é uma representação matemática que aprende padrões a partir dos dados.</p>
-      <button class="button" onclick="next()">Compreendi</button>
-    </div>
-
-    <!-- TELA 17: CONCEITO VARIÁVEIS -->
-    <div class="screen" id="s17">
-      <h2>Variáveis</h2>
-      <p>Variáveis são características usadas para explicar ou prever um fenômeno.</p>
-      <button class="button" onclick="next()">Avançar</button>
-    </div>
-
-    <!-- TELA 18: QUESTÃO ATO III -->
-    <div class="screen" id="s18">
-      <h2>Desafio do Oráculo</h2>
-      <p>Qual afirmação é correta sobre modelos?</p>
-      <div class="options">
-        <label><input type="radio" name="q4"> Preveem o futuro com certeza</label>
-        <label><input type="radio" name="q4"> Substituem análise humana</label>
-        <label><input type="radio" name="q4" id="q4c"> Estimam padrões com base em dados</label>
-        <label><input type="radio" name="q4"> Funcionam sem dados</label>
-      </div>
-      <button class="button" onclick="check('q4c')">Confirmar</button>
-    </div>
-
-    <!-- TELA 19: FEITIÇO ATO III -->
-    <div class="screen" id="s19">
-      <h2>Feitiço da Previsão</h2>
-      <p>Por que modelos fazem estimativas e não certezas?</p>
-      <textarea placeholder="Digite seu feitiço..."></textarea>
-      <button class="button" onclick="next()">Lançar Feitiço</button>
-    </div>
-
-    <!-- TELA 20: ENCERRAMENTO ATO III -->
-    <div class="screen" id="s20">
-      <div class="portal"></div>
-      <h2>Ato III Concluído</h2>
-      <p>Agora compreendes a arte da previsão.<br>No próximo ato, dominarás a validação.</p>
-      <button class="button danger" onclick="restart()">Reiniciar Protótipo</button>
-    </div>
-  </div>
-
-  <script>
-    let current = 1;
-    const total = 20;
-
-    function updateProgress() {
-      const percent = Math.round((current - 1) / (total - 1) * 100);
-      document.getElementById('progress').style.width = percent + '%';
-    }
-
-    function next() {
-      const cs = document.getElementById('s' + current);
-      if (cs) cs.classList.remove('active');
-      current++;
-      const ns = document.getElementById('s' + current);
-      if (ns) ns.classList.add('active');
-      updateProgress();
-    }
-
-    function check(correctId) {
-      const correct = document.getElementById(correctId);
-      if (correct && correct.checked) {
-        alert('Correto!');
-        next();
-      } else {
-        alert('Resposta incorreta. Observe com atenção.');
-      }
-    }
-
-    function restart() {
-      document.getElementById('s' + current).classList.remove('active');
-      current = 1;
-      document.getElementById('s1').classList.add('active');
-      updateProgress();
-    }
-
-    updateProgress();
-  </script>
-
+render();
+</script>
 </body>
 </html>
