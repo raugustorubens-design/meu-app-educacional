@@ -1,0 +1,42 @@
+{
+  "project": "Projeto Renascer",
+  "access": "PREMIUM",
+  "acts": [
+    {
+      "act": 3,
+      "title": "Python aplicado a Dados",
+      "steps": [
+        {
+          "type": "narrative",
+          "title": "O Mundo Real",
+          "text": "Agora os dados representam situações reais. O código deixa de ser exercício e passa a ser ferramenta."
+        },
+        {
+          "type": "content",
+          "title": "Lista de vendas",
+          "text": "Listas permitem armazenar vários valores relacionados.",
+          "example": "vendas = [120, 150, 130, 170]"
+        },
+        {
+          "type": "quiz",
+          "question": "O que essa lista representa?",
+          "options": [
+            { "text": "Um único dado", "correct": false },
+            { "text": "Um conjunto de dados", "correct": true }
+          ]
+        },
+        {
+          "type": "content",
+          "title": "Cálculo simples",
+          "text": "Com Python, podemos calcular médias para apoiar decisões.",
+          "example": "media = sum(vendas) / len(vendas)"
+        },
+        {
+          "type": "spell",
+          "title": "Feitiço da Análise Real",
+          "prompt": "Explique como a média de vendas pode ajudar um gestor a tomar decisões."
+        }
+      ]
+    }
+  ]
+}
