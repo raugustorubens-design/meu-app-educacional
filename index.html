@@ -1,77 +1,142 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projeto Renascer – Engine com Portal Bloqueado</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=MedievalSharp&display=swap" rel="stylesheet">
-
-  <style>
-    :root{--bg:#05070c;--blue:#3aa6ff;--accent:#7dd3ff;--text:#eaeaea;--danger:#ff6b6b}
-    *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(circle,#0b1220,var(--bg));color:var(--text);font-family:'MedievalSharp',serif;display:flex;justify-content:center;align-items:center;min-height:100vh}
-    .app{width:100%;max-width:420px;min-height:760px;background:rgba(10,15,30,.9);border-radius:18px;box-shadow:0 0 40px rgba(58,166,255,.35);padding:24px;position:relative}
-    h1,h2{text-align:center;font-family:'Uncial Antiqua',serif}
-    p{text-align:center;line-height:1.5}
-    .button{width:100%;margin-top:18px;padding:12px;border-radius:24px;border:none;background:linear-gradient(135deg,var(--blue),var(--accent));font-weight:bold;cursor:pointer}
-    .button.danger{background:linear-gradient(135deg,var(--danger),#ffa07a)}
-    textarea{width:100%;min-height:110px;border-radius:8px;border:none;padding:10px}
-    .portal{width:140px;height:140px;border-radius:50%;margin:0 auto 16px;background:radial-gradient(circle,#8fd3ff,#1b4fff,#020414);box-shadow:0 0 30px #3aa6ff}
-  </style>
-</head>
-<body>
-<div class="app">
-  <div id="screen"></div>
-</div>
-
-<script>
-/* ========= ENGINE COM PAYWALL NARRATIVO ========= */
-
-let user = { premium:false };
-
-const flow = [
-  {type:'intro', title:'Projeto Renascer', text:'Antes do código, o olhar.', action:'Iniciar Jornada'},
-  {type:'content', title:'Python Básico', text:'Você dominou variáveis, laços, funções e estruturas básicas.'},
-  {type:'spell', title:'Feitiço Final', question:'Explique por que Python é uma boa linguagem inicial.'},
-
-  {type:'portal', title:'Portal do Conhecimento Profundo', locked:true,
-   text:'Tu dominaste a linguagem das máquinas. Este portal exige compromisso.'},
-
-  {type:'content', title:'Ciência de Dados', text:'Bem-vindo ao mundo da análise de dados.'}
-];
-
-let index = 0;
-const screen = document.getElementById('screen');
-
-function render(){
-  const step = flow[index];
-  screen.innerHTML = '';
-
-  if(step.type==='intro'||step.type==='content'){
-    screen.innerHTML = `<div><div class='portal'></div><h1>${step.title}</h1><p>${step.text}</p><button class='button' onclick='next()'>Avançar</button></div>`;
-  }
-
-  if(step.type==='spell'){
-    screen.innerHTML = `<div><h2>${step.title}</h2><p>${step.question}</p><textarea placeholder='Digite seu feitiço...'></textarea><button class='button' onclick='next()'>Lançar Feitiço</button></div>`;
-  }
-
-  if(step.type==='portal'){
-    if(!user.premium){
-      screen.innerHTML = `<div><div class='portal'></div><h1>${step.title}</h1><p>${step.text}</p><button class='button' onclick='unlock()'>Desbloquear Portal</button><button class='button danger' onclick='restart()'>Voltar</button></div>`;
-    } else {
-      next();
+{
+  "project": "Projeto Renascer",
+  "access": "FREE",
+  "acts": [
+    {
+      "act": 0,
+      "title": "Fundamentos de Dados",
+      "description": "Base conceitual sem código",
+      "steps": [
+        {
+          "type": "narrative",
+          "title": "O Despertar do Olhar",
+          "text": "Antes de qualquer linguagem, o mundo já deixava rastros. Aqui começa o despertar do olhar."
+        },
+        {
+          "type": "content",
+          "title": "O que é um Dado",
+          "text": "Um dado é um registro bruto de algo observado ou medido. Sozinho, não gera decisão."
+        },
+        {
+          "type": "quiz",
+          "question": "Qual alternativa representa apenas um dado?",
+          "options": [
+            { "text": "As vendas cresceram", "correct": false },
+            { "text": "150", "correct": true },
+            { "text": "Bom desempenho", "correct": false }
+          ]
+        },
+        {
+          "type": "association",
+          "pairs": [
+            { "left": "Dado", "right": "Valor bruto" },
+            { "left": "Informação", "right": "Dado com contexto" },
+            { "left": "Conhecimento", "right": "Base para decisão" }
+          ]
+        },
+        {
+          "type": "spell",
+          "prompt": "Explique por que um dado isolado não é suficiente para tomar decisões."
+        }
+      ]
+    },
+    {
+      "act": 1,
+      "title": "Análise de Dados",
+      "description": "Investigação conceitual sem Python",
+      "steps": [
+        {
+          "type": "narrative",
+          "title": "A Arte da Análise",
+          "text": "Analisar é procurar sentido no que se repete e no que muda."
+        },
+        {
+          "type": "content",
+          "title": "O que é Análise de Dados",
+          "text": "Processo de investigar dados para apoiar decisões."
+        },
+        {
+          "type": "quiz",
+          "question": "O que melhor define análise de dados?",
+          "options": [
+            { "text": "Automação de decisões", "correct": false },
+            { "text": "Investigação para apoiar decisões", "correct": true },
+            { "text": "Uso exclusivo de algoritmos", "correct": false }
+          ]
+        },
+        {
+          "type": "ordering",
+          "items": ["Coletar dados", "Explorar dados", "Identificar padrões", "Tomar decisão"],
+          "correctOrder": [0, 1, 2, 3]
+        },
+        {
+          "type": "spell",
+          "prompt": "Explique por que correlação não é o mesmo que causalidade."
+        }
+      ]
+    },
+    {
+      "act": 2,
+      "title": "Python Básico",
+      "description": "Ferramenta para transformar análise em ação",
+      "steps": [
+        {
+          "type": "narrative",
+          "title": "A Linguagem das Máquinas",
+          "text": "Python traduz raciocínio humano em ação computacional."
+        },
+        {
+          "type": "content",
+          "title": "O que é Python",
+          "text": "Linguagem de programação simples e poderosa."
+        },
+        {
+          "type": "quiz",
+          "question": "Qual sintaxe correta de atribuição em Python?",
+          "options": [
+            { "text": "idade = 32", "correct": true },
+            { "text": "32 = idade", "correct": false },
+            { "text": "idade == 32", "correct": false }
+          ]
+        },
+        {
+          "type": "association",
+          "pairs": [
+            { "left": "+", "right": "Soma" },
+            { "left": "*", "right": "Multiplicação" },
+            { "left": "/", "right": "Divisão" }
+          ]
+        },
+        {
+          "type": "quiz",
+          "question": "Para que servem estruturas condicionais?",
+          "options": [
+            { "text": "Tomar decisões", "correct": true },
+            { "text": "Repetir código", "correct": false }
+          ]
+        },
+        {
+          "type": "ordering",
+          "items": ["Verificar condição", "Executar ação", "Encerrar laço"],
+          "correctOrder": [0, 1, 2]
+        },
+        {
+          "type": "content",
+          "title": "Funções",
+          "text": "Blocos reutilizáveis que organizam o código."
+        },
+        {
+          "type": "spell",
+          "prompt": "Explique como Python ajuda a transformar análise em ação prática."
+        },
+        {
+          "type": "portal",
+          "locked": true,
+          "title": "Portal do Conhecimento Profundo",
+          "text": "A partir daqui, o conteúdo é premium.",
+          "requires": "premium"
+        }
+      ]
     }
-  }
+  ]
 }
-
-function next(){ index++; if(index<flow.length) render(); }
-
-function unlock(){ alert('Simulação de assinatura realizada.'); user.premium=true; next(); }
-
-function restart(){ index=0; render(); }
-
-render();
-</script>
-</body>
-</html>
