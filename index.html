@@ -1,112 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <m<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projeto Renascer – Engine Genérica</title>
+  <title>Projeto Renascer – Engine com Portal Bloqueado</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=MedievalSharp&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg-dark:#05070c;--portal-blue:#3aa6ff;--accent:#7dd3ff;--text:#eaeaea;--danger:#ff6b6b;
-    }
+    :root{--bg:#05070c;--blue:#3aa6ff;--accent:#7dd3ff;--text:#eaeaea;--danger:#ff6b6b}
     *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(circle,#0b1220,var(--bg-dark));color:var(--text);font-family:'MedievalSharp',serif;display:flex;justify-content:center;align-items:center;min-height:100vh}
-    .app{width:100%;max-width:420px;min-height:760px;background:rgba(10,15,30,.9);border-radius:18px;box-shadow:0 0 50px rgba(58,166,255,.35);padding:24px;position:relative}
+    body{margin:0;background:radial-gradient(circle,#0b1220,var(--bg));color:var(--text);font-family:'MedievalSharp',serif;display:flex;justify-content:center;align-items:center;min-height:100vh}
+    .app{width:100%;max-width:420px;min-height:760px;background:rgba(10,15,30,.9);border-radius:18px;box-shadow:0 0 40px rgba(58,166,255,.35);padding:24px;position:relative}
     h1,h2{text-align:center;font-family:'Uncial Antiqua',serif}
     p{text-align:center;line-height:1.5}
-    .screen{display:none}.screen.active{display:block}
-    .button{width:100%;margin-top:20px;padding:12px;border-radius:24px;border:none;background:linear-gradient(135deg,var(--portal-blue),var(--accent));font-weight:bold;cursor:pointer}
+    .button{width:100%;margin-top:18px;padding:12px;border-radius:24px;border:none;background:linear-gradient(135deg,var(--blue),var(--accent));font-weight:bold;cursor:pointer}
     .button.danger{background:linear-gradient(135deg,var(--danger),#ffa07a)}
-    .options label{display:block;background:rgba(255,255,255,.06);padding:10px;border-radius:8px;margin-bottom:8px;cursor:pointer}
-    textarea{width:100%;min-height:120px;border-radius:8px;border:none;padding:10px}
+    textarea{width:100%;min-height:110px;border-radius:8px;border:none;padding:10px}
     .portal{width:140px;height:140px;border-radius:50%;margin:0 auto 16px;background:radial-gradient(circle,#8fd3ff,#1b4fff,#020414);box-shadow:0 0 30px #3aa6ff}
-    .progress{height:6px;background:rgba(255,255,255,.15);border-radius:4px;overflow:hidden;margin-bottom:12px}
-    .progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--portal-blue),var(--accent));transition:.3s}
   </style>
 </head>
 <body>
 <div class="app">
-  <div class="progress"><div class="progress-bar" id="progress"></div></div>
   <div id="screen"></div>
 </div>
 
 <script>
-/* =====================
-   ENGINE GENÉRICA RENASCER
-   ===================== */
+/* ========= ENGINE COM PAYWALL NARRATIVO ========= */
+
+let user = { premium:false };
 
 const flow = [
-  {type:'intro', title:'Projeto Renascer', text:'Antes do código, o olhar.', action:'Iniciar'},
-  {type:'content', title:'O que é um Dado?', text:'Um dado é um valor bruto que representa algo do mundo real.'},
-  {type:'quiz', title:'Desafio do Olhar', question:'Qual item é um dado?', options:[
-    {t:'Uma decisão',c:false},{t:'Relatório analisado',c:false},{t:'Número de acessos',c:true},{t:'Conclusão',c:false}
-  ]},
-  {type:'spell', title:'Feitiço da Compreensão', question:'Por que um dado isolado não gera conhecimento?'},
-  {type:'content', title:'Dados Estruturados', text:'Dados organizados em tabelas com formato definido.'},
-  {type:'quiz', title:'Desafio da Ordem', question:'Qual é um dado estruturado?', options:[
-    {t:'Áudio',c:false},{t:'Vídeo',c:false},{t:'Planilha',c:true},{t:'Texto livre',c:false}
-  ]},
-  {type:'end', title:'Ato I Concluído', text:'Teu olhar foi despertado.', action:'Reiniciar'}
+  {type:'intro', title:'Projeto Renascer', text:'Antes do código, o olhar.', action:'Iniciar Jornada'},
+  {type:'content', title:'Python Básico', text:'Você dominou variáveis, laços, funções e estruturas básicas.'},
+  {type:'spell', title:'Feitiço Final', question:'Explique por que Python é uma boa linguagem inicial.'},
+
+  {type:'portal', title:'Portal do Conhecimento Profundo', locked:true,
+   text:'Tu dominaste a linguagem das máquinas. Este portal exige compromisso.'},
+
+  {type:'content', title:'Ciência de Dados', text:'Bem-vindo ao mundo da análise de dados.'}
 ];
 
 let index = 0;
-const total = flow.length;
 const screen = document.getElementById('screen');
 
 function render(){
   const step = flow[index];
   screen.innerHTML = '';
-  updateProgress();
 
-  if(step.type==='intro'||step.type==='content'||step.type==='end'){
-    screen.innerHTML = `
-      <div class="screen active">
-        <div class="portal"></div>
-        <h1>${step.title}</h1>
-        <p>${step.text}</p>
-        <button class="button ${step.type==='end'?'danger':''}" onclick="next()">${step.action||'Avançar'}</button>
-      </div>`;
-  }
-
-  if(step.type==='quiz'){
-    screen.innerHTML = `
-      <div class="screen active">
-        <h2>${step.title}</h2>
-        <p>${step.question}</p>
-        <div class="options">
-          ${step.options.map((o,i)=>`<label><input type="radio" name="q" value="${o.c}"> ${o.t}</label>`).join('')}
-        </div>
-        <button class="button" onclick="checkQuiz()">Confirmar</button>
-      </div>`;
+  if(step.type==='intro'||step.type==='content'){
+    screen.innerHTML = `<div><div class='portal'></div><h1>${step.title}</h1><p>${step.text}</p><button class='button' onclick='next()'>Avançar</button></div>`;
   }
 
   if(step.type==='spell'){
-    screen.innerHTML = `
-      <div class="screen active">
-        <h2>${step.title}</h2>
-        <p>${step.question}</p>
-        <textarea placeholder="Digite seu feitiço..."></textarea>
-        <button class="button" onclick="next()">Lançar Feitiço</button>
-      </div>`;
+    screen.innerHTML = `<div><h2>${step.title}</h2><p>${step.question}</p><textarea placeholder='Digite seu feitiço...'></textarea><button class='button' onclick='next()'>Lançar Feitiço</button></div>`;
+  }
+
+  if(step.type==='portal'){
+    if(!user.premium){
+      screen.innerHTML = `<div><div class='portal'></div><h1>${step.title}</h1><p>${step.text}</p><button class='button' onclick='unlock()'>Desbloquear Portal</button><button class='button danger' onclick='restart()'>Voltar</button></div>`;
+    } else {
+      next();
+    }
   }
 }
 
-function next(){
-  index = (index + 1) % total;
-  render();
-}
+function next(){ index++; if(index<flow.length) render(); }
 
-function checkQuiz(){
-  const sel = document.querySelector('input[name=q]:checked');
-  if(sel && sel.value==='true'){ alert('Correto!'); next(); }
-  else alert('Resposta incorreta.');
-}
+function unlock(){ alert('Simulação de assinatura realizada.'); user.premium=true; next(); }
 
-function updateProgress(){
-  document.getElementById('progress').style.width = Math.round((index)/(total-1)*100)+'%';
-}
+function restart(){ index=0; render(); }
 
 render();
 </script>
