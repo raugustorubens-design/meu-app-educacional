@@ -9,89 +9,113 @@
         {
           "type": "narrative",
           "title": "O Despertar do Olhar",
-          "text": "Antes de qualquer linguagem, o mundo já deixava rastros. Observar vem antes de agir."
+          "text": "Antes de qualquer código, o mundo já produzia dados. Quem aprende a observar, aprende a decidir melhor."
         },
         {
           "type": "content",
-          "title": "O que é um dado",
-          "text": "Um dado é um valor bruto, sem interpretação.",
-          "example": "Temperatura registrada: 28\nQuantidade vendida: 150"
+          "title": "O que são dados",
+          "text": "Dados são registros brutos de fatos, medições ou eventos. Eles não explicam nada sozinhos.",
+          "example": "Temperatura: 28\nVendas do dia: 150\nIdade: 30"
         },
         {
           "type": "quiz",
-          "question": "Qual alternativa representa apenas um dado?",
+          "question": "Qual opção representa apenas um dado?",
           "options": [
             { "text": "As vendas cresceram", "correct": false },
-            { "text": "150", "correct": true }
+            { "text": "150", "correct": true },
+            { "text": "Bom resultado", "correct": false }
           ]
         },
         {
+          "type": "content",
+          "title": "Dados estão em todo lugar",
+          "text": "Aplicativos, empresas, sensores e pessoas produzem dados o tempo todo. A Ciência de Dados começa ao reconhecer isso.",
+          "example": "Quantidade de passos por dia\nNotas de alunos\nChamadas atendidas por hora"
+        },
+        {
           "type": "ordering",
-          "title": "Ordem do Conhecimento",
-          "text": "Organize o caminho correto até a decisão.",
+          "title": "Caminho do Conhecimento",
+          "text": "Organize o caminho correto até uma decisão.",
           "items": [
             "Registrar dados",
-            "Analisar dados",
+            "Organizar dados",
+            "Analisar padrões",
             "Tomar decisão"
           ]
         },
         {
           "type": "spell",
           "title": "Feitiço do Olhar",
-          "prompt": "Explique por que os dados precisam ser organizados antes de uma decisão."
+          "prompt": "Explique por que reconhecer dados no dia a dia é o primeiro passo para a Ciência de Dados."
         }
       ]
     },
 
     {
       "act": 1,
-      "title": "Análise de Dados",
+      "title": "Introdução à Ciência de Dados",
       "steps": [
         {
+          "type": "narrative",
+          "title": "Pensar como Cientista de Dados",
+          "text": "Ciência de Dados não começa com código, começa com perguntas."
+        },
+        {
           "type": "content",
-          "title": "Analisar dados",
-          "text": "Analisar é comparar, organizar e interpretar dados.",
-          "example": "Janeiro: 120\nFevereiro: 150"
+          "title": "O que é Ciência de Dados",
+          "text": "Ciência de Dados combina dados, análise e lógica para responder perguntas e apoiar decisões.",
+          "example": "Por que as vendas caíram?\nQual aluno precisa de apoio?\nQual horário tem mais atendimentos?"
         },
         {
           "type": "quiz",
-          "question": "O que o exemplo representa?",
+          "question": "O que melhor define Ciência de Dados?",
           "options": [
-            { "text": "Um dado isolado", "correct": false },
-            { "text": "Uma análise simples", "correct": true }
+            { "text": "Programar sistemas", "correct": false },
+            { "text": "Usar dados para responder perguntas", "correct": true }
           ]
         },
         {
+          "type": "content",
+          "title": "Dados, Informação e Conhecimento",
+          "text": "Quando dados são organizados, viram informação. Quando interpretados, geram conhecimento.",
+          "example": "Dados: 120, 150\nInformação: vendas aumentaram\nConhecimento: houve crescimento"
+        },
+        {
           "type": "ordering",
-          "title": "Fluxo da Análise",
-          "text": "Qual a sequência correta da análise?",
+          "title": "Evolução do Valor",
+          "text": "Organize corretamente.",
           "items": [
-            "Coletar dados",
-            "Comparar resultados",
-            "Interpretar padrões"
+            "Dados",
+            "Informação",
+            "Conhecimento"
           ]
         },
         {
           "type": "spell",
-          "title": "Feitiço da Análise",
-          "prompt": "Explique como a análise transforma dados em apoio à decisão."
+          "title": "Feitiço do Cientista",
+          "prompt": "Explique como dados podem se transformar em conhecimento usando um exemplo simples."
         }
       ]
     },
 
     {
       "act": 2,
-      "title": "Python Básico",
+      "title": "Python para Análise Inicial",
       "steps": [
+        {
+          "type": "narrative",
+          "title": "A Ferramenta",
+          "text": "Python permite que ideias se tornem análises. A lógica ganha forma."
+        },
         {
           "type": "content",
           "title": "Variáveis",
           "text": "Variáveis guardam valores para uso posterior.",
-          "example": "idade = 30"
+          "example": "idade = 30\nnota = 7"
         },
         {
           "type": "quiz",
-          "question": "Qual linha cria corretamente uma variável em Python?",
+          "question": "Qual linha cria corretamente uma variável?",
           "options": [
             { "text": "idade == 30", "correct": false },
             { "text": "idade = 30", "correct": true }
@@ -99,29 +123,56 @@
         },
         {
           "type": "content",
-          "title": "Decisões",
-          "text": "Programas podem escolher caminhos.",
-          "example": "if idade >= 18:\n    print(\"Maior de idade\")"
+          "title": "Decisões com if",
+          "text": "O Python pode tomar decisões com base em condições.",
+          "example": "if nota >= 7:\n    print(\"Aprovado\")"
         },
         {
-          "type": "ordering",
-          "title": "Ordem da Decisão",
-          "text": "Organize a lógica de uma decisão em Python.",
-          "items": [
-            "Definir variável",
-            "Avaliar condição",
-            "Executar ação"
+          "type": "quiz",
+          "question": "O que define o bloco de decisão em Python?",
+          "options": [
+            { "text": "Parênteses", "correct": false },
+            { "text": "Dois-pontos e indentação", "correct": true }
           ]
         },
         {
+          "type": "content",
+          "title": "Listas: vários dados juntos",
+          "text": "Listas permitem trabalhar com vários dados ao mesmo tempo.",
+          "example": "vendas = [120, 150, 130]"
+        },
+        {
+          "type": "content",
+          "title": "Repetição com for",
+          "text": "Laços permitem repetir ações sobre vários dados.",
+          "example": "for valor in vendas:\n    print(valor)"
+        },
+        {
+          "type": "ordering",
+          "title": "Fluxo de Análise em Python",
+          "text": "Organize a lógica correta.",
+          "items": [
+            "Criar lista de dados",
+            "Percorrer os dados",
+            "Aplicar condição",
+            "Gerar resultado"
+          ]
+        },
+        {
+          "type": "content",
+          "title": "Aplicando o que você já sabe",
+          "text": "Com variáveis, listas e decisões, já é possível analisar dados simples.",
+          "example": "total = 0\nfor v in vendas:\n    if v > 130:\n        total = total + v"
+        },
+        {
           "type": "spell",
-          "title": "Feitiço da Linguagem",
-          "prompt": "Explique como variáveis e decisões trabalham juntas em um programa Python."
+          "title": "Feitiço da Análise Inicial",
+          "prompt": "Explique como Python pode ser usado para analisar uma lista de dados e apoiar uma decisão simples."
         },
         {
           "type": "portal",
-          "title": "Portal do Conhecimento Profundo",
-          "text": "Você concluiu o caminho gratuito. O próximo nível exige compromisso."
+          "title": "Portal do Próximo Nível",
+          "text": "Você já consegue analisar dados simples com Python. O próximo passo é aprofundar e profissionalizar essa análise."
         }
       ]
     }
