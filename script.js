@@ -1,150 +1,68 @@
-let flow = [];
-let index = 0;
-let student = { name: null };
+// Fases e falas do mago
+const phases = [
+  {
+    messages: [
+      "Bem-vindo, aprendiz. Este é o início da sua jornada.",
+      "Antes de lançar feitiços, é preciso compreender a lógica da magia.",
+      "Quando estiver pronto, tente executar seu primeiro feitiço."
+    ]
+  }
+];
 
-const screen = document.getElementById("screen");
+let currentPhase = 0;
+let messageIndex = 0;
 
-// =================== PERSISTÊNCIA ===================
-function saveProgress() {
-  localStorage.setItem("renascer_index", index);
-  localStorage.setItem("renascer_student", JSON.stringify(student));
+// Inicialização
+document.getElementById("mageText").innerText =
+  phases[currentPhase].messages[messageIndex];
+
+function nextMessage() {
+  messageIndex++;
+
+  const messages = phases[currentPhase].messages;
+
+  if (messageIndex < messages.length) {
+    document.getElementById("mageText").innerText = messages[messageIndex];
+  } else {
+    document.getElementById("continueBtn").classList.add("hidden");
+    document.getElementById("castBtn").classList.remove("hidden");
+  }
 }
 
-function loadProgress() {
-  const savedIndex = localStorage.getItem("renascer_index");
-  const savedStudent = localStorage.getItem("renascer_student");
-
-  if (savedStudent) student = JSON.parse(savedStudent);
-  if (savedIndex !== null) index = parseInt(savedIndex);
+// Início do feitiço
+function castSpell() {
+  document.getElementById("spellArea").classList.remove("hidden");
+  document.getElementById("mageText").innerText =
+    "Escreva seu feitiço. Observe o resultado com atenção.";
 }
 
-// =================== CARREGAMENTO ===================
-fetch("ato_free.json")
-  .then(r => r.json())
-  .then(data => {
-    data.acts.forEach(act => {
-      act.steps.forEach(step => flow.push(step));
-    });
+// Avaliação do feitiço (simulada)
+function evaluateSpell() {
+  const spell = document.getElementById("spellInput").value.trim();
 
-    loadProgress();
-
-    if (!student.name) {
-      renderNameScreen();
-    } else {
-      render();
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    screen.innerHTML = "Erro ao carregar conteúdo.";
-  });
-
-// =================== TELAS ===================
-function renderNameScreen() {
-  screen.innerHTML = `
-    <h1>Projeto Renascer</h1>
-    <p>Antes de iniciar, diga seu nome.</p>
-    <input id="nameInput" style="width:100%;padding:8px;">
-    <button onclick="saveName()">Iniciar Jornada</button>
-  `;
-}
-
-function saveName() {
-  const input = document.getElementById("nameInput");
-  if (!input.value.trim()) return alert("Digite seu nome.");
-  student.name = input.value.trim();
-  saveProgress();
-  render();
-}
-
-function render() {
-  const step = flow[index];
-  screen.innerHTML = "";
-
-  if (!step) {
-    screen.innerHTML = `
-      <h2>Jornada concluída</h2>
-      <p>Parabéns, ${student.name}. Você concluiu o módulo gratuito (10h).</p>
-      <button onclick="reset()">Reiniciar Jornada</button>
-    `;
+  if (spell.length === 0) {
+    document.getElementById("mageText").innerText =
+      "A magia falhou. Um feitiço vazio não produz efeito.";
     return;
   }
 
-  if (step.example) {
-    screen.innerHTML += `
-      <h3>Exemplo prático</h3>
-      <pre>${step.example}</pre>
-    `;
-  }
-
-  if (step.type === "narrative" || step.type === "content") {
-    screen.innerHTML += `
-      <h1>${step.title}</h1>
-      <p>${step.text}</p>
-      <button onclick="next()">Avançar</button>
-    `;
-  }
-
-  if (step.type === "quiz") {
-    screen.innerHTML += `
-      <p>${step.question}</p>
-      ${step.options.map(o => `
-        <label>
-          <input type="radio" name="q" value="${o.correct}">
-          ${o.text}
-        </label>
-      `).join("")}
-      <button onclick="checkQuiz()">Confirmar</button>
-    `;
-  }
-
-  if (step.type === "ordering") {
-    screen.innerHTML += `
-      <h2>${step.title}</h2>
-      <p>${step.text}</p>
-      <ul>
-        ${step.items.map(i => `<li>${i}</li>`).join("")}
-      </ul>
-      <button onclick="next()">Continuar</button>
-    `;
-  }
-
-  if (step.type === "spell") {
-    screen.innerHTML += `
-      <h2>${step.title}</h2>
-      <p>${step.prompt}</p>
-      <textarea placeholder="Escreva sua resposta..."></textarea>
-      <button onclick="next()">Lançar Feitiço</button>
-    `;
-  }
-
-  if (step.type === "portal") {
-    screen.innerHTML += `
-      <h2>${step.title}</h2>
-      <p>${step.text}</p>
-    `;
-  }
-}
-
-// =================== CONTROLES ===================
-function next() {
-  index++;
-  saveProgress();
-  render();
-}
-
-function checkQuiz() {
-  const sel = document.querySelector("input[name=q]:checked");
-  if (sel && sel.value === "true") {
-    alert("Correto!");
-    next();
+  if (spell.includes("print")) {
+    document.getElementById("mageText").innerText =
+      "Muito bem. Seu feitiço funcionou. A magia responde à lógica.";
+    openPortal();
   } else {
-    alert("Reflita e tente novamente.");
+    document.getElementById("mageText").innerText =
+      "Algo deu errado. Observe a estrutura do feitiço e tente novamente.";
   }
 }
 
-function reset() {
-  if (!confirm("Deseja reiniciar sua jornada?")) return;
-  localStorage.clear();
-  location.reload();
+// Portal
+function openPortal() {
+  document.getElementById("portal").classList.remove("hidden");
+}
+
+function enterPortal() {
+  document.getElementById("mageText").innerText =
+    "Você atravessa o vórtice e segue para a próxima etapa da jornada.";
+  document.getElementById("portal").classList.add("hidden");
 }
