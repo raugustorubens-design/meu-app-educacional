@@ -1,96 +1,88 @@
-:root {
-  --bg-dark: #05070c;
-  --bg-panel: rgba(10, 15, 30, 0.92);
-  --portal-blue: #3aa6ff;
-  --accent: #7dd3ff;
-  --text-light: #eaeaea;
-}
-
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
-  background: radial-gradient(circle at center, #0b1220, var(--bg-dark));
-  color: var(--text-light);
-  font-family: 'MedievalSharp', serif;
+  background: radial-gradient(circle at top, #0b0f1a, #05070d);
+  font-family: Georgia, serif;
+  color: #e6e6e6;
+}
+
+.game-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  padding-top: 40px;
 }
 
-.app {
-  width: 100%;
-  max-width: 420px;
-  min-height: 720px;
-  background: var(--bg-panel);
-  border-radius: 18px;
-  padding: 24px;
-  box-shadow: 0 0 40px rgba(58,166,255,0.35);
-  position: relative;
+.mage-window {
+  display: flex;
+  gap: 20px;
+  background: rgba(20, 25, 45, 0.95);
+  border: 2px solid #3a5cff;
+  border-radius: 14px;
+  padding: 20px;
+  width: 720px;
 }
 
-.badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: #ffcc00;
-  color: #000;
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 8px;
-  font-weight: bold;
+.mage-portrait img {
+  width: 120px;
+  border-radius: 10px;
+  border: 2px solid #3a5cff;
 }
 
-h1, h2, h3 {
-  font-family: 'Uncial Antiqua', serif;
-  text-align: center;
-  margin-bottom: 16px;
+.mage-dialog {
+  flex: 1;
 }
 
-p {
-  text-align: center;
+.mage-dialog p {
+  font-size: 18px;
   line-height: 1.5;
 }
 
+.mage-actions {
+  margin-top: 14px;
+}
+
 button {
-  display: block;
-  width: 100%;
-  margin-top: 20px;
-  padding: 12px;
-  border-radius: 24px;
+  padding: 8px 18px;
+  margin-right: 10px;
+  background: #3a5cff;
   border: none;
-  background: linear-gradient(135deg, var(--portal-blue), var(--accent));
-  color: #000;
-  font-weight: bold;
+  border-radius: 6px;
+  color: #fff;
   cursor: pointer;
 }
 
-label {
-  display: block;
-  margin-top: 10px;
-  cursor: pointer;
+button:hover {
+  background: #5c78ff;
 }
 
-textarea {
+.hidden {
+  display: none;
+}
+
+.spell-area {
+  margin-top: 30px;
+  width: 720px;
+  background: rgba(15, 20, 35, 0.9);
+  border: 2px solid #4a66ff;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.spell-area textarea {
   width: 100%;
-  min-height: 120px;
-  border-radius: 8px;
-  border: none;
+  height: 90px;
+  background: #0b0f1a;
+  color: #fff;
+  border: 1px solid #3a5cff;
+  border-radius: 6px;
   padding: 10px;
-  margin-top: 12px;
-  font-family: inherit;
-  background: rgba(255,255,255,0.08);
-  color: var(--text-light);
 }
 
-pre {
-  background: rgba(255,255,255,0.06);
-  padding: 12px;
-  border-radius: 8px;
-  overflow-x: auto;
-  font-family: monospace;
-  font-size: 14px;
+.portal {
+  margin-top: 30px;
+  background: rgba(10, 15, 30, 0.95);
+  border: 2px solid #00cfff;
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
 }
