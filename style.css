@@ -1,6 +1,6 @@
 :root {
   --bg-dark: #05070c;
-  --bg-panel: rgba(10, 15, 30, 0.9);
+  --bg-panel: rgba(10, 15, 30, 0.92);
   --portal-blue: #3aa6ff;
   --accent: #7dd3ff;
   --text-light: #eaeaea;
@@ -44,7 +44,7 @@ body {
   font-weight: bold;
 }
 
-h1, h2 {
+h1, h2, h3 {
   font-family: 'Uncial Antiqua', serif;
   text-align: center;
   margin-bottom: 16px;
@@ -66,10 +66,6 @@ button {
   color: #000;
   font-weight: bold;
   cursor: pointer;
-}
-
-button:hover {
-  opacity: 0.9;
 }
 
 label {
