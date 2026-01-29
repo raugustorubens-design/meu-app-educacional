@@ -1,26 +1,24 @@
 let flow = [];
 let index = 0;
-let student = {
-  name: null
-};
+let student = { name: null };
 
 const screen = document.getElementById("screen");
 
-// ====== PERSISTÊNCIA ======
+// =================== PERSISTÊNCIA ===================
 function saveProgress() {
-  localStorage.setItem("renascer_progress", index);
+  localStorage.setItem("renascer_index", index);
   localStorage.setItem("renascer_student", JSON.stringify(student));
 }
 
 function loadProgress() {
-  const savedIndex = localStorage.getItem("renascer_progress");
+  const savedIndex = localStorage.getItem("renascer_index");
   const savedStudent = localStorage.getItem("renascer_student");
 
   if (savedStudent) student = JSON.parse(savedStudent);
   if (savedIndex !== null) index = parseInt(savedIndex);
 }
 
-// ====== CARREGAMENTO ======
+// =================== CARREGAMENTO ===================
 fetch("ato_free.json")
   .then(r => r.json())
   .then(data => {
@@ -41,12 +39,12 @@ fetch("ato_free.json")
     screen.innerHTML = "Erro ao carregar conteúdo.";
   });
 
-// ====== TELAS ======
+// =================== TELAS ===================
 function renderNameScreen() {
   screen.innerHTML = `
-    <h1>Bem-vindo, viajante</h1>
+    <h1>Projeto Renascer</h1>
     <p>Antes de iniciar, diga seu nome.</p>
-    <input id="nameInput" placeholder="Seu nome" style="width:100%;padding:8px;">
+    <input id="nameInput" style="width:100%;padding:8px;">
     <button onclick="saveName()">Iniciar Jornada</button>
   `;
 }
@@ -66,7 +64,7 @@ function render() {
   if (!step) {
     screen.innerHTML = `
       <h2>Jornada concluída</h2>
-      <p>Parabéns, ${student.name}. Você concluiu o conteúdo gratuito.</p>
+      <p>Parabéns, ${student.name}. Você concluiu o módulo gratuito (10h).</p>
       <button onclick="reset()">Reiniciar Jornada</button>
     `;
     return;
@@ -128,7 +126,7 @@ function render() {
   }
 }
 
-// ====== CONTROLE ======
+// =================== CONTROLES ===================
 function next() {
   index++;
   saveProgress();
@@ -141,7 +139,7 @@ function checkQuiz() {
     alert("Correto!");
     next();
   } else {
-    alert("Observe o exemplo e tente novamente.");
+    alert("Reflita e tente novamente.");
   }
 }
 
