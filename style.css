@@ -9,7 +9,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 30px;
+  padding-top: 20px;
+}
+
+.status-bar {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #00ffcc;
 }
 
 .mage-window {
@@ -57,7 +63,6 @@ textarea {
   color: #e6e6e6;
   border: 1px solid #3a5cff;
   border-radius: 6px;
-  padding: 10px;
 }
 
 .console {
@@ -67,11 +72,10 @@ textarea {
   border-radius: 6px;
 }
 
-.grimorio ul {
-  list-style: none;
-  padding-left: 0;
-}
-
 .grimorio li {
   margin-bottom: 8px;
+}
+
+.grimorio li.locked {
+  opacity: 0.4;
 }
