@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Projeto Renascer — Mapa de Atos</title>
+  <title>Projeto Renascer — Missões do Ato</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -25,21 +25,19 @@
     </div>
   </div>
 
-  <!-- MAPA -->
-  <div class="map">
-    <div class="act" data-act="0" onclick="enterAct(0)">
-      <h3>Ato I</h3>
-      <p>O Despertar</p>
-    </div>
+  <!-- MISSÕES -->
+  <div class="missions">
+    <h3>Ato I — O Despertar</h3>
+    <ul id="missionList"></ul>
+  </div>
 
-    <div class="act locked" data-act="1" onclick="enterAct(1)">
-      <h3>Ato II</h3>
-      <p>A Lógica Profunda</p>
-    </div>
-
-    <div class="act locked" data-act="2" onclick="enterAct(2)">
-      <h3>Ato III</h3>
-      <p>O Código do Mestre</p>
+  <!-- IDE -->
+  <div class="ide hidden" id="ide">
+    <h3 id="missionTitle"></h3>
+    <textarea id="codeInput"></textarea>
+    <button onclick="runMission()">Executar</button>
+    <div class="console">
+      <pre id="consoleOutput"></pre>
     </div>
   </div>
 
