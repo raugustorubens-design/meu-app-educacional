@@ -5,9 +5,7 @@ body {
   color: #e6e6e6;
 }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 .game-container {
   display: flex;
@@ -19,36 +17,33 @@ body {
 .status-bar {
   display: flex;
   gap: 20px;
-  margin-bottom: 10px;
   font-size: 16px;
   color: #00ffcc;
+  margin-bottom: 10px;
 }
 
 .profile-button {
   position: fixed;
   top: 20px;
   right: 20px;
-  z-index: 999;
 }
 
 .profile-button button {
   background: #ffd700;
-  color: #000;
-  font-weight: bold;
-  padding: 6px 14px;
-  border-radius: 6px;
   border: none;
+  padding: 6px 14px;
+  font-weight: bold;
   cursor: pointer;
 }
 
 .mage-window {
   display: flex;
   gap: 20px;
-  background: rgba(20, 25, 45, 0.95);
+  width: 760px;
+  background: rgba(20,25,45,.95);
   border: 2px solid #3a5cff;
   border-radius: 14px;
   padding: 20px;
-  width: 760px;
   margin-bottom: 20px;
 }
 
@@ -60,29 +55,11 @@ body {
 
 .missions, .ide, .boss, .report, .profile {
   width: 760px;
-  background: rgba(15, 20, 35, 0.9);
+  background: rgba(15,20,35,.9);
   border: 2px solid #4a66ff;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-}
-
-.ide textarea,
-.boss textarea {
-  width: 100%;
-  height: 120px;
-  background: #02040a;
-  color: #e6e6e6;
-  border: 1px solid #3a5cff;
-  border-radius: 6px;
-  padding: 10px;
-}
-
-.console {
-  margin-top: 10px;
-  background: #000;
-  padding: 10px;
-  border-radius: 6px;
 }
 
 .missions ul, .report ul, .profile ul {
@@ -100,14 +77,23 @@ body {
   color: #00ff99;
 }
 
-.boss {
-  border-color: #ff5555;
+textarea {
+  width: 100%;
+  height: 120px;
+  background: #02040a;
+  color: #e6e6e6;
+  border: 1px solid #3a5cff;
+  border-radius: 6px;
+  padding: 10px;
 }
 
-.report {
-  border-color: #00ff99;
+.console {
+  background: #000;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
 }
 
-.profile {
-  border-color: #ffd700;
-}
+.boss { border-color: #ff5555; }
+.report { border-color: #00ff99; }
+.profile { border-color: #ffd700; }
