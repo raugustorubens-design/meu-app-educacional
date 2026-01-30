@@ -9,58 +9,64 @@
 
 <div class="game-container">
 
-  <div class="status-bar">
-    <span id="rankLabel"></span>
-    <span id="titleLabel"></span>
+  <!-- DIALOGO DO MAGO -->
+  <div class="dialog-box" id="dialogBox">
+    <h2>🧙‍♂️ Mago Mentor</h2>
+    <p id="dialogText">Bem-vindo, aprendiz. Este é o início da sua jornada.</p>
+    <button onclick="nextDialog()">Continuar</button>
   </div>
 
-  <div class="profile-button">
-    <button onclick="openProfile()">Perfil</button>
-  </div>
-
-  <div class="mage-window">
-    <div class="mage-portrait">
-      <img src="mago.png" alt="Mago Mentor">
-    </div>
-    <div class="mage-dialog">
-      <p id="mageText"></p>
-    </div>
-  </div>
-
-  <div class="missions">
-    <h3 id="actTitle"></h3>
-    <ul id="missionList"></ul>
-  </div>
-
-  <div class="ide hidden" id="ide">
-    <h3 id="missionTitle"></h3>
-    <textarea id="codeInput"></textarea>
-    <button onclick="runMission()">Executar</button>
-    <div class="console"><pre id="consoleOutput"></pre></div>
-  </div>
-
-  <div class="boss hidden" id="boss">
-    <h3>🐉 Boss</h3>
-    <p id="bossText"></p>
-    <textarea id="bossInput"></textarea>
-    <button onclick="runBoss()">Enfrentar</button>
-    <div class="console"><pre id="bossOutput"></pre></div>
-  </div>
-
-  <div class="report hidden" id="bossReport">
-    <h3>📜 Relatório Pedagógico</h3>
-    <ul id="reportList"></ul>
-    <button onclick="closeReport()">Prosseguir</button>
-  </div>
-
+  <!-- PERFIL DO ALUNO -->
   <div class="profile hidden" id="studentProfile">
-    <h3>🧑‍🎓 Perfil do Aluno</h3>
+    <h2>🧑‍🎓 Perfil do Aluno</h2>
     <p><b>Rank:</b> <span id="profileRank"></span></p>
     <p><b>Título:</b> <span id="profileTitle"></span></p>
-    <p><b>Status:</b> <span id="profileStatus"></span></p>
-    <h4>📜 Atos Concluídos</h4>
-    <ul id="profileActs"></ul>
+
+    <button onclick="openCertificate()">🏅 Ver Certificado</button>
+    <button onclick="openFinalReport()">📘 Ver Relatório Pedagógico</button>
+    <button onclick="generateCertificateRecord()">🛠️ Gerar registro do certificado</button>
     <button onclick="closeProfile()">Fechar</button>
+  </div>
+
+  <!-- CERTIFICADO -->
+  <div class="certificate hidden" id="certificate">
+    <h2>🏅 Certificado de Domínio</h2>
+
+    <p>Certificamos que</p>
+    <h3>Aprendiz do Renascer</h3>
+
+    <p>concluiu com êxito todos os Atos do</p>
+    <h3>Projeto Renascer</h3>
+
+    <p><b>Rank:</b> <span id="certRank"></span></p>
+    <p><b>Título:</b> <span id="certTitle"></span></p>
+    <p><b>ID de Validação:</b> <span id="certId"></span></p>
+
+    <img id="qrCode" alt="QR Code de verificação">
+
+    <p class="cert-footer">
+      Assinado simbolicamente por<br>
+      <b>O Mago Mentor do Renascer</b>
+    </p>
+
+    <button onclick="exportPDF()">📄 Exportar em PDF</button>
+    <button onclick="closeCertificate()">Fechar</button>
+  </div>
+
+  <!-- RELATÓRIO -->
+  <div class="final-report hidden" id="finalReport">
+    <h2>📘 Relatório Pedagógico Consolidado</h2>
+
+    <p><b>Aluno:</b> Aprendiz do Renascer</p>
+    <p><b>Rank:</b> <span id="reportRank"></span></p>
+    <p><b>Título:</b> <span id="reportTitle"></span></p>
+    <p><b>ID de Validação:</b> <span id="reportId"></span></p>
+
+    <h3>Competências Desenvolvidas</h3>
+    <ul id="reportSkills"></ul>
+
+    <button onclick="exportPDF()">📄 Exportar em PDF</button>
+    <button onclick="closeFinalReport()">Fechar</button>
   </div>
 
 </div>
