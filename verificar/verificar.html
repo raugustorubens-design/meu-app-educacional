@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Verificação de Certificado — Projeto Renascer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b0f1a;
+      color: #e6e6e6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .box {
+      background: #14192d;
+      border: 2px solid #3a5cff;
+      border-radius: 12px;
+      padding: 30px;
+      width: 420px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #ffd700;
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 15px 0;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #3a5cff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .valid {
+      color: #00ff99;
+    }
+
+    .invalid {
+      color: #ff6666;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h1>Projeto Renascer</h1>
+  <p>Verificação de Certificado</p>
+
+  <input type="text" id="certId" placeholder="Digite o ID do certificado">
+  <br>
+  <button onclick="verify()">Verificar</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+async function verify() {
+  const id = document.getElementById("certId").value.trim().toUpperCase();
+  const resultDiv = document.getElementById("result");
+  resultDiv.innerHTML = "Verificando...";
+
+  try {
+    const response = await fetch("certificados.json");
+    const data = await response.json();
+
+    const cert = data.find(c => c.id === id);
+
+    if (cert) {
+      resultDiv.innerHTML = `
+        <p class="valid"><b>✔ Certificado válido</b></p>
+        <p><b>Projeto:</b> ${cert.projeto}</p>
+        <p><b>Ano:</b> ${cert.ano}</p>
+        <p><b>Status:</b> ${cert.status}</p>
+        <p><b>Domínios comprovados:</b></p>
+        <ul>
+          ${cert.dominios.map(d => `<li>${d}</li>`).join("")}
+        </ul>
+      `;
+    } else {
+      resultDiv.innerHTML = `
+        <p class="invalid"><b>✖ Certificado não encontrado</b></p>
+        <p>Verifique se o ID foi digitado corretamente.</p>
+      `;
+    }
+
+  } catch (e) {
+    resultDiv.innerHTML = `
+      <p class="invalid"><b>Erro ao acessar a base de verificação.</b></p>
+    `;
+  }
+}
+</script>
+
+</body>
+</html>
