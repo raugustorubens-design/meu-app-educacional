@@ -47,12 +47,6 @@ body {
   margin-bottom: 20px;
 }
 
-.mage-portrait img {
-  width: 120px;
-  border-radius: 10px;
-  border: 2px solid #3a5cff;
-}
-
 .missions, .ide, .boss, .report, .profile {
   width: 760px;
   background: rgba(15,20,35,.9);
@@ -60,21 +54,6 @@ body {
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-}
-
-.missions ul, .report ul, .profile ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.missions li {
-  padding: 10px;
-  border-bottom: 1px solid #3a5cff;
-  cursor: pointer;
-}
-
-.missions li.completed {
-  color: #00ff99;
 }
 
 textarea {
@@ -94,6 +73,6 @@ textarea {
   border-radius: 6px;
 }
 
-.boss { border-color: #ff5555; }
-.report { border-color: #00ff99; }
-.profile { border-color: #ffd700; }
+.missions li.completed {
+  color: #00ff99;
+}
