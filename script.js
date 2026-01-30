@@ -1,3 +1,47 @@
+// ===============================
+// PERSONAGENS — CANÔNICO
+// ===============================
+
+const characters = {
+  mentor: {
+    id: "mago",
+    name: "Mago do Renascer",
+    role: "mentor",
+    img: "assets/characters/mago.png"
+  },
+
+  players: [
+    {
+      id: "giu",
+      name: "Giu",
+      role: "jogadora",
+      profile: "exploradora",
+      img: "assets/characters/players/01_Giu_jogadora.png"
+    },
+    {
+      id: "bi",
+      name: "Bi",
+      role: "jogadora",
+      profile: "estrategista",
+      img: "assets/characters/players/02_Bi_jogadora.png"
+    },
+    {
+      id: "neto",
+      name: "Neto",
+      role: "jogador",
+      profile: "equilibrado",
+      img: "assets/characters/players/03_Neto_jogador.png"
+    },
+    {
+      id: "jack",
+      name: "Jack",
+      role: "jogadora",
+      profile: "resiliente",
+      img: "assets/characters/players/04_Jack_jogadora.png"
+    }
+  ]
+};
+
 /* =========================
    NARRATIVA INICIAL
 ========================= */
