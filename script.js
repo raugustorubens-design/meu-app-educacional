@@ -1,54 +1,100 @@
 // ===== ESTADO =====
 const ranks = ["Aprendiz", "Adepto", "Mago"];
 let rankLevel = 0;
-let premium = false;
+let missionsProgress = [];
+
+// ===== MISSÕES DO ATO I =====
+const missions = [
+  {
+    title: "Missão 1 — Primeiro Feitiço",
+    description: "Use print() para exibir algo.",
+    successCheck: code => code.startsWith("print"),
+    completed: false
+  },
+  {
+    title: "Missão 2 — Criando Variáveis",
+    description: "Crie uma variável usando =",
+    successCheck: code => code.includes("="),
+    completed: false
+  },
+  {
+    title: "Missão 3 — Tomando Decisões",
+    description: "Use if para tomar uma decisão.",
+    successCheck: code => code.includes("if"),
+    completed: false
+  }
+];
+
+let activeMission = null;
 
 // ===== LOAD =====
 function loadState() {
-  const saved = localStorage.getItem("renascerState");
+  const saved = localStorage.getItem("renascerMissions");
   if (saved) {
-    const data = JSON.parse(saved);
-    rankLevel = data.rankLevel ?? 0;
-    premium = data.premium ?? false;
+    missionsProgress = JSON.parse(saved);
+    missionsProgress.forEach((done, i) => missions[i].completed = done);
   }
 }
 
-loadState();
-updateUI();
-
-// ===== UI =====
-function updateUI() {
-  document.getElementById("rankLabel").innerText =
-    `Rank: ${ranks[rankLevel]} ${premium ? "(Iniciado)" : "(FREE)"}`;
-
-  document.getElementById("mageText").innerText =
-    "Escolha um Ato. Cada dungeon guarda um tipo de conhecimento.";
-
-  // Bloqueios
-  const acts = document.querySelectorAll(".act");
-  acts.forEach(act => {
-    const index = parseInt(act.dataset.act);
-
-    if (index === 0) {
-      act.classList.remove("locked");
-    } else if (index === 1 && rankLevel >= 1 && premium) {
-      act.classList.remove("locked");
-    } else if (index === 2 && rankLevel >= 2 && premium) {
-      act.classList.remove("locked");
-    }
-  });
+function saveState() {
+  localStorage.setItem(
+    "renascerMissions",
+    JSON.stringify(missions.map(m => m.completed))
+  );
 }
 
-// ===== ENTRAR NO ATO =====
-function enterAct(actIndex) {
-  if (actIndex === 0) {
-    alert("Entrando no Ato I — O Despertar");
-  } else if (actIndex === 1 && rankLevel >= 1 && premium) {
-    alert("Entrando no Ato II — A Lógica Profunda");
-  } else if (actIndex === 2 && rankLevel >= 2 && premium) {
-    alert("Entrando no Ato III — O Código do Mestre");
-  } else {
+loadState();
+renderMissions();
+
+// ===== UI =====
+function renderMissions() {
+  const list = document.getElementById("missionList");
+  list.innerHTML = "";
+
+  missions.forEach((mission, index) => {
+    const li = document.createElement("li");
+    li.textContent = mission.title;
+    li.className = mission.completed ? "completed" : "";
+    li.onclick = () => startMission(index);
+    list.appendChild(li);
+  });
+
+  document.getElementById("rankLabel").innerText =
+    `Rank: ${ranks[rankLevel]}`;
+}
+
+function startMission(index) {
+  const mission = missions[index];
+  activeMission = mission;
+
+  document.getElementById("missionTitle").innerText = mission.title;
+  document.getElementById("mageText").innerText = mission.description;
+  document.getElementById("ide").classList.remove("hidden");
+
+  document.querySelectorAll(".missions li").forEach(li =>
+    li.classList.remove("active")
+  );
+  document.querySelectorAll(".missions li")[index].classList.add("active");
+}
+
+// ===== EXECUÇÃO =====
+function runMission() {
+  const code = document.getElementById("codeInput").value.trim();
+  const out = document.getElementById("consoleOutput");
+  out.textContent = "";
+
+  if (!activeMission) return;
+
+  if (activeMission.successCheck(code)) {
+    activeMission.completed = true;
+    out.textContent = "✔ Missão concluída com sucesso.";
     document.getElementById("mageText").innerText =
-      "Este Ato está selado. Evolua seu rank ou aceite o pacto.";
+      "Muito bem. Você dominou este desafio.";
+    saveState();
+    renderMissions();
+  } else {
+    out.textContent = "✖ A magia falhou.";
+    document.getElementById("mageText").innerText =
+      "Observe o grimório e tente novamente.";
   }
 }
