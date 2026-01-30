@@ -1,140 +1,118 @@
-// ===== ESTADO =====
-const ranks = ["Aprendiz", "Adepto", "Mago"];
-let rankLevel = 0;
-let title = "Mago Iniciado";
-let currentAct = localStorage.getItem("atoAtual") || "Ato6";
+let dialogIndex = 0;
+const dialogs = [
+  "Bem-vindo, aprendiz. Este é o início da sua jornada.",
+  "Você percorreu todos os caminhos do conhecimento.",
+  "Agora seu domínio pode ser comprovado."
+];
 
-// ===== ATOS =====
-const acts = {
-  Ato6: [
-    {
-      title: "Coleção de Poder",
-      desc: "Crie uma lista com múltiplos valores.",
-      check: c => c.includes("[") && c.includes("]"),
-      completed: false
-    },
-    {
-      title: "Chaves do Conhecimento",
-      desc: "Crie um dicionário com chaves e valores.",
-      check: c => c.includes("{") && c.includes(":"),
-      completed: false
-    },
-    {
-      title: "Tecendo Dados",
-      desc: "Itere sobre uma coleção usando for.",
-      check: c => c.includes("for") && (c.includes("[") || c.includes("{")),
-      completed: false
-    }
-  ]
-};
+const ranks = ["Iniciado", "Aprendiz", "Adepto", "Mestre"];
+let rankLevel = 3;
+let title = "Mestre do Renascer";
 
-let activeMission = null;
-
-// ===== LOAD =====
-function loadState() {
-  const s = JSON.parse(localStorage.getItem("renascerState") || "{}");
-  rankLevel = s.rankLevel || rankLevel;
-  title = s.title || title;
-  if (s.Ato6) s.Ato6.forEach((v,i)=>acts.Ato6[i].completed=v);
-}
-loadState();
-render();
-
-// ===== UI =====
-function render() {
-  document.getElementById("rankLabel").innerText = `Rank: ${ranks[rankLevel]}`;
-  document.getElementById("titleLabel").innerText = `Título: ${title}`;
-  document.getElementById("actTitle").innerText =
-    "Ato VI — A Ordem do Caos";
-  document.getElementById("mageText").innerText =
-    "Organizar dados é dominar o caos.";
-  renderMissions();
-}
-
-function renderMissions() {
-  const ul = document.getElementById("missionList");
-  ul.innerHTML = "";
-  acts.Ato6.forEach((m,i)=>{
-    const li = document.createElement("li");
-    li.textContent = m.title;
-    if (m.completed) li.classList.add("completed");
-    li.onclick = () => startMission(i);
-    ul.appendChild(li);
-  });
-  if (acts.Ato6.every(m=>m.completed)) unlockBoss();
-}
-
-// ===== MISSÕES =====
-function startMission(i) {
-  activeMission = acts.Ato6[i];
-  document.getElementById("missionTitle").innerText = activeMission.title;
-  document.getElementById("mageText").innerText = activeMission.desc;
-  document.getElementById("ide").classList.remove("hidden");
-}
-
-function runMission() {
-  const code = document.getElementById("codeInput").value;
-  if (activeMission && activeMission.check(code)) {
-    activeMission.completed = true;
-    save();
-    render();
+function nextDialog() {
+  dialogIndex++;
+  if (dialogIndex < dialogs.length) {
+    document.getElementById("dialogText").innerText = dialogs[dialogIndex];
+  } else {
+    document.getElementById("dialogBox").classList.add("hidden");
+    openProfile();
   }
 }
 
-// ===== BOSS =====
-function unlockBoss() {
-  document.getElementById("boss").classList.remove("hidden");
-  document.getElementById("bossText").innerText =
-    "O Tecelão de Dados exige ordem e iteração.";
-}
-
-function runBoss() {
-  const code = document.getElementById("bossInput").value;
-  const ok =
-    (code.includes("[") || code.includes("{")) &&
-    code.includes("for");
-  if (!ok) {
-    document.getElementById("mageText").innerText =
-      "O caos ainda reina. Falta organização.";
-    return;
-  }
-  localStorage.setItem("ato6Completo","true");
-  generateReport();
-  save();
-}
-
-// ===== RELATÓRIO =====
-function generateReport() {
-  document.getElementById("reportList").innerHTML =
-    "<li>✔ Estruturas de dados dominadas</li>";
-  document.getElementById("bossReport").classList.remove("hidden");
-}
-
-function closeReport() {
-  document.getElementById("bossReport").classList.add("hidden");
-  render();
-}
-
-// ===== PERFIL =====
 function openProfile() {
   document.getElementById("studentProfile").classList.remove("hidden");
   document.getElementById("profileRank").innerText = ranks[rankLevel];
   document.getElementById("profileTitle").innerText = title;
-  document.getElementById("profileStatus").innerText = "Avançado";
-
-  const ul = document.getElementById("profileActs");
-  ul.innerHTML = "<li>Ato VI ✔</li>";
 }
 
 function closeProfile() {
   document.getElementById("studentProfile").classList.add("hidden");
 }
 
-// ===== SAVE =====
-function save() {
-  localStorage.setItem("renascerState", JSON.stringify({
-    rankLevel,
-    title,
-    Ato6: acts.Ato6.map(m=>m.completed)
-  }));
+function generateCertificateId() {
+  let existing = localStorage.getItem("certificateId");
+  if (existing) return existing;
+
+  const seed = ranks[rankLevel] + title;
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = (hash << 5) - hash + seed.charCodeAt(i);
+    hash |= 0;
+  }
+  const code = Math.abs(hash).toString(16).toUpperCase().slice(0, 6);
+  const id = `REN-2026-${code}`;
+  localStorage.setItem("certificateId", id);
+  return id;
+}
+
+function openCertificate() {
+  document.getElementById("certificate").classList.remove("hidden");
+  document.getElementById("certRank").innerText = ranks[rankLevel];
+  document.getElementById("certTitle").innerText = title;
+
+  const id = generateCertificateId();
+  document.getElementById("certId").innerText = id;
+
+  const url =
+    "https://raugustorubens-design.github.io/projeto-renascer/verificar/verificar.html?id=" + id;
+
+  document.getElementById("qrCode").src =
+    "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" +
+    encodeURIComponent(url);
+}
+
+function closeCertificate() {
+  document.getElementById("certificate").classList.add("hidden");
+}
+
+function openFinalReport() {
+  document.getElementById("finalReport").classList.remove("hidden");
+  document.getElementById("reportRank").innerText = ranks[rankLevel];
+  document.getElementById("reportTitle").innerText = title;
+  document.getElementById("reportId").innerText = generateCertificateId();
+
+  const skills = [
+    "Pensamento Lógico",
+    "Decisão Condicional",
+    "Repetição (Laços)",
+    "Abstração (Funções)",
+    "Estruturas de Dados"
+  ];
+
+  const ul = document.getElementById("reportSkills");
+  ul.innerHTML = "";
+  skills.forEach(s => {
+    const li = document.createElement("li");
+    li.innerText = s;
+    ul.appendChild(li);
+  });
+}
+
+function closeFinalReport() {
+  document.getElementById("finalReport").classList.add("hidden");
+}
+
+function exportPDF() {
+  window.print();
+}
+
+function generateCertificateRecord() {
+  const record = {
+    id: generateCertificateId(),
+    projeto: "RENASCER",
+    status: "válido",
+    ano: 2026,
+    dominios: [
+      "Pensamento Lógico",
+      "Decisão Condicional",
+      "Repetição (Laços)",
+      "Abstração (Funções)",
+      "Estruturas de Dados"
+    ]
+  };
+
+  alert(
+    "COPIE ESTE REGISTRO E COLE EM certificados.json:\n\n" +
+    JSON.stringify(record, null, 2)
+  );
 }
