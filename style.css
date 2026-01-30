@@ -26,6 +26,7 @@ body {
   border-radius: 14px;
   padding: 20px;
   width: 760px;
+  margin-bottom: 20px;
 }
 
 .mage-portrait img {
@@ -34,39 +35,27 @@ body {
   border: 2px solid #3a5cff;
 }
 
-button {
-  padding: 8px 18px;
-  background: #3a5cff;
-  border: none;
-  border-radius: 6px;
-  color: #fff;
-  cursor: pointer;
+.map {
+  display: flex;
+  gap: 30px;
 }
 
-.hidden {
-  display: none;
-}
-
-.ide, .grimorio, .paywall {
-  margin-top: 20px;
-  width: 760px;
-  background: rgba(10, 15, 30, 0.95);
-  border: 2px solid #4a66ff;
+.act {
+  width: 200px;
+  height: 140px;
+  background: rgba(15, 20, 35, 0.9);
+  border: 2px solid #3a5cff;
   border-radius: 12px;
-  padding: 20px;
+  padding: 15px;
+  cursor: pointer;
+  text-align: center;
 }
 
-.console {
-  margin-top: 10px;
-  background: #000;
-  padding: 10px;
-  border-radius: 6px;
+.act:hover {
+  border-color: #00cfff;
 }
 
-.grimorio li.locked {
+.act.locked {
   opacity: 0.4;
-}
-
-.paywall h2 {
-  color: #00cfff;
+  cursor: not-allowed;
 }
