@@ -26,14 +26,14 @@
 
   <!-- Área do Feitiço -->
   <div class="spell-area hidden" id="spellArea">
-    <h3>Feitiço do Aprendiz</h3>
-    <textarea id="spellInput" placeholder="Digite seu feitiço (ex: print('Olá'))"></textarea>
+    <h3 id="spellTitle">Feitiço do Aprendiz</h3>
+    <textarea id="spellInput"></textarea>
     <button onclick="evaluateSpell()">Executar</button>
   </div>
 
   <!-- Portal -->
   <div class="portal hidden" id="portal">
-    <p>🌀 O vórtice se abre diante de você...</p>
+    <p id="portalText">🌀 O vórtice se abre diante de você...</p>
     <button onclick="enterPortal()">Atravessar Portal</button>
   </div>
 
