@@ -1,0 +1,15 @@
+[
+  {
+    "id": "REN-2026-A7F3C9",
+    "projeto": "RENASCER",
+    "status": "válido",
+    "ano": 2026,
+    "dominios": [
+      "Pensamento Lógico",
+      "Decisão Condicional",
+      "Repetição (Laços)",
+      "Abstração (Funções)",
+      "Estruturas de Dados"
+    ]
+  }
+]
