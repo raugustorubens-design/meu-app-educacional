@@ -429,14 +429,18 @@ const grimorioEntries = [
   { id:"str", titulo:"str", categoria:"Tipos", descricao:"Texto (strings)", exemplo:"nome = 'Ana'", armadilha:"Esquecer aspas" },
 
   // Controle de Fluxo
-  { id:"if", titulo:"if / else", categoria:"Controle de Fluxo", descricao:"Executa blocos condicionais", exemplo:"if x > 0:\n    print(x)", armadilha:"Indentação incorreta" },
+  { id:"if", titulo:"if / else", categoria:"Controle de Fluxo", descricao:"Executa blocos condicionais", exemplo:"if x > 0:
+    print(x)", armadilha:"Indentação incorreta" },
 
   // Laços
-  { id:"for", titulo:"for", categoria:"Laços", descricao:"Itera sobre sequências", exemplo:"for i in range(3):\n    print(i)", armadilha:"Alterar a sequência durante iteração" },
-  { id:"while", titulo:"while", categoria:"Laços", descricao:"Laço enquanto condição for verdadeira", exemplo:"while x > 0:\n    x -= 1", armadilha:"Laço infinito" },
+  { id:"for", titulo:"for", categoria:"Laços", descricao:"Itera sobre sequências", exemplo:"for i in range(3):
+    print(i)", armadilha:"Alterar a sequência durante iteração" },
+  { id:"while", titulo:"while", categoria:"Laços", descricao:"Laço enquanto condição for verdadeira", exemplo:"while x > 0:
+    x -= 1", armadilha:"Laço infinito" },
 
   // Funções
-  { id:"def", titulo:"def", categoria:"Funções", descricao:"Define funções", exemplo:"def soma(a,b):\n    return a+b", armadilha:"Esquecer return quando necessário" },
+  { id:"def", titulo:"def", categoria:"Funções", descricao:"Define funções", exemplo:"def soma(a,b):
+    return a+b", armadilha:"Esquecer return quando necessário" },
 
   // Coleções
   { id:"list", titulo:"list", categoria:"Coleções", descricao:"Lista ordenada e mutável", exemplo:"nums = [1,2,3]", armadilha:"Acessar índice inexistente" },
@@ -464,3 +468,76 @@ function listarPorCategoria(cat) {
 ✔ Python Básico coberto no Grimório
 ✔ Estrutura pronta para expansão futura
 ✔ Armadilhas conceituais reforçando aprendizado
+
+---
+
+## 🧩 INTEGRAÇÃO DO GRIMÓRIO À INTERFACE (FASE 6.2)
+
+> Integração **manual e consciente** do Grimório à interface.
+> Não há abertura automática, pop-ups invasivos ou sugestões contextuais forçadas.
+
+### Elemento de Interface (HTML)
+```html
+<button id="btnGrimorio">📜 Grimório</button>
+
+<div id="grimorioPanel" class="hidden">
+  <h3>Grimório da Linguagem</h3>
+  <select id="categoriaSelect"></select>
+  <ul id="grimorioList"></ul>
+</div>
+```
+
+### Estilo Básico (CSS)
+```css
+#grimorioPanel {
+  position: fixed;
+  right: 20px;
+  top: 80px;
+  width: 320px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #111;
+  color: #eee;
+  padding: 12px;
+  border-radius: 8px;
+}
+.hidden { display: none; }
+```
+
+### Controle de Abertura Consciente (JS)
+```js
+document.getElementById("btnGrimorio").onclick = () => {
+  if (!grimorio.enabled) return;
+  document.getElementById("grimorioPanel").classList.toggle("hidden");
+};
+```
+
+### Carregamento de Categorias
+```js
+function carregarCategorias() {
+  const cats = [...new Set(grimorioEntries.map(e => e.categoria))];
+  const select = document.getElementById("categoriaSelect");
+  select.innerHTML = cats.map(c => `<option>${c}</option>`).join('');
+}
+```
+
+### Listagem de Entradas
+```js
+function listarEntradas(cat) {
+  const list = document.getElementById("grimorioList");
+  list.innerHTML = listarPorCategoria(cat)
+    .map(e => `<li><strong>${e.titulo}</strong><br>${e.descricao}<br><em>⚠ ${e.armadilha}</em></li>`)
+    .join('');
+}
+```
+
+### Regra Pedagógica Ativa
+- O Grimório abre **somente por clique voluntário**.
+- Não interfere na lógica de fases.
+- Pode ser fechado a qualquer momento.
+
+---
+
+✔ Grimório integrado à UI
+✔ Acesso consciente preservado
+✔ FREE intacto
