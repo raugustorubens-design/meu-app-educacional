@@ -1,112 +1,54 @@
-// ===== RANK =====
+// ===== ESTADO =====
 const ranks = ["Aprendiz", "Adepto", "Mago"];
 let rankLevel = 0;
 let premium = false;
 
-// ===== PERSISTÊNCIA =====
-function saveState() {
-  localStorage.setItem("renascerState", JSON.stringify({
-    rankLevel,
-    premium
-  }));
-}
-
+// ===== LOAD =====
 function loadState() {
   const saved = localStorage.getItem("renascerState");
   if (saved) {
     const data = JSON.parse(saved);
-    rankLevel = data.rankLevel;
-    premium = data.premium;
+    rankLevel = data.rankLevel ?? 0;
+    premium = data.premium ?? false;
   }
 }
 
 loadState();
-updateRankUI();
-
-// ===== MENSAGENS =====
-const messages = [
-  "Você chegou até aqui, aprendiz.",
-  "O próximo conhecimento não é gratuito.",
-  "Decida se deseja prosseguir."
-];
-
-let msgIndex = 0;
-document.getElementById("mageText").innerText = messages[msgIndex];
-
-// ===== FLUXO =====
-function nextMessage() {
-  msgIndex++;
-  if (msgIndex < messages.length) {
-    document.getElementById("mageText").innerText = messages[msgIndex];
-  } else {
-    document.getElementById("continueBtn").classList.add("hidden");
-    document.getElementById("castBtn").classList.remove("hidden");
-  }
-}
-
-function openIDE() {
-  if (!premium && rankLevel >= 1) {
-    showPaywall();
-    return;
-  }
-  document.getElementById("ide").classList.remove("hidden");
-  document.getElementById("grimorio").classList.remove("hidden");
-  updateGrimorio();
-}
-
-// ===== IDE =====
-function runCode() {
-  const code = document.getElementById("codeInput").value.trim();
-
-  if (rankLevel === 0 && code.startsWith("print")) {
-    promote();
-  } else if (rankLevel === 1 && code.includes("=")) {
-    promote();
-  } else if (rankLevel === 2 && code.includes("if")) {
-    document.getElementById("mageText").innerText =
-      "Você domina este ciclo de conhecimento.";
-  } else {
-    document.getElementById("mageText").innerText =
-      "Esse feitiço está além do seu domínio atual.";
-  }
-}
-
-// ===== PAYWALL =====
-function showPaywall() {
-  document.getElementById("paywall").classList.remove("hidden");
-  document.getElementById("mageText").innerText =
-    "O portal está selado. Apenas iniciados podem atravessar.";
-}
-
-function acceptPact() {
-  premium = true;
-  saveState();
-  document.getElementById("paywall").classList.add("hidden");
-  document.getElementById("mageText").innerText =
-    "O pacto foi aceito. O portal se abre diante de você.";
-  openIDE();
-}
-
-// ===== RANK =====
-function promote() {
-  if (rankLevel < ranks.length - 1) {
-    rankLevel++;
-    saveState();
-    updateRankUI();
-    document.getElementById("mageText").innerText =
-      `Você alcançou o rank ${ranks[rankLevel]}.`;
-  }
-}
+updateUI();
 
 // ===== UI =====
-function updateRankUI() {
+function updateUI() {
   document.getElementById("rankLabel").innerText =
-    `Rank: ${ranks[rankLevel]}`;
+    `Rank: ${ranks[rankLevel]} ${premium ? "(Iniciado)" : "(FREE)"}`;
+
+  document.getElementById("mageText").innerText =
+    "Escolha um Ato. Cada dungeon guarda um tipo de conhecimento.";
+
+  // Bloqueios
+  const acts = document.querySelectorAll(".act");
+  acts.forEach(act => {
+    const index = parseInt(act.dataset.act);
+
+    if (index === 0) {
+      act.classList.remove("locked");
+    } else if (index === 1 && rankLevel >= 1 && premium) {
+      act.classList.remove("locked");
+    } else if (index === 2 && rankLevel >= 2 && premium) {
+      act.classList.remove("locked");
+    }
+  });
 }
 
-function updateGrimorio() {
-  document.querySelectorAll(".grimorio li").forEach(li => {
-    const required = parseInt(li.dataset.rank);
-    li.classList.toggle("locked", rankLevel < required);
-  });
+// ===== ENTRAR NO ATO =====
+function enterAct(actIndex) {
+  if (actIndex === 0) {
+    alert("Entrando no Ato I — O Despertar");
+  } else if (actIndex === 1 && rankLevel >= 1 && premium) {
+    alert("Entrando no Ato II — A Lógica Profunda");
+  } else if (actIndex === 2 && rankLevel >= 2 && premium) {
+    alert("Entrando no Ato III — O Código do Mestre");
+  } else {
+    document.getElementById("mageText").innerText =
+      "Este Ato está selado. Evolua seu rank ou aceite o pacto.";
+  }
 }
