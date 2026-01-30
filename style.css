@@ -24,6 +24,23 @@ body {
   color: #00ffcc;
 }
 
+.profile-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
+.profile-button button {
+  background: #ffd700;
+  color: #000;
+  font-weight: bold;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
 .mage-window {
   display: flex;
   gap: 20px;
@@ -41,7 +58,7 @@ body {
   border: 2px solid #3a5cff;
 }
 
-.missions, .ide, .boss, .report {
+.missions, .ide, .boss, .report, .profile {
   width: 760px;
   background: rgba(15, 20, 35, 0.9);
   border: 2px solid #4a66ff;
@@ -68,7 +85,7 @@ body {
   border-radius: 6px;
 }
 
-.missions ul, .report ul {
+.missions ul, .report ul, .profile ul {
   list-style: none;
   padding-left: 0;
 }
@@ -87,23 +104,10 @@ body {
   border-color: #ff5555;
 }
 
-.boss h3 {
-  color: #ff9999;
-}
-
 .report {
   border-color: #00ff99;
 }
 
-.report h3 {
-  color: #00ff99;
-}
-
-button {
-  padding: 8px 18px;
-  background: #3a5cff;
-  border: none;
-  border-radius: 6px;
-  color: #fff;
-  cursor: pointer;
+.profile {
+  border-color: #ffd700;
 }
