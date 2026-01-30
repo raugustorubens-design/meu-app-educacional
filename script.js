@@ -234,3 +234,33 @@ function generateCertificateRecord() {
     JSON.stringify(record, null, 2)
   );
 }
+
+// ===============================
+// TESTE DE CARREGAMENTO DE IMAGENS
+// ===============================
+
+window.addEventListener("DOMContentLoaded", () => {
+  const testArea = document.createElement("div");
+  testArea.style.display = "flex";
+  testArea.style.gap = "16px";
+  testArea.style.flexWrap = "wrap";
+  testArea.style.padding = "16px";
+
+  // Mago
+  const magoImg = document.createElement("img");
+  magoImg.src = characters.mentor.img;
+  magoImg.alt = characters.mentor.name;
+  magoImg.style.width = "150px";
+  testArea.appendChild(magoImg);
+
+  // Jogadores
+  characters.players.forEach(p => {
+    const img = document.createElement("img");
+    img.src = p.img;
+    img.alt = p.name;
+    img.style.width = "120px";
+    testArea.appendChild(img);
+  });
+
+  document.body.appendChild(testArea);
+});
