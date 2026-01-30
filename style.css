@@ -1,78 +1,70 @@
 body {
-  margin: 0;
-  background: radial-gradient(circle at top, #0b0f1a, #05070d);
-  font-family: Consolas, monospace;
-  color: #e6e6e6;
+  background: radial-gradient(circle at top, #0b0f1a, #000);
+  font-family: Arial, sans-serif;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-
-.hidden { display: none; }
 
 .game-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
+  width: 800px;
+  text-align: center;
 }
 
-.status-bar {
-  display: flex;
-  gap: 20px;
-  font-size: 16px;
-  color: #00ffcc;
-  margin-bottom: 10px;
+.hidden {
+  display: none;
 }
 
-.profile-button {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+.dialog-box,
+.profile,
+.certificate,
+.final-report {
+  background: #12182b;
+  border: 2px solid #3a5cff;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 20px;
 }
 
-.profile-button button {
-  background: #ffd700;
+button {
+  margin: 8px;
+  padding: 10px 20px;
+  background: #3a5cff;
   border: none;
-  padding: 6px 14px;
-  font-weight: bold;
+  color: #fff;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-.mage-window {
-  display: flex;
-  gap: 20px;
-  width: 760px;
-  background: rgba(20,25,45,.95);
-  border: 2px solid #3a5cff;
-  border-radius: 14px;
-  padding: 20px;
-  margin-bottom: 20px;
+.certificate {
+  background: linear-gradient(#f5f0d8, #e6d9a8);
+  color: #2b2b2b;
 }
 
-.missions, .ide, .boss, .report, .profile {
-  width: 760px;
-  background: rgba(15,20,35,.9);
-  border: 2px solid #4a66ff;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
+.cert-footer {
+  margin-top: 20px;
 }
 
-textarea {
-  width: 100%;
-  height: 120px;
-  background: #02040a;
-  color: #e6e6e6;
-  border: 1px solid #3a5cff;
-  border-radius: 6px;
-  padding: 10px;
+.final-report {
+  background: #f4f6f9;
+  color: #000;
 }
 
-.console {
-  background: #000;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 6px;
-}
-
-.missions li.completed {
-  color: #00ff99;
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .certificate,
+  .final-report {
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+  button {
+    display: none;
+  }
 }
