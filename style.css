@@ -28,19 +28,6 @@ body {
   border: 2px solid #3a5cff;
 }
 
-.mage-dialog {
-  flex: 1;
-}
-
-.mage-dialog p {
-  font-size: 17px;
-  line-height: 1.5;
-}
-
-.mage-actions {
-  margin-top: 12px;
-}
-
 button {
   padding: 8px 18px;
   background: #3a5cff;
@@ -50,17 +37,12 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background: #5c78ff;
-}
-
 .hidden {
   display: none;
 }
 
-/* IDE */
-.ide {
-  margin-top: 25px;
+.ide, .grimorio {
+  margin-top: 20px;
   width: 760px;
   background: rgba(10, 15, 30, 0.95);
   border: 2px solid #4a66ff;
@@ -68,7 +50,7 @@ button:hover {
   padding: 20px;
 }
 
-.ide textarea {
+textarea {
   width: 100%;
   height: 120px;
   background: #02040a;
@@ -79,22 +61,17 @@ button:hover {
 }
 
 .console {
-  margin-top: 12px;
+  margin-top: 10px;
   background: #000;
-  border-radius: 6px;
   padding: 10px;
-  min-height: 60px;
+  border-radius: 6px;
 }
 
-.console pre {
-  color: #00ffcc;
-  margin: 0;
+.grimorio ul {
+  list-style: none;
+  padding-left: 0;
 }
 
-.portal {
-  margin-top: 25px;
-  border: 2px solid #00cfff;
-  border-radius: 14px;
-  padding: 20px;
-  text-align: center;
+.grimorio li {
+  margin-bottom: 8px;
 }
