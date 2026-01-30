@@ -1,68 +1,58 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Projeto Renascer</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <nav class="menu">
+    <button data-tab="inicio">Início</button>
+    <button data-tab="portal">Portal</button>
+    <button data-tab="qualidade">Qualidade</button>
+  </nav>
 
-<div class="game-container">
+  <main>
+    <section id="inicio" class="tab active">
+      <h1>Projeto Renascer</h1>
+      <p>Uma jornada formativa baseada em rigor técnico, clareza pedagógica e evolução consciente.</p>
+    </section>
 
-  <!-- DIALOGO DO MAGO -->
-  <div class="dialog-box" id="dialogBox">
-    <h2>🧙‍♂️ Mago Mentor</h2>
-    <p id="dialogText">Bem-vindo, aprendiz. Este é o início da sua jornada.</p>
-    <button onclick="nextDialog()">Continuar</button>
-  </div>
+    <section id="portal" class="tab">
+      <h2>Portal de Aprendizado</h2>
+      <p>Conteúdo FREE disponível até Python Básico. O portal avançado será liberado no momento adequado.</p>
+    </section>
 
-  <!-- PERFIL -->
-  <div class="profile hidden" id="studentProfile">
-    <h2>🧑‍🎓 Perfil do Aluno</h2>
+    <section id="qualidade" class="tab">
+      <h2>Qualidade, Ética e Compliance</h2>
 
-    <p><b>Rank:</b> <span id="profileRank"></span></p>
-    <p><b>Título:</b> <span id="profileTitle"></span></p>
-    <p><b>Aproveitamento Geral:</b> <span id="profilePerformance"></span>%</p>
-    <p><b>Carga Horária Consolidada:</b> <span id="profileHours"></span>h</p>
+      <p><strong>O Projeto Renascer</strong> foi concebido com compromisso explícito com qualidade técnica, clareza pedagógica e responsabilidade ética.</p>
 
-    <button onclick="openCertificate()">🏅 Ver Certificado</button>
-    <button onclick="openFinalReport()">📘 Ver Relatório Pedagógico</button>
-    <button onclick="generateCertificateRecord()">🛠️ Gerar registro do certificado</button>
-    <button onclick="closeProfile()">Fechar</button>
-  </div>
+      <h3>Compromisso com a Qualidade</h3>
+      <p>Inspirado nas normas ISO 9000 e ISO 12207, o projeto evolui de forma controlada, rastreável e verificável.</p>
 
-  <!-- CERTIFICADO -->
-  <div class="certificate hidden" id="certificate">
-    <h2>🏅 Certificado de Domínio</h2>
+      <h3>Política de Não-Alucinação de IA</h3>
+      <p>Conteúdos devem ser coerentes, verificáveis e reproduzíveis. IA é ferramenta de apoio, nunca autoridade final.</p>
 
-    <p>Certificamos que</p>
-    <h3>Aprendiz do Renascer</h3>
+      <h3>Validação Pedagógica</h3>
+      <ul>
+        <li>Explicação guiada</li>
+        <li>Validação objetiva</li>
+        <li>Validação estrutural</li>
+        <li>Validação conceitual (feitiço)</li>
+      </ul>
 
-    <p>concluiu com êxito o percurso formativo do</p>
-    <h3>Projeto Renascer</h3>
+      <h3>Governança Técnica Invisível</h3>
+      <p>Decisões técnicas são monitoradas sistemicamente. Pessoas não são monitoradas.</p>
 
-    <p><b>Rank:</b> <span id="certRank"></span></p>
-    <p><b>Título:</b> <span id="certTitle"></span></p>
-    <p><b>Carga Horária Consolidada:</b> <span id="certHours"></span>h</p>
-    <p><b>Aproveitamento Geral:</b> <span id="certPerformance"></span>%</p>
-    <p><b>ID de Validação:</b> <span id="certId"></span></p>
+      <h3>Evolução Controlada</h3>
+      <p>O sistema evolui por checkpoints formais. Crescer certo é prioridade.</p>
 
-    <img id="qrCode" alt="QR Code de verificação">
+      <p><strong>Qualidade não é promessa. É método.</strong></p>
+    </section>
+  </main>
 
-    <p class="cert-footer">
-      Assinado simbolicamente por<br>
-      <b>O Mago Mentor do Renascer</b>
-    </p>
-
-    <button onclick="exportPDF()">📄 Exportar em PDF</button>
-    <button onclick="closeCertificate()">Fechar</button>
-  </div>
-
-  <!-- RELATÓRIO -->
-  <div class="final-report hidden" id="finalReport">
-    <h2>📘 Relatório Pedagógico Consolidado</h2>
-
-    <p><b>Aluno:</b> Aprendiz do Renascer</p>
-    <p><b>Rank:</b> <span id="reportRank"></span></p>
-    <p><b>Título:</b> <span id="reportTitle"></span></p>
-    <p><b>ID de Validação:</b> <span id="reportId"></span>
+  <script src="script.js"></script>
+</body>
+</html>
