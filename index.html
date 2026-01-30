@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Projeto Renascer — Janela do Mago</title>
+  <title>Projeto Renascer — IDE do Mago</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,21 +19,27 @@
       <p id="mageText"></p>
       <div class="mage-actions">
         <button id="continueBtn" onclick="nextMessage()">Continuar</button>
-        <button id="castBtn" onclick="castSpell()" class="hidden">Lançar Feitiço</button>
+        <button id="castBtn" onclick="castSpell()" class="hidden">Abrir Grimório</button>
       </div>
     </div>
   </div>
 
-  <!-- Área do Feitiço -->
-  <div class="spell-area hidden" id="spellArea">
-    <h3 id="spellTitle">Feitiço do Aprendiz</h3>
-    <textarea id="spellInput"></textarea>
-    <button onclick="evaluateSpell()">Executar</button>
+  <!-- IDE Simulada -->
+  <div class="ide hidden" id="ide">
+    <h3 id="spellTitle"></h3>
+
+    <textarea id="codeInput" placeholder="# Escreva seu feitiço aqui"></textarea>
+
+    <button onclick="runCode()">Executar</button>
+
+    <div class="console">
+      <pre id="consoleOutput"></pre>
+    </div>
   </div>
 
   <!-- Portal -->
   <div class="portal hidden" id="portal">
-    <p id="portalText">🌀 O vórtice se abre diante de você...</p>
+    <p>🌀 O vórtice responde à sua magia...</p>
     <button onclick="enterPortal()">Atravessar Portal</button>
   </div>
 
