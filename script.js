@@ -1,69 +1,51 @@
-// ===== ESTADO =====
+// ===== ESTADO GLOBAL =====
 const ranks = ["Aprendiz", "Adepto", "Mago"];
 let rankLevel = 0;
 let title = "Aprendiz Iniciado";
+let currentAct = localStorage.getItem("atoAtual") || "Ato1";
 
 // ===== MISSÕES =====
-const missions = [
-  {
-    title: "Primeiro Feitiço",
-    description: "Use print() para exibir algo.",
-    check: code => code.startsWith("print"),
-    completed: false
-  },
-  {
-    title: "Criando Variáveis",
-    description: "Crie uma variável usando =",
-    check: code => code.includes("="),
-    completed: false
-  },
-  {
-    title: "Tomando Decisões",
-    description: "Use if para tomar uma decisão.",
-    check: code => code.includes("if"),
-    completed: false
-  }
+const missionsAct1 = [
+  { title: "Primeiro Feitiço", desc: "Use print()", check: c => c.startsWith("print"), completed: false },
+  { title: "Variáveis", desc: "Crie uma variável", check: c => c.includes("="), completed: false },
+  { title: "Decisão", desc: "Use if", check: c => c.includes("if"), completed: false }
+];
+
+const missionsAct2 = [
+  { title: "Variável + print", desc: "Crie variável e imprima", check: c => c.includes("=") && c.includes("print"), completed: false },
+  { title: "Reatribuição", desc: "Altere o valor da variável", check: c => (c.split("=").length - 1) >= 2, completed: false },
+  { title: "Preparação", desc: "Use variável para decisão futura", check: c => c.includes("="), completed: false }
 ];
 
 let activeMission = null;
 
-// ===== LOAD / SAVE =====
-function saveState() {
-  localStorage.setItem("renascerState", JSON.stringify({
-    missions: missions.map(m => m.completed),
-    rankLevel,
-    title,
-    ato1Completo: localStorage.getItem("ato1Completo")
-  }));
-}
-
+// ===== LOAD =====
 function loadState() {
-  const saved = localStorage.getItem("renascerState");
-  if (!saved) return;
+  const saved = JSON.parse(localStorage.getItem("renascerState") || "{}");
+  rankLevel = saved.rankLevel || 0;
+  title = saved.title || title;
 
-  const data = JSON.parse(saved);
-  data.missions.forEach((done, i) => missions[i].completed = done);
-  rankLevel = data.rankLevel ?? 0;
-  title = data.title ?? title;
+  if (saved.act1) saved.act1.forEach((v, i) => missionsAct1[i].completed = v);
+  if (saved.act2) saved.act2.forEach((v, i) => missionsAct2[i].completed = v);
 }
-
 loadState();
 renderAll();
 
 // ===== UI =====
 function renderAll() {
-  document.getElementById("rankLabel").innerText =
-    `Rank: ${ranks[rankLevel]}`;
-  document.getElementById("titleLabel").innerText =
-    `Título: ${title}`;
+  document.getElementById("rankLabel").innerText = `Rank: ${ranks[rankLevel]}`;
+  document.getElementById("titleLabel").innerText = `Título: ${title}`;
+  document.getElementById("actTitle").innerText =
+    currentAct === "Ato2" ? "Ato II — A Lógica Profunda" : "Ato I — O Despertar";
   renderMissions();
   document.getElementById("mageText").innerText =
-    "Escolha uma missão para avançar no Ato.";
+    "Escolha uma missão para avançar.";
 }
 
 function renderMissions() {
   const list = document.getElementById("missionList");
   list.innerHTML = "";
+  const missions = currentAct === "Ato2" ? missionsAct2 : missionsAct1;
 
   missions.forEach((m, i) => {
     const li = document.createElement("li");
@@ -73,109 +55,109 @@ function renderMissions() {
     list.appendChild(li);
   });
 
-  checkBossUnlock();
+  if (missions.every(m => m.completed)) unlockBoss();
 }
 
 // ===== MISSÕES =====
-function startMission(index) {
-  activeMission = missions[index];
+function startMission(i) {
+  const missions = currentAct === "Ato2" ? missionsAct2 : missionsAct1;
+  activeMission = missions[i];
   document.getElementById("missionTitle").innerText = activeMission.title;
-  document.getElementById("mageText").innerText = activeMission.description;
+  document.getElementById("mageText").innerText = activeMission.desc;
   document.getElementById("ide").classList.remove("hidden");
 }
 
 function runMission() {
   const code = document.getElementById("codeInput").value.trim();
-  const out = document.getElementById("consoleOutput");
-  out.textContent = "";
-
   if (!activeMission) return;
 
   if (activeMission.check(code)) {
     activeMission.completed = true;
-    out.textContent = "✔ Missão concluída.";
-    document.getElementById("mageText").innerText =
-      "Muito bem. Você avançou em seu aprendizado.";
     promote();
     saveState();
-    renderMissions();
-  } else {
-    out.textContent = "✖ A magia falhou.";
-    document.getElementById("mageText").innerText =
-      "Reflita sobre o feitiço e tente novamente.";
+    renderAll();
   }
 }
 
 // ===== PROGRESSÃO =====
 function promote() {
-  const completed = missions.filter(m => m.completed).length;
-  if (completed === 1) rankLevel = 1;
-  if (completed === 3) rankLevel = 2;
+  const completed =
+    (currentAct === "Ato2" ? missionsAct2 : missionsAct1)
+      .filter(m => m.completed).length;
+
+  if (completed >= 1) rankLevel = 1;
+  if (completed >= 3) rankLevel = 2;
 }
 
 // ===== BOSS =====
-function checkBossUnlock() {
-  if (missions.every(m => m.completed)) {
-    document.getElementById("boss").classList.remove("hidden");
-    document.getElementById("bossText").innerText = bossIntroByRank();
-  }
-}
-
-function bossIntroByRank() {
-  if (rankLevel === 0) {
-    return "Como Aprendiz, demonstre o feitiço básico: use print().";
-  }
-  if (rankLevel === 1) {
-    return "Como Adepto, use print() e controle valores com variáveis.";
-  }
-  return "Como Mago, una print(), variáveis e decisões com if.";
+function unlockBoss() {
+  document.getElementById("boss").classList.remove("hidden");
+  document.getElementById("bossText").innerText =
+    currentAct === "Ato2"
+      ? "O Guardião da Lógica exige coerência."
+      : "Prove seu domínio.";
 }
 
 function runBoss() {
-  const code = document.getElementById("bossInput").value.trim();
-  const out = document.getElementById("bossOutput");
-  out.textContent = "";
-
+  const code = document.getElementById("bossInput").value;
   const hasPrint = code.includes("print");
   const hasVar = code.includes("=");
   const hasIf = code.includes("if");
+  const assigns = code.split("=").length - 1;
 
-  let passed = false;
-  if (rankLevel === 0) passed = hasPrint;
-  else if (rankLevel === 1) passed = hasPrint && hasVar;
-  else passed = hasPrint && hasVar && hasIf;
+  let passed =
+    currentAct === "Ato2"
+      ? hasPrint && hasVar && assigns >= 2
+      : hasPrint && hasVar && hasIf;
 
   if (passed) {
-    out.textContent = "✔ O Guardião foi derrotado.";
-    document.getElementById("mageText").innerText =
-      "Você provou domínio sobre este Ato.";
-
-    localStorage.setItem("ato1Completo", "true");
-    localStorage.setItem("ato2Liberado", "true");
-
-    generateBossReport();
-    saveState();
-  } else {
-    out.textContent = "✖ O feitiço é insuficiente.";
-    document.getElementById("mageText").innerText =
-      "O Guardião exige mais. Reúna todo o conhecimento aprendido.";
+    if (currentAct === "Ato1") {
+      localStorage.setItem("ato1Completo", "true");
+      currentAct = "Ato2";
+      localStorage.setItem("atoAtual", "Ato2");
+    } else {
+      localStorage.setItem("ato2Completo", "true");
+    }
+    generateReport();
   }
 }
 
 // ===== RELATÓRIO =====
-function generateBossReport() {
+function generateReport() {
   const list = document.getElementById("reportList");
-  list.innerHTML = "";
-
-  list.innerHTML += "<li>✔ Uso correto de print()</li>";
-  if (rankLevel >= 1) list.innerHTML += "<li>✔ Uso de variáveis</li>";
-  if (rankLevel >= 2) list.innerHTML += "<li>✔ Uso de decisões com if</li>";
-
+  list.innerHTML = "<li>✔ Progresso validado</li>";
   document.getElementById("bossReport").classList.remove("hidden");
 }
 
 function closeReport() {
   document.getElementById("bossReport").classList.add("hidden");
-  document.getElementById("mageText").innerText =
-    "Ato concluído. Um novo caminho se abre no mapa.";
+  renderAll();
+}
+
+// ===== PERFIL =====
+function openProfile() {
+  document.getElementById("studentProfile").classList.remove("hidden");
+  document.getElementById("profileRank").innerText = ranks[rankLevel];
+  document.getElementById("profileTitle").innerText = title;
+  document.getElementById("profileStatus").innerText =
+    localStorage.getItem("premium") === "true" ? "Iniciado" : "FREE";
+
+  const list = document.getElementById("profileActs");
+  list.innerHTML = "";
+  if (localStorage.getItem("ato1Completo")) list.innerHTML += "<li>Ato I ✔</li>";
+  if (localStorage.getItem("ato2Completo")) list.innerHTML += "<li>Ato II ✔</li>";
+}
+
+function closeProfile() {
+  document.getElementById("studentProfile").classList.add("hidden");
+}
+
+// ===== SAVE =====
+function saveState() {
+  localStorage.setItem("renascerState", JSON.stringify({
+    rankLevel,
+    title,
+    act1: missionsAct1.map(m => m.completed),
+    act2: missionsAct2.map(m => m.completed)
+  }));
 }
