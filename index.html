@@ -57,7 +57,6 @@
 </body>
 </html>
 
-
 ---
 
 ## 🔐 CHECKPOINT FASE 1 — ESTADO GLOBAL E PERSISTÊNCIA
@@ -127,3 +126,223 @@ function canAccessPortal() {
 ✔ Estado explícito
 ✔ Persistência local
 ✔ Base pronta para fases seguintes
+
+---
+
+## 🔒 FASE 2 — REGRAS INVISÍVEIS (COMPLIANCE TÉCNICO)
+
+> Esta fase codifica **as regras que não aparecem para o aluno**, mas governam todo o fluxo.
+> O sistema passa a impedir erros estruturais automaticamente.
+
+### Estados de Validação Canônica
+```js
+const validationState = {
+  explanationViewed: false,
+  level2Passed: false, // múltipla escolha
+  level3Passed: false, // associação / sequência
+  level1Passed: false  // dissertativa / feitiço
+};
+```
+
+### Guards de Progressão
+```js
+function canAttemptLevel(level) {
+  if (!validationState.explanationViewed) return false;
+
+  if (level === 2) return true;
+  if (level === 3) return validationState.level2Passed;
+  if (level === 1) return validationState.level2Passed && validationState.level3Passed;
+
+  return false;
+}
+```
+
+### Registro de Validação
+```js
+function registerSuccess(level) {
+  if (level === 2) validationState.level2Passed = true;
+  if (level === 3) validationState.level3Passed = true;
+  if (level === 1) {
+    validationState.level1Passed = true;
+    unlockNextPhase();
+  }
+  saveState();
+}
+```
+
+### Lock Silencioso de Ações Indevidas
+```js
+function guardAction(level) {
+  if (!canAttemptLevel(level)) {
+    console.warn("Ação bloqueada por regra canônica");
+    return false;
+  }
+  return true;
+}
+```
+
+### Liberação Canônica da Fase Seguinte
+```js
+function unlockNextPhase() {
+  gameState.progress.python.basicCompleted = true;
+  saveState();
+}
+```
+
+> ⚠️ Não existe override manual.
+> A única forma de avançar é cumprir a sequência canônica.
+
+---
+
+✔ Ordem pedagógica codificada (2 → 3 → 1)
+✔ Bloqueio automático de saltos
+✔ Compliance técnico invisível
+✔ Sistema coerente com o fundador
+
+---
+
+## 🧙 FASE 3 — INFERÊNCIAS PEDAGÓGICAS PROFUNDAS
+
+> Esta fase conecta **avaliação, erro consciente e narrativa**.
+> O avanço deixa de ser apenas lógico e passa a ser **simbólico + pedagógico**.
+
+### Estado do Erro Consciente
+```js
+const learningState = {
+  attempts: 0,
+  lastError: null,
+  consciousErrorValidated: false
+};
+```
+
+### Registro de Tentativa e Erro
+```js
+function registerAttempt(isCorrect, errorMessage = null) {
+  learningState.attempts++;
+  if (!isCorrect) {
+    learningState.lastError = errorMessage;
+    learningState.consciousErrorValidated = false;
+  }
+  saveState();
+}
+```
+
+### Validação do Erro Consciente
+```js
+function validateConsciousError(explanationText) {
+  if (!learningState.lastError) return false;
+
+  if (explanationText && explanationText.length > 30) {
+    learningState.consciousErrorValidated = true;
+    saveState();
+    return true;
+  }
+  return false;
+}
+```
+
+### Feitiço como Validação Conceitual
+```js
+function castSpell(spellText) {
+  if (!learningState.consciousErrorValidated) return false;
+
+  if (spellText && spellText.length > 50) {
+    registerSuccess(1);
+    return true;
+  }
+  return false;
+}
+```
+
+### Travessia Narrativa do Portal
+```js
+function canTraversePortal() {
+  return (
+    gameState.progress.python.basicCompleted &&
+    validationState.level1Passed &&
+    learningState.consciousErrorValidated
+  );
+}
+```
+
+> ⚠️ Não existe travessia sem erro compreendido.
+> A narrativa respeita a maturidade cognitiva.
+
+---
+
+✔ Erro tratado como parte do aprendizado
+✔ Feitiço validado conceitualmente
+✔ Narrativa conectada ao estado pedagógico
+✔ Sistema agora ensina pelo comportamento
+
+---
+
+## 🧱 FASE 4 — INFRAESTRUTURA DE EXPANSÃO (SEM ATIVAÇÃO)
+
+> Esta fase prepara o sistema para crescer **sem liberar funcionalidades**.
+> Tudo aqui é **estrutura vazia, segura e bloqueada**.
+
+### Estrutura do Grimório da Linguagem
+```js
+const grimorio = {
+  enabled: false,
+  entries: [],
+  open() {
+    if (!this.enabled) {
+      console.warn("Grimório indisponível no modo atual");
+      return false;
+    }
+    return true;
+  }
+};
+```
+
+### Estrutura da IDE Pedagógica Simulada
+```js
+const ideSimulator = {
+  enabled: false,
+  lastExecution: null,
+  run(code) {
+    if (!this.enabled) {
+      console.warn("IDE simulada indisponível");
+      return null;
+    }
+    // Execução futura simulada
+    return {
+      output: null,
+      error: "Execução ainda não habilitada"
+    };
+  }
+};
+```
+
+### Hooks de Avaliação Futura
+```js
+const evaluationHooks = {
+  onBeforeRun() {},
+  onAfterRun() {},
+  onError() {}
+};
+```
+
+### Locks Canônicos de Expansão
+```js
+function enablePremiumFeatures() {
+  if (gameState.mode !== "PREMIUM") return false;
+
+  grimorio.enabled = true;
+  ideSimulator.enabled = true;
+  return true;
+}
+```
+
+> ⚠️ Nenhuma dessas estruturas é acessível no FREE.
+> Elas existem apenas para evitar refatorações futuras.
+
+---
+
+✔ Infraestrutura preparada
+✔ Nenhuma feature ativa
+✔ Nenhuma quebra de congelamento
+✔ Sistema pronto para escalar com segurança
+
