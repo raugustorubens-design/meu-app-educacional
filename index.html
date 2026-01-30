@@ -9,18 +9,15 @@
 
 <div class="game-container">
 
-  <!-- STATUS -->
   <div class="status-bar">
     <span id="rankLabel"></span>
     <span id="titleLabel"></span>
   </div>
 
-  <!-- BOTÃO PERFIL -->
   <div class="profile-button">
     <button onclick="openProfile()">Perfil</button>
   </div>
 
-  <!-- MAGO -->
   <div class="mage-window">
     <div class="mage-portrait">
       <img src="mago.png" alt="Mago Mentor">
@@ -30,13 +27,11 @@
     </div>
   </div>
 
-  <!-- MISSÕES -->
   <div class="missions">
     <h3 id="actTitle"></h3>
     <ul id="missionList"></ul>
   </div>
 
-  <!-- IDE -->
   <div class="ide hidden" id="ide">
     <h3 id="missionTitle"></h3>
     <textarea id="codeInput"></textarea>
@@ -44,32 +39,27 @@
     <div class="console"><pre id="consoleOutput"></pre></div>
   </div>
 
-  <!-- BOSS -->
   <div class="boss hidden" id="boss">
-    <h3>🐉 Guardião</h3>
+    <h3>🐉 Boss</h3>
     <p id="bossText"></p>
     <textarea id="bossInput"></textarea>
     <button onclick="runBoss()">Enfrentar</button>
     <div class="console"><pre id="bossOutput"></pre></div>
   </div>
 
-  <!-- RELATÓRIO -->
   <div class="report hidden" id="bossReport">
     <h3>📜 Relatório Pedagógico</h3>
     <ul id="reportList"></ul>
     <button onclick="closeReport()">Prosseguir</button>
   </div>
 
-  <!-- PERFIL -->
   <div class="profile hidden" id="studentProfile">
     <h3>🧑‍🎓 Perfil do Aluno</h3>
     <p><b>Rank:</b> <span id="profileRank"></span></p>
     <p><b>Título:</b> <span id="profileTitle"></span></p>
     <p><b>Status:</b> <span id="profileStatus"></span></p>
-
     <h4>📜 Atos Concluídos</h4>
     <ul id="profileActs"></ul>
-
     <button onclick="closeProfile()">Fechar</button>
   </div>
 
