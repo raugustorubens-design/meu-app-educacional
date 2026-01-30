@@ -4,7 +4,7 @@ let rankLevel = 0;
 let title = "Aprendiz Iniciado";
 let currentAct = localStorage.getItem("atoAtual") || "Ato1";
 
-// ===== MISSÕES =====
+// ===== ATOS E MISSÕES =====
 const acts = {
   Ato1: [
     { title:"Primeiro Feitiço", desc:"Use print()", check:c=>c.includes("print"), completed:false },
@@ -20,6 +20,11 @@ const acts = {
     { title:"Primeira Escolha", desc:"if com condição real", check:c=>c.includes("if")&&(c.includes(">")||c.includes("<")||c.includes("==")), completed:false },
     { title:"Caminhos Mutáveis", desc:"Variável muda fluxo", check:c=>c.includes("if")&&c.includes("="), completed:false },
     { title:"O Silêncio", desc:"if sem else", check:c=>c.includes("if")&&!c.includes("else"), completed:false }
+  ],
+  Ato4: [
+    { title:"O Primeiro Retorno", desc:"Use um laço for", check:c=>c.includes("for"), completed:false },
+    { title:"O Limite Invisível", desc:"Use um laço while", check:c=>c.includes("while"), completed:false },
+    { title:"O Ritmo Correto", desc:"Controle o avanço do laço", check:c=>c.includes("for")||c.includes("while"), completed:false }
   ]
 };
 
@@ -44,9 +49,11 @@ function render(){
   document.getElementById("actTitle").innerText =
     currentAct==="Ato1"?"Ato I — O Despertar":
     currentAct==="Ato2"?"Ato II — A Lógica Profunda":
-    "Ato III — O Peso da Decisão";
+    currentAct==="Ato3"?"Ato III — O Peso da Decisão":
+    "Ato IV — O Ciclo Eterno";
 
-  document.getElementById("mageText").innerText = "Escolha uma missão.";
+  document.getElementById("mageText").innerText =
+    "Escolha uma missão para avançar.";
   renderMissions();
 }
 
@@ -63,7 +70,7 @@ function renderMissions(){
   if(acts[currentAct].every(m=>m.completed)) unlockBoss();
 }
 
-// ===== MISSÃO =====
+// ===== MISSÕES =====
 function startMission(i){
   activeMission=acts[currentAct][i];
   document.getElementById("missionTitle").innerText=activeMission.title;
@@ -91,22 +98,38 @@ function promote(){
 // ===== BOSS =====
 function unlockBoss(){
   document.getElementById("boss").classList.remove("hidden");
-  document.getElementById("bossText").innerText="Prove seu domínio.";
+  document.getElementById("bossText").innerText =
+    currentAct==="Ato4"
+      ? "O Guardião do Ciclo exige controle do tempo."
+      : "Prove seu domínio.";
 }
 
 function runBoss(){
-  if(currentAct==="Ato1"){ localStorage.setItem("ato1Completo","true"); currentAct="Ato2";}
-  else if(currentAct==="Ato2"){ localStorage.setItem("ato2Completo","true"); currentAct="Ato3";}
-  else{ localStorage.setItem("ato3Completo","true"); }
-
-  localStorage.setItem("atoAtual",currentAct);
+  if(currentAct==="Ato4"){
+    const code=document.getElementById("bossInput").value;
+    const ok =
+      (code.includes("for")||code.includes("while")) &&
+      (code.includes("range")||code.includes("<")||code.includes(">")) &&
+      (code.includes("+=")||code.includes("range"));
+    if(!ok){
+      document.getElementById("mageText").innerText =
+        "O ciclo não está sob controle.";
+      return;
+    }
+    localStorage.setItem("ato4Completo","true");
+  } else {
+    localStorage.setItem(`ato${currentAct.slice(-1)}Completo`,"true");
+    currentAct = "Ato"+(parseInt(currentAct.slice(-1))+1);
+    localStorage.setItem("atoAtual",currentAct);
+  }
   generateReport();
   save();
 }
 
 // ===== RELATÓRIO =====
 function generateReport(){
-  document.getElementById("reportList").innerHTML="<li>✔ Domínio validado</li>";
+  document.getElementById("reportList").innerHTML =
+    "<li>✔ Domínio validado</li>";
   document.getElementById("bossReport").classList.remove("hidden");
 }
 
@@ -124,8 +147,9 @@ function openProfile(){
 
   const ul=document.getElementById("profileActs");
   ul.innerHTML="";
-  ["ato1Completo","ato2Completo","ato3Completo"].forEach((k,i)=>{
-    if(localStorage.getItem(k)) ul.innerHTML+=`<li>Ato ${i+1} ✔</li>`;
+  Object.keys(acts).forEach((a,i)=>{
+    if(localStorage.getItem(`ato${i+1}Completo`))
+      ul.innerHTML+=`<li>${a} ✔</li>`;
   });
 }
 
@@ -135,10 +159,9 @@ function closeProfile(){
 
 // ===== SAVE =====
 function save(){
-  localStorage.setItem("renascerState",JSON.stringify({
-    rankLevel,title,
-    Ato1:acts.Ato1.map(m=>m.completed),
-    Ato2:acts.Ato2.map(m=>m.completed),
-    Ato3:acts.Ato3.map(m=>m.completed)
-  }));
+  const s={ rankLevel,title };
+  Object.keys(acts).forEach(a=>{
+    s[a]=acts[a].map(m=>m.completed);
+  });
+  localStorage.setItem("renascerState",JSON.stringify(s));
 }
