@@ -1,7 +1,7 @@
 body {
   margin: 0;
   background: radial-gradient(circle at top, #0b0f1a, #05070d);
-  font-family: Georgia, serif;
+  font-family: Consolas, monospace;
   color: #e6e6e6;
 }
 
@@ -9,7 +9,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 40px;
+  padding-top: 30px;
 }
 
 .mage-window {
@@ -19,7 +19,7 @@ body {
   border: 2px solid #3a5cff;
   border-radius: 14px;
   padding: 20px;
-  width: 720px;
+  width: 760px;
 }
 
 .mage-portrait img {
@@ -33,17 +33,16 @@ body {
 }
 
 .mage-dialog p {
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.5;
 }
 
 .mage-actions {
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
 button {
   padding: 8px 18px;
-  margin-right: 10px;
   background: #3a5cff;
   border: none;
   border-radius: 6px;
@@ -59,28 +58,41 @@ button:hover {
   display: none;
 }
 
-.spell-area {
-  margin-top: 30px;
-  width: 720px;
-  background: rgba(15, 20, 35, 0.9);
+/* IDE */
+.ide {
+  margin-top: 25px;
+  width: 760px;
+  background: rgba(10, 15, 30, 0.95);
   border: 2px solid #4a66ff;
   border-radius: 12px;
   padding: 20px;
 }
 
-.spell-area textarea {
+.ide textarea {
   width: 100%;
-  height: 90px;
-  background: #0b0f1a;
-  color: #fff;
+  height: 120px;
+  background: #02040a;
+  color: #e6e6e6;
   border: 1px solid #3a5cff;
   border-radius: 6px;
   padding: 10px;
 }
 
+.console {
+  margin-top: 12px;
+  background: #000;
+  border-radius: 6px;
+  padding: 10px;
+  min-height: 60px;
+}
+
+.console pre {
+  color: #00ffcc;
+  margin: 0;
+}
+
 .portal {
-  margin-top: 30px;
-  background: rgba(10, 15, 30, 0.95);
+  margin-top: 25px;
   border: 2px solid #00cfff;
   border-radius: 14px;
   padding: 20px;
