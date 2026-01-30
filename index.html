@@ -56,3 +56,74 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+
+---
+
+## 🔐 CHECKPOINT FASE 1 — ESTADO GLOBAL E PERSISTÊNCIA
+
+> Este bloco define o **estado canônico do Projeto Renascer** no modo FREE.
+> Não há backend, rede ou APIs externas. Tudo é determinístico e auditável.
+
+### Estado Global (gameState)
+```js
+const gameState = {
+  version: "1.0.0",
+  mode: "FREE", // FREE | PREMIUM
+  portalLocked: true,
+  player: {
+    id: null,
+    name: null,
+    createdAt: null
+  },
+  progress: {
+    python: {
+      introCompleted: false,
+      basicCompleted: false
+    }
+  }
+};
+```
+
+### Persistência Local (LocalStorage)
+```js
+function saveState() {
+  localStorage.setItem("renascer_state", JSON.stringify(gameState));
+}
+
+function loadState() {
+  const saved = localStorage.getItem("renascer_state");
+  if (saved) {
+    Object.assign(gameState, JSON.parse(saved));
+  } else {
+    initializePlayer();
+    saveState();
+  }
+}
+```
+
+### Inicialização do Aluno
+```js
+function initializePlayer() {
+  gameState.player.id = crypto.randomUUID();
+  gameState.player.createdAt = new Date().toISOString();
+  gameState.player.name = "Aprendiz";
+}
+```
+
+### Lock Canônico do Portal
+```js
+function canAccessPortal() {
+  return gameState.progress.python.basicCompleted === true;
+}
+```
+
+> ⚠️ Regra fixa: o portal **não pode** ser acessado manualmente.
+> Somente mudança de estado validada libera o acesso.
+
+---
+
+✔ Inferências transformadas em código
+✔ Estado explícito
+✔ Persistência local
+✔ Base pronta para fases seguintes
