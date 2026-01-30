@@ -347,7 +347,6 @@ function enablePremiumFeatures() {
 ✔ Sistema pronto para escalar com segurança
 
 
-
 ---
 
 ## 📜 INÍCIO DO GRIMÓRIO DA LINGUAGEM (FASE 6)
@@ -376,7 +375,8 @@ const grimorioEntries = [
     titulo: "if / else",
     categoria: "Controle de Fluxo",
     descricao: "Executa blocos condicionais",
-    exemplo: "if x > 0:\n    print(x)",
+    exemplo: "if x > 0:
+    print(x)",
     armadilha: "Indentação incorreta"
   }
 ];
@@ -399,3 +399,68 @@ function consultarGrimorio(id) {
 ✔ Grimório ativado
 ✔ Consulta segura e contextual
 ✔ Nenhum impacto na progressão
+
+---
+
+## 📜 EXPANSÃO DO GRIMÓRIO — PYTHON BÁSICO (FASE 6.1)
+
+> Expansão estruturada do Grimório cobrindo **Python Básico completo**, organizada por categorias.
+> Cada entrada inclui **armadilha conceitual** para reforçar o erro consciente.
+
+### Categorias Ativas
+- Saída
+- Variáveis
+- Tipos
+- Controle de Fluxo
+- Laços
+- Funções
+- Coleções
+- Entrada do Usuário
+
+### Entradas Canônicas (amostra expandida)
+```js
+const grimorioEntries = [
+  // Saída
+  { id:"print", titulo:"print()", categoria:"Saída", descricao:"Exibe informações no console", exemplo:"print('Olá, mundo')", armadilha:"Confundir print com retorno de função" },
+
+  // Variáveis e Tipos
+  { id:"var", titulo:"Variáveis", categoria:"Variáveis", descricao:"Armazenam valores na memória", exemplo:"x = 10", armadilha:"Usar variável antes de definir" },
+  { id:"int", titulo:"int", categoria:"Tipos", descricao:"Números inteiros", exemplo:"idade = 30", armadilha:"Misturar int com string sem conversão" },
+  { id:"str", titulo:"str", categoria:"Tipos", descricao:"Texto (strings)", exemplo:"nome = 'Ana'", armadilha:"Esquecer aspas" },
+
+  // Controle de Fluxo
+  { id:"if", titulo:"if / else", categoria:"Controle de Fluxo", descricao:"Executa blocos condicionais", exemplo:"if x > 0:\n    print(x)", armadilha:"Indentação incorreta" },
+
+  // Laços
+  { id:"for", titulo:"for", categoria:"Laços", descricao:"Itera sobre sequências", exemplo:"for i in range(3):\n    print(i)", armadilha:"Alterar a sequência durante iteração" },
+  { id:"while", titulo:"while", categoria:"Laços", descricao:"Laço enquanto condição for verdadeira", exemplo:"while x > 0:\n    x -= 1", armadilha:"Laço infinito" },
+
+  // Funções
+  { id:"def", titulo:"def", categoria:"Funções", descricao:"Define funções", exemplo:"def soma(a,b):\n    return a+b", armadilha:"Esquecer return quando necessário" },
+
+  // Coleções
+  { id:"list", titulo:"list", categoria:"Coleções", descricao:"Lista ordenada e mutável", exemplo:"nums = [1,2,3]", armadilha:"Acessar índice inexistente" },
+  { id:"dict", titulo:"dict", categoria:"Coleções", descricao:"Mapa chave-valor", exemplo:"p = {'a':1}", armadilha:"Acessar chave inexistente" },
+
+  // Entrada
+  { id:"input", titulo:"input()", categoria:"Entrada do Usuário", descricao:"Lê dados do usuário", exemplo:"nome = input('Nome: ')", armadilha:"Esquecer que input retorna string" }
+];
+```
+
+### Consulta por Categoria
+```js
+function listarPorCategoria(cat) {
+  return grimorioEntries.filter(e => e.categoria === cat);
+}
+```
+
+### Regra de Uso
+- O Grimório **não substitui explicação**.
+- O Grimório **não corrige automaticamente**.
+- O Grimório **não valida aprendizado**.
+
+---
+
+✔ Python Básico coberto no Grimório
+✔ Estrutura pronta para expansão futura
+✔ Armadilhas conceituais reforçando aprendizado
