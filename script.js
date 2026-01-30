@@ -2,6 +2,7 @@
 // PERSONAGENS — CANÔNICO
 // ===============================
 
+
 const characters = {
   mentor: {
     id: "mago",
