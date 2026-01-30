@@ -1,18 +1,22 @@
-// ===== RANKS =====
+// ===== RANK =====
 const ranks = ["Aprendiz", "Adepto", "Mago"];
 let rankLevel = 0;
+let premium = false;
 
 // ===== PERSISTÊNCIA =====
 function saveState() {
   localStorage.setItem("renascerState", JSON.stringify({
-    rankLevel
+    rankLevel,
+    premium
   }));
 }
 
 function loadState() {
   const saved = localStorage.getItem("renascerState");
   if (saved) {
-    rankLevel = JSON.parse(saved).rankLevel;
+    const data = JSON.parse(saved);
+    rankLevel = data.rankLevel;
+    premium = data.premium;
   }
 }
 
@@ -21,9 +25,9 @@ updateRankUI();
 
 // ===== MENSAGENS =====
 const messages = [
-  "Bem-vindo, aprendiz.",
-  "Dominar feitiços eleva seu rank.",
-  "Prove seu valor."
+  "Você chegou até aqui, aprendiz.",
+  "O próximo conhecimento não é gratuito.",
+  "Decida se deseja prosseguir."
 ];
 
 let msgIndex = 0;
@@ -41,6 +45,10 @@ function nextMessage() {
 }
 
 function openIDE() {
+  if (!premium && rankLevel >= 1) {
+    showPaywall();
+    return;
+  }
   document.getElementById("ide").classList.remove("hidden");
   document.getElementById("grimorio").classList.remove("hidden");
   updateGrimorio();
@@ -49,35 +57,44 @@ function openIDE() {
 // ===== IDE =====
 function runCode() {
   const code = document.getElementById("codeInput").value.trim();
-  const out = document.getElementById("consoleOutput");
-  out.textContent = "";
 
   if (rankLevel === 0 && code.startsWith("print")) {
-    success("Você dominou o feitiço básico.");
     promote();
   } else if (rankLevel === 1 && code.includes("=")) {
-    success("Você agora controla valores.");
     promote();
   } else if (rankLevel === 2 && code.includes("if")) {
-    success("Você domina decisões mágicas.");
+    document.getElementById("mageText").innerText =
+      "Você domina este ciclo de conhecimento.";
   } else {
     document.getElementById("mageText").innerText =
-      "Esse feitiço está além do seu rank atual.";
+      "Esse feitiço está além do seu domínio atual.";
   }
 }
 
-function success(text) {
-  document.getElementById("mageText").innerText = text;
+// ===== PAYWALL =====
+function showPaywall() {
+  document.getElementById("paywall").classList.remove("hidden");
+  document.getElementById("mageText").innerText =
+    "O portal está selado. Apenas iniciados podem atravessar.";
 }
 
+function acceptPact() {
+  premium = true;
+  saveState();
+  document.getElementById("paywall").classList.add("hidden");
+  document.getElementById("mageText").innerText =
+    "O pacto foi aceito. O portal se abre diante de você.";
+  openIDE();
+}
+
+// ===== RANK =====
 function promote() {
   if (rankLevel < ranks.length - 1) {
     rankLevel++;
-    document.getElementById("mageText").innerText =
-      `Parabéns. Você alcançou o rank ${ranks[rankLevel]}.`;
     saveState();
     updateRankUI();
-    updateGrimorio();
+    document.getElementById("mageText").innerText =
+      `Você alcançou o rank ${ranks[rankLevel]}.`;
   }
 }
 
