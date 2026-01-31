@@ -1,107 +1,109 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <title>Projeto Renascer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+* {
+  box-sizing: border-box;
+}
 
-  <!-- MENU -->
-  <nav class="menu">
-    <button data-tab="inicio">Início</button>
-    <button data-tab="portal">Portal</button>
-    <button data-tab="qualidade">Qualidade</button>
-  </nav>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: radial-gradient(circle at top, #1b1f3a, #050510);
+  color: #fff;
+  overflow-x: hidden;
+}
 
-  <main>
+/* MENU */
+.menu {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: linear-gradient(90deg, #2c2f6b, #1b1f3a);
+}
 
-    <!-- INÍCIO -->
-    <section id="inicio" class="tab active">
+.menu button {
+  background: #2f5bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
-      <div class="inicio-container">
+.menu button:hover {
+  background: #4c78ff;
+}
 
-        <!-- TEXTO -->
-        <div class="inicio-texto">
-          <h1>Projeto Renascer</h1>
-          <p>
-            Uma jornada formativa baseada em rigor técnico,
-            clareza pedagógica e evolução consciente.
-          </p>
+/* CONTEÚDO */
+#app {
+  padding: 48px;
+  min-height: calc(100vh - 72px);
+}
 
-          <!-- BOTÃO DE ENTRADA -->
-          <button id="startJourney" class="start-btn">
-            Iniciar Jornada
-          </button>
+/* INÍCIO */
+.inicio-layout {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  gap: 48px;
+  align-items: center;
+}
 
-          <!-- SELEÇÃO DE PERSONAGEM (oculta inicialmente) -->
-          <div id="characterSelection" class="character-selection hidden">
-            <h2>Escolha seu Personagem</h2>
-            <p>Este será o avatar que representa você ao longo da jornada.</p>
+.inicio-texto h1 {
+  font-size: 42px;
+  margin-bottom: 16px;
+}
 
-            <div class="characters-grid">
-              <button class="character-card" data-character="giu">
-                <img src="assets/characters/players/01_Giu_jogadora.png" alt="Giu">
-                <span>Giu</span>
-              </button>
+.inicio-texto p {
+  font-size: 18px;
+  max-width: 520px;
+}
 
-              <button class="character-card" data-character="bi">
-                <img src="assets/characters/players/02_Bi_jogadora.png" alt="Bi">
-                <span>Bi</span>
-              </button>
+.mago-container {
+  display: flex;
+  justify-content: flex-end;
+}
 
-              <button class="character-card" data-character="neto">
-                <img src="assets/characters/players/03_Neto_jogador.png" alt="Neto">
-                <span>Neto</span>
-              </button>
+.mago-container img {
+  max-width: 80%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(120,120,255,0.4);
+}
 
-              <button class="character-card" data-character="jack">
-                <img src="assets/characters/players/04_Jack_jogadora.png" alt="Jack">
-                <span>Jack</span>
-              </button>
-            </div>
+/* ESCOLHA DE PERSONAGEM */
+.personagens {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
 
-            <p class="character-hint">
-              A escolha não define dificuldade. Ela define identidade.
-            </p>
-          </div>
-        </div>
+.card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
 
-        <!-- MAGO -->
-        <div class="inicio-mentor">
-          <img src="assets/characters/mago.png" alt="Mago Mentor">
-        </div>
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 20px rgba(80,120,255,0.6);
+}
 
-      </div>
+.card img {
+  width: 100%;
+  border-radius: 12px;
+}
 
-      <!-- BALÃO DO MAGO -->
-      <div id="mentor-dialog" class="mentor-dialog hidden">
-        <p>
-          Bem-vindo, aprendiz.<br><br>
-          Antes de escolher quem você será,
-          entenda onde está.<br><br>
-          Quando estiver pronto, inicie a jornada.
-        </p>
-        <button id="close-dialog">Entendi</button>
-      </div>
+/* AZUL SOLO LEVELING */
+.card .nome {
+  margin-top: 12px;
+  font-weight: bold;
+  color: #4da3ff;
+}
 
-    </section>
-
-    <!-- PORTAL -->
-    <section id="portal" class="tab">
-      <h2>Portal de Aprendizado</h2>
-      <p>Conteúdo FREE disponível até Python Básico.</p>
-    </section>
-
-    <!-- QUALIDADE -->
-    <section id="qualidade" class="tab">
-      <h2>Qualidade, Ética e Compliance</h2>
-      <p>Qualidade não é promessa. É método.</p>
-    </section>
-
-  </main>
-
-  <script src="script.js"></script>
-</body>
-</html>
+/* TEXTO AUXILIAR */
+.subtexto {
+  margin-top: 12px;
+  font-size: 14px;
+  opacity: 0.8;
+}
