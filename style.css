@@ -203,3 +203,15 @@ body.personagem-escolhido .mentor-container {
 .character-card .character-name {
   color: #4da3ff;
 }
+
+/* ================================
+   CONTROLE DE VISIBILIDADE DO MAGO
+   ================================ */
+
+/* Esconde o mago durante a escolha de personagem */
+.character-selection ~ .mage-container,
+.character-selection ~ .mage,
+.character-selection .mage,
+.character-selection .mage-container {
+  display: none !important;
+}
