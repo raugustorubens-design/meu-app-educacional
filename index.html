@@ -8,11 +8,6 @@
 </head>
 <body>
 
-  <!-- MAGO MENTOR (sempre visível) -->
-     <div id="mentor">
-  <img src="./assets/characters/mago.png" alt="Mago Mentor">
-</div>
-
   <!-- MENU -->
   <nav class="menu">
     <button data-tab="inicio">Início</button>
@@ -20,28 +15,74 @@
     <button data-tab="qualidade">Qualidade</button>
   </nav>
 
-  <!-- CONTEÚDO -->
   <main>
 
+    <!-- INÍCIO -->
     <section id="inicio" class="tab active">
-  <div class="inicio-container">
-    
-    <div class="inicio-texto">
-      <h1>Projeto Renascer</h1>
-      <p>
-        Uma jornada formativa baseada em rigor técnico, clareza pedagógica
-        e evolução consciente.
-      </p>
-    </div>
 
-    <div class="inicio-mentor">
-      <img src="./assets/characters/mago.png" alt="Mago Mentor">
-    </div>
+      <div class="inicio-container">
 
-  </div>
-</section>
+        <div class="inicio-texto">
+          <h1>Projeto Renascer</h1>
+          <p>
+            Uma jornada formativa baseada em rigor técnico,
+            clareza pedagógica e evolução consciente.
+          </p>
 
+          <!-- SELEÇÃO DE PERSONAGEM -->
+          <div class="character-selection">
+            <h2>Escolha seu Personagem</h2>
+            <p>Este será o avatar que representa você ao longo da jornada.</p>
 
+            <div class="characters-grid">
+              <button class="character-card" data-character="giu">
+                <img src="assets/characters/players/01_Giu_jogadora.png" alt="Giu">
+                <span>Giu</span>
+              </button>
+
+              <button class="character-card" data-character="bi">
+                <img src="assets/characters/players/02_Bi_jogadora.png" alt="Bi">
+                <span>Bi</span>
+              </button>
+
+              <button class="character-card" data-character="neto">
+                <img src="assets/characters/players/03_Neto_jogador.png" alt="Neto">
+                <span>Neto</span>
+              </button>
+
+              <button class="character-card" data-character="jack">
+                <img src="assets/characters/players/04_Jack_jogadora.png" alt="Jack">
+                <span>Jack</span>
+              </button>
+            </div>
+
+            <p class="character-hint">
+              A escolha não define dificuldade. Ela define identidade.
+            </p>
+          </div>
+        </div>
+
+        <!-- MAGO -->
+        <div class="inicio-mentor">
+          <img src="assets/characters/mago.png" alt="Mago Mentor">
+        </div>
+
+      </div>
+
+      <!-- BALÃO DO MAGO -->
+      <div id="mentor-dialog" class="mentor-dialog hidden">
+        <p>
+          Bem-vindo, aprendiz.<br><br>
+          Aqui, errar faz parte do caminho.<br>
+          Avançar sem compreender não é permitido.<br><br>
+          Cresça no seu ritmo. O portal aguardará.
+        </p>
+        <button id="close-dialog">Entendi</button>
+      </div>
+
+    </section>
+
+    <!-- PORTAL -->
     <section id="portal" class="tab">
       <h2>Portal de Aprendizado</h2>
       <p>
@@ -50,47 +91,12 @@
       </p>
     </section>
 
+    <!-- QUALIDADE -->
     <section id="qualidade" class="tab">
       <h2>Qualidade, Ética e Compliance</h2>
-
       <p>
-        O Projeto Renascer foi concebido com compromisso explícito
-        com qualidade técnica, clareza pedagógica e responsabilidade ética.
+        Qualidade não é promessa. É método.
       </p>
-
-      <h3>Compromisso com a Qualidade</h3>
-      <p>
-        Inspirado nas normas ISO 9000 e ISO 12207,
-        o projeto evolui de forma controlada, rastreável e verificável.
-      </p>
-
-      <h3>Política de Não-Alucinação de IA</h3>
-      <p>
-        Conteúdos devem ser coerentes, verificáveis e reproduzíveis.
-        IA é ferramenta de apoio, nunca autoridade final.
-      </p>
-
-      <h3>Validação Pedagógica</h3>
-      <ul>
-        <li>Explicação guiada</li>
-        <li>Validação objetiva</li>
-        <li>Validação estrutural</li>
-        <li>Validação conceitual (feitiço)</li>
-      </ul>
-
-      <h3>Governança Técnica Invisível</h3>
-      <p>
-        Decisões técnicas são monitoradas sistemicamente.
-        Pessoas não são monitoradas.
-      </p>
-
-      <h3>Evolução Controlada</h3>
-      <p>
-        O sistema evolui por checkpoints formais.
-        Crescer certo é prioridade.
-      </p>
-
-      <strong>Qualidade não é promessa. É método.</strong>
     </section>
 
   </main>
