@@ -1,7 +1,6 @@
 /* =========================
-   RESET E BASE
+   RESET
 ========================= */
-
 * {
   margin: 0;
   padding: 0;
@@ -20,9 +19,8 @@ body {
 }
 
 /* =========================
-   MENU SUPERIOR
+   MENU
 ========================= */
-
 .menu {
   position: fixed;
   top: 0;
@@ -44,12 +42,6 @@ body {
   border-radius: 8px;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
-}
-
-.menu button:hover {
-  background: #556dff;
-  transform: translateY(-1px);
 }
 
 .menu button.active {
@@ -57,11 +49,10 @@ body {
 }
 
 /* =========================
-   ÁREA PRINCIPAL
+   MAIN / TABS
 ========================= */
-
 main {
-  padding-top: 80px; /* espaço para o menu fixo */
+  padding-top: 80px;
 }
 
 .tab {
@@ -75,20 +66,20 @@ main {
 }
 
 /* =========================
-   TELA INICIAL (INÍCIO)
+   INÍCIO – LAYOUT PRINCIPAL
 ========================= */
-
 .inicio-container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 0.25fr; /* ~20% para o mago */
   align-items: center;
-  gap: 48px;
+  gap: 40px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+/* TEXTO */
 .inicio-texto {
-  max-width: 60%;
+  max-width: 100%;
 }
 
 .inicio-texto h1 {
@@ -103,8 +94,13 @@ main {
 }
 
 /* =========================
-   MAGO MENTOR
+   MAGO – CONTROLE ABSOLUTO
 ========================= */
+
+/* garante que só UM mago apareça */
+.inicio-mentor img:not(:first-child) {
+  display: none;
+}
 
 .inicio-mentor {
   display: flex;
@@ -113,20 +109,17 @@ main {
 }
 
 .inicio-mentor img {
-  width: 360px; /* TAMANHO DO MAGO */
-  max-width: 100%;
-  filter: drop-shadow(0 0 25px rgba(120, 80, 255, 0.7));
-  transition: transform 0.3s ease;
-}
-
-.inicio-mentor img:hover {
-  transform: scale(1.03);
+  width: 100%;
+  max-width: 260px;          /* limite físico */
+  height: auto;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 18px rgba(120, 80, 255, 0.55));
+  pointer-events: none;     /* não rouba foco */
 }
 
 /* =========================
    PORTAL
 ========================= */
-
 #portal h2 {
   font-size: 2.2rem;
   margin-bottom: 16px;
@@ -138,9 +131,8 @@ main {
 }
 
 /* =========================
-   QUALIDADE / ÉTICA / COMPLIANCE
+   QUALIDADE
 ========================= */
-
 #qualidade {
   max-width: 900px;
   margin: 0 auto;
@@ -157,47 +149,34 @@ main {
   margin-bottom: 10px;
 }
 
-#qualidade p {
+#qualidade p,
+#qualidade li {
   font-size: 1.05rem;
   line-height: 1.6;
   color: #dddddd;
 }
 
 #qualidade ul {
-  margin-top: 12px;
   margin-left: 20px;
 }
 
-#qualidade li {
-  margin-bottom: 6px;
-}
-
 /* =========================
-   RESPONSIVIDADE
+   RESPONSIVO
 ========================= */
-
 @media (max-width: 900px) {
 
   .inicio-container {
-    flex-direction: column-reverse;
+    grid-template-columns: 1fr;
     text-align: center;
   }
 
-  .inicio-texto {
-    max-width: 100%;
-  }
-
-  .inicio-texto h1 {
-    font-size: 2.4rem;
-  }
-
-  .inicio-texto p {
-    font-size: 1.05rem;
+  .inicio-mentor {
+    justify-content: center;
+    margin-top: 20px;
   }
 
   .inicio-mentor img {
-    width: 240px;
-    margin-bottom: 20px;
+    max-width: 200px;
   }
 
   .menu {
