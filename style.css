@@ -1,27 +1,28 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: radial-gradient(circle at top, #1a1a2e, #000);
-  color: #f1f1f1;
+  background: radial-gradient(circle at top, #1b1b2f, #000);
+  color: #fff;
+  min-height: 100vh;
 }
 
 /* MENU */
 .menu {
+  position: fixed;
+  top: 10px;
+  left: 10px;
   display: flex;
-  gap: 12px;
-  padding: 12px;
-  background: #0f0f1a;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  gap: 10px;
+  z-index: 20;
 }
 
 .menu button {
-  background: #2a4cff;
+  background: #3b5bff;
   border: none;
   color: #fff;
   padding: 8px 14px;
@@ -30,33 +31,50 @@ body {
 }
 
 .menu button:hover {
-  background: #1f39c7;
+  background: #5f78ff;
+}
+
+/* MAGO */
+#mentor {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 140px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#mentor img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* CONTEÚDO */
 main {
-  padding: 24px;
+  padding: 100px 60px;
+  max-width: 900px;
 }
 
-/* 🔥 ISOLAMENTO ABSOLUTO DAS ABAS */
+/* ABAS */
 .tab {
-  display: none !important;
-  max-width: 960px;
+  display: none;
 }
 
 .tab.active {
-  display: block !important;
+  display: block;
 }
 
-/* TEXTO */
 h1, h2, h3 {
-  color: #ffffff;
+  margin-bottom: 12px;
 }
 
-p, li {
+p {
+  margin-bottom: 16px;
   line-height: 1.6;
 }
 
 ul {
   margin-left: 20px;
+  margin-bottom: 16px;
 }
