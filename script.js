@@ -1,7 +1,11 @@
-// ===============================
-// PROJETO RENASCER — ESTADO GLOBAL
-// FASE 1 — MODO FREE
-// ===============================
+// =====================================================
+// PROJETO RENASCER — SCRIPT CANÔNICO
+// Modo: FREE | Arquitetura pedagógica + narrativa
+// =====================================================
+
+/* =====================================================
+   FASE 1 — ESTADO GLOBAL E PERSISTÊNCIA
+===================================================== */
 
 const gameState = {
   version: "1.0.0",
@@ -9,7 +13,7 @@ const gameState = {
   portalLocked: true,
   player: {
     id: null,
-    name: null,
+    name: "Aprendiz",
     createdAt: null
   },
   progress: {
@@ -19,10 +23,6 @@ const gameState = {
     }
   }
 };
-
-// ===============================
-// PERSISTÊNCIA LOCAL
-// ===============================
 
 function saveState() {
   localStorage.setItem("renascer_state", JSON.stringify(gameState));
@@ -41,274 +41,196 @@ function loadState() {
 function initializePlayer() {
   gameState.player.id = crypto.randomUUID();
   gameState.player.createdAt = new Date().toISOString();
-  gameState.player.name = "Aprendiz";
 }
 
+/* =====================================================
+   FASE 2 — VALIDAÇÃO E COMPLIANCE INVISÍVEL
+===================================================== */
 
-// ===============================
-// PERSONAGENS — CANÔNICO
-// ===============================
+const validationState = {
+  explanationViewed: false,
+  level2Passed: false,
+  level3Passed: false,
+  level1Passed: false
+};
 
+function canAttemptLevel(level) {
+  if (!validationState.explanationViewed) return false;
+  if (level === 2) return true;
+  if (level === 3) return validationState.level2Passed;
+  if (level === 1)
+    return validationState.level2Passed && validationState.level3Passed;
+  return false;
+}
+
+function registerSuccess(level) {
+  if (level === 2) validationState.level2Passed = true;
+  if (level === 3) validationState.level3Passed = true;
+  if (level === 1) {
+    validationState.level1Passed = true;
+    unlockNextPhase();
+  }
+  saveState();
+}
+
+function unlockNextPhase() {
+  gameState.progress.python.basicCompleted = true;
+  saveState();
+}
+
+/* =====================================================
+   FASE 3 — ERRO CONSCIENTE E FEITIÇO
+===================================================== */
+
+const learningState = {
+  attempts: 0,
+  lastError: null,
+  consciousErrorValidated: false
+};
+
+function registerAttempt(isCorrect, errorMessage = null) {
+  learningState.attempts++;
+  if (!isCorrect) {
+    learningState.lastError = errorMessage;
+    learningState.consciousErrorValidated = false;
+  }
+  saveState();
+}
+
+function validateConsciousError(explanationText) {
+  if (!learningState.lastError) return false;
+  if (explanationText && explanationText.length > 30) {
+    learningState.consciousErrorValidated = true;
+    saveState();
+    return true;
+  }
+  return false;
+}
+
+function castSpell(spellText) {
+  if (!learningState.consciousErrorValidated) return false;
+  if (spellText && spellText.length > 50) {
+    registerSuccess(1);
+    return true;
+  }
+  return false;
+}
+
+/* =====================================================
+   FASE 4 — PERSONAGENS (ASSETS)
+===================================================== */
 
 const characters = {
   mentor: {
-    id: "mago",
     name: "Mago do Renascer",
-    role: "mentor",
     img: "assets/characters/mago.png"
   },
-
   players: [
-    {
-      id: "giu",
-      name: "Giu",
-      role: "jogadora",
-      profile: "exploradora",
-      img: "assets/characters/players/01_Giu_jogadora.png"
-    },
-    {
-      id: "bi",
-      name: "Bi",
-      role: "jogadora",
-      profile: "estrategista",
-      img: "assets/characters/players/02_Bi_jogadora.png"
-    },
-    {
-      id: "neto",
-      name: "Neto",
-      role: "jogador",
-      profile: "equilibrado",
-      img: "assets/characters/players/03_Neto_jogador.png"
-    },
-    {
-      id: "jack",
-      name: "Jack",
-      role: "jogadora",
-      profile: "resiliente",
-      img: "assets/characters/players/04_Jack_jogadora.png"
-    }
+    { name: "Giu", img: "assets/characters/players/01_Giu_jogadora.png" },
+    { name: "Bi", img: "assets/characters/players/02_Bi_jogadora.png" },
+    { name: "Neto", img: "assets/characters/players/03_Neto_jogador.png" },
+    { name: "Jack", img: "assets/characters/players/04_Jack_jogadora.png" }
   ]
 };
 
-/* =========================
-   NARRATIVA INICIAL
-========================= */
-let dialogIndex = 0;
+/* =====================================================
+   FASE 5 — RENDERIZAÇÃO VISUAL
+===================================================== */
 
-const dialogs = [
-  "Bem-vindo, aprendiz. Este é o início da sua jornada.",
-  "Cada decisão fortaleceu seu domínio.",
-  "Agora seu percurso pode ser comprovado."
-];
+document.addEventListener("DOMContentLoaded", () => {
+  loadState();
 
-/* =========================
-   PERFIL BASE
-========================= */
-const ranks = ["Iniciado", "Aprendiz", "Adepto", "Mestre"];
-let rankLevel = 3;
-let title = "Mestre do Renascer";
+  // ---------- MENTOR ----------
+  const mentorContainer = document.createElement("div");
+  mentorContainer.style.position = "fixed";
+  mentorContainer.style.left = "20px";
+  mentorContainer.style.bottom = "20px";
+  mentorContainer.style.display = "flex";
+  mentorContainer.style.alignItems = "flex-end";
+  mentorContainer.style.gap = "12px";
+  mentorContainer.style.zIndex = "900";
 
-/* =========================
-   ATOS (MODELO DINÂMICO)
-========================= */
-const acts = [
-  { name: "Fundamentos", hours: 4, missions: 1, boss: 1, exam: 1 },
-  { name: "Lógica", hours: 6, missions: 1, boss: 1, exam: 1 },
-  { name: "Decisão", hours: 6, missions: 1, boss: 1, exam: 1 },
-  { name: "Repetição", hours: 8, missions: 1, boss: 1, exam: 1 },
-  { name: "Abstração", hours: 8, missions: 1, boss: 1, exam: 1 },
-  { name: "Estruturas de Dados", hours: 8, missions: 1, boss: 1, exam: 1 }
-];
+  const mentorImg = document.createElement("img");
+  mentorImg.src = characters.mentor.img;
+  mentorImg.alt = characters.mentor.name;
+  mentorImg.style.width = "140px";
 
-/* =========================
-   CÁLCULOS PEDAGÓGICOS
-========================= */
-function actPerformance(act) {
-  return (
-    act.missions * 0.4 +
-    act.boss * 0.4 +
-    act.exam * 0.2
-  ) * 100;
-}
+  const mentorDialog = document.createElement("div");
+  mentorDialog.style.maxWidth = "300px";
+  mentorDialog.style.background = "rgba(0,0,0,0.85)";
+  mentorDialog.style.color = "#fff";
+  mentorDialog.style.padding = "12px";
+  mentorDialog.style.borderRadius = "8px";
+  mentorDialog.style.fontSize = "14px";
+  mentorDialog.innerText =
+    "Antes de avançar, Aprendiz, compreenda a dungeon. Aqui, errar é permitido. Passar sem entender, não.";
 
-function totalPerformance() {
-  const sum = acts.reduce((acc, act) => acc + actPerformance(act), 0);
-  return Math.round(sum / acts.length);
-}
+  mentorContainer.appendChild(mentorImg);
+  mentorContainer.appendChild(mentorDialog);
+  document.body.appendChild(mentorContainer);
 
-function totalHours() {
-  let total = 0;
-  acts.forEach(act => {
-    total += act.hours * (actPerformance(act) / 100);
-  });
-  return total.toFixed(1);
-}
+  // ---------- JOGADORES ----------
+  const playersContainer = document.createElement("div");
+  playersContainer.style.position = "fixed";
+  playersContainer.style.right = "20px";
+  playersContainer.style.top = "120px";
+  playersContainer.style.display = "grid";
+  playersContainer.style.gridTemplateColumns = "repeat(2, 120px)";
+  playersContainer.style.gap = "12px";
+  playersContainer.style.zIndex = "800";
 
-/* =========================
-   FLUXO NARRATIVO
-========================= */
-function nextDialog() {
-  dialogIndex++;
-
-  if (dialogIndex < dialogs.length) {
-    document.getElementById("dialogText").innerText = dialogs[dialogIndex];
-  } else {
-    document.getElementById("dialogBox").classList.add("hidden");
-    openProfile();
-  }
-}
-
-/* 🔑 EXPOSIÇÃO GLOBAL (BUG FIX) */
-window.nextDialog = nextDialog;
-
-/* =========================
-   PERFIL DO ALUNO
-========================= */
-function openProfile() {
-  const profile = document.getElementById("studentProfile");
-  if (!profile) return;
-
-  profile.classList.remove("hidden");
-  document.getElementById("profileRank").innerText = ranks[rankLevel];
-  document.getElementById("profileTitle").innerText = title;
-  document.getElementById("profilePerformance").innerText = totalPerformance();
-  document.getElementById("profileHours").innerText = totalHours();
-}
-
-function closeProfile() {
-  document.getElementById("studentProfile").classList.add("hidden");
-}
-
-/* =========================
-   CERTIFICADO
-========================= */
-function generateCertificateId() {
-  let existing = localStorage.getItem("certificateId");
-  if (existing) return existing;
-
-  const seed = title + totalPerformance();
-  let hash = 0;
-
-  for (let i = 0; i < seed.length; i++) {
-    hash = (hash << 5) - hash + seed.charCodeAt(i);
-    hash |= 0;
-  }
-
-  const code = Math.abs(hash).toString(16).toUpperCase().slice(0, 6);
-  const id = `REN-2026-${code}`;
-
-  localStorage.setItem("certificateId", id);
-  return id;
-}
-
-function openCertificate() {
-  const cert = document.getElementById("certificate");
-  if (!cert) return;
-
-  cert.classList.remove("hidden");
-
-  document.getElementById("certRank").innerText = ranks[rankLevel];
-  document.getElementById("certTitle").innerText = title;
-  document.getElementById("certHours").innerText = totalHours();
-  document.getElementById("certPerformance").innerText = totalPerformance();
-
-  const id = generateCertificateId();
-  document.getElementById("certId").innerText = id;
-
-  const verifyUrl =
-    "https://raugustorubens-design.github.io/projeto-renascer/verificar/verificar.html?id=" + id;
-
-  document.getElementById("qrCode").src =
-    "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" +
-    encodeURIComponent(verifyUrl);
-}
-
-function closeCertificate() {
-  document.getElementById("certificate").classList.add("hidden");
-}
-
-/* =========================
-   RELATÓRIO PEDAGÓGICO
-========================= */
-function openFinalReport() {
-  const report = document.getElementById("finalReport");
-  if (!report) return;
-
-  report.classList.remove("hidden");
-
-  document.getElementById("reportRank").innerText = ranks[rankLevel];
-  document.getElementById("reportTitle").innerText = title;
-  document.getElementById("reportId").innerText = generateCertificateId();
-
-  const ul = document.getElementById("reportActs");
-  ul.innerHTML = "";
-
-  acts.forEach(act => {
-    const li = document.createElement("li");
-    li.innerText =
-      `${act.name}: ${actPerformance(act)}% — ` +
-      `${(act.hours * (actPerformance(act) / 100)).toFixed(1)}h`;
-    ul.appendChild(li);
-  });
-
-  document.getElementById("reportHours").innerText = totalHours();
-  document.getElementById("reportPerformance").innerText = totalPerformance();
-}
-
-function closeFinalReport() {
-  document.getElementById("finalReport").classList.add("hidden");
-}
-
-/* =========================
-   PDF E REGISTRO
-========================= */
-function exportPDF() {
-  window.print();
-}
-
-function generateCertificateRecord() {
-  const record = {
-    id: generateCertificateId(),
-    projeto: "RENASCER",
-    status: "válido",
-    ano: 2026,
-    cargaHoraria: totalHours(),
-    aproveitamento: totalPerformance() + "%",
-    dominios: acts.map(act => act.name)
-  };
-
-  alert(
-    "COPIE ESTE REGISTRO E COLE EM certificados.json:\n\n" +
-    JSON.stringify(record, null, 2)
-  );
-}
-
-// ===============================
-// TESTE DE CARREGAMENTO DE IMAGENS
-// ===============================
-
-window.addEventListener("DOMContentLoaded", () => {
-  const testArea = document.createElement("div");
-  testArea.style.display = "flex";
-  testArea.style.gap = "16px";
-  testArea.style.flexWrap = "wrap";
-  testArea.style.padding = "16px";
-
-  // Mago
-  const magoImg = document.createElement("img");
-  magoImg.src = characters.mentor.img;
-  magoImg.alt = characters.mentor.name;
-  magoImg.style.width = "150px";
-  testArea.appendChild(magoImg);
-
-  // Jogadores
   characters.players.forEach(p => {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    wrapper.style.color = "#fff";
+    wrapper.style.fontSize = "12px";
+
     const img = document.createElement("img");
     img.src = p.img;
     img.alt = p.name;
-    img.style.width = "120px";
-    testArea.appendChild(img);
+    img.style.width = "100px";
+    img.style.borderRadius = "8px";
+
+    const label = document.createElement("div");
+    label.innerText = p.name;
+
+    wrapper.appendChild(img);
+    wrapper.appendChild(label);
+    playersContainer.appendChild(wrapper);
   });
 
-  document.body.appendChild(testArea);
+  document.body.appendChild(playersContainer);
 });
+
+/* =====================================================
+   FASE 6 — GRIMÓRIO (CONSULTA CONSCIENTE)
+===================================================== */
+
+const grimorio = {
+  enabled: true
+};
+
+const grimorioEntries = [
+  {
+    id: "print",
+    titulo: "print()",
+    categoria: "Saída",
+    descricao: "Exibe informações no console.",
+    armadilha: "print não retorna valor."
+  },
+  {
+    id: "input",
+    titulo: "input()",
+    categoria: "Entrada",
+    descricao: "Recebe dados do usuário.",
+    armadilha: "Sempre retorna string."
+  }
+];
+
+function listarPorCategoria(cat) {
+  return grimorioEntries.filter(e => e.categoria === cat);
+}
+
+/* =====================================================
+   FIM DO SCRIPT
+===================================================== */
