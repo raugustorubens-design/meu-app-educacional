@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Projeto Renascer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Projeto Renascer — Sandbox de Testes</title>
+  <link rel="stylesheet" href="test-style.css">
 </head>
 <body>
 
-  <nav class="menu">
-    <button id="btnInicio">Início</button>
-    <button id="btnPortal">Portal</button>
-    <button id="btnQualidade">Qualidade</button>
-  </nav>
+  <h1>Sandbox de Testes — Projeto Renascer</h1>
 
-  <!-- ÁREA ÚNICA DE RENDERIZAÇÃO -->
-  <main id="app"></main>
+  <button onclick="executarTesteCompleto()">
+    Executar Teste Completo
+  </button>
 
-  <script src="script.js"></script>
+  <!-- LOGS -->
+  <section id="log-panel">
+    <h3>Log de Execução</h3>
+    <div id="logs"></div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section id="checklist-panel">
+    <h3>Checklist de Validação</h3>
+    <ul id="checklist"></ul>
+    <div id="veredito"></div>
+  </section>
+
+  <script src="test-script.js"></script>
 </body>
 </html>
